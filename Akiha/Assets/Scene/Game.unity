@@ -344,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 875624038}
   weakColor: {r: 1, g: 0, b: 0, a: 1}
-  particle: {fileID: 198794851933934494, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 2}
+  particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 2}
 --- !u!1 &1032460239
 GameObject:
   m_ObjectHideFlags: 0
