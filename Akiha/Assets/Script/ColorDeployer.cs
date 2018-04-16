@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ColorDeployer : MonoBehaviour {
-	[System.Serializable] public class ColorDeployEmitter : UnityEvent<Color> { }
-
-	[SerializeField] Color delpoying_color = Color.red;
-	[SerializeField] ColorDeployEmitter emitter = new ColorDeployEmitter();
+	[SerializeField] Color delpoyingColor = Color.red;
+	[SerializeField] GameObject gameController;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +18,6 @@ public class ColorDeployer : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
-		emitter.Invoke(delpoying_color);
+		gameController.GetComponent<GameController>().GetPlayer().SetColor(delpoyingColor);
 	}
 }
