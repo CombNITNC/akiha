@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
 	[SerializeField] Color color = Color.white;
+	[SerializeField] GameObject playerObject;
+	Renderer rend;
 
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody2D>();
+		rend = playerObject.GetComponent<Renderer>();
+		rend.material.color = color;
 	}
 	
 	// Update is called once per frame
@@ -26,6 +30,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void SetColor(Color new_c) {
 		color = new_c;
+		rend.material.color = color;
 	}
 
 	public Color GetColor() {
