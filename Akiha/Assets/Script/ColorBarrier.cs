@@ -9,7 +9,7 @@ public class ColorBarrier : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		GetComponent<Renderer>().material.color = weakColor;
 	}
 	
 	// Update is called once per frame

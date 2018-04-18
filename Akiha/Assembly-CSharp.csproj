@@ -54,6 +54,7 @@
      <Compile Include="Assets\Script\ColorBarrier.cs" />
      <Compile Include="Assets\Script\ColorDeployer.cs" />
      <Compile Include="Assets\Script\GameController.cs" />
+     <Compile Include="Assets\Script\Jumper.cs" />
      <Compile Include="Assets\Script\ParticleDestroyer.cs" />
      <Compile Include="Assets\Script\PlayerController.cs" />
  <Reference Include="UnityEngine.UI">

@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] GameObject playerObject;
 	Renderer rend;
 
+	bool isJumping = false;
+	float jumpingTime = 0.0f;
+	float jumpingDuration = 0.0f;
+	[SerializeField] float jumpHeight = 2.0f;
+
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody2D>();
@@ -26,6 +31,22 @@ public class PlayerController : MonoBehaviour {
 		if (x_in != 0 || y_in != 0) {
 			body.AddForce(new Vector2(x_in, y_in));
 		}
+
+		if (isJumping) {
+			jumpingTime += Time.deltaTime;
+			if (jumpingTime > jumpingDuration) {
+				isJumping = false;
+				var posForReset = transform.position;
+				posForReset.z = 0;
+				transform.position = posForReset;
+				GetComponent<CircleCollider2D>().enabled = true;
+			}
+
+			var newPos = transform.position;
+			var a = jumpHeight / (jumpingDuration * jumpingDuration / 4);
+			newPos.z = -a * (jumpingTime - jumpingDuration / 2) * (jumpingTime - jumpingDuration / 2) + jumpHeight;
+			transform.position = newPos;
+		}
 	}
 
 	public void SetColor(Color new_c) {
@@ -35,5 +56,12 @@ public class PlayerController : MonoBehaviour {
 
 	public Color GetColor() {
 		return color;
+	}
+
+	public void StartJump(float duration) {
+		isJumping = true;
+		jumpingDuration = duration;
+		jumpingTime = 0.0f;
+		GetComponent<CircleCollider2D>().enabled = false;
 	}
 }
