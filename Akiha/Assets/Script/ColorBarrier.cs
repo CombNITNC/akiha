@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorBarrier : MonoBehaviour {
-	[SerializeField] GameObject gameController;
+	GameObject gameController;
 	[SerializeField] Color32 weakColor;
 	[SerializeField] GameObject particle;
 
 	// Use this for initialization
 	void Start () {
 		GetComponent<Renderer>().material.color = weakColor;
+		gameController = GameObject.FindWithTag("GameController");
 	}
 	
 	// Update is called once per frame

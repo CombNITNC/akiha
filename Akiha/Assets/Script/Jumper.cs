@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Jumper : MonoBehaviour {
 	[SerializeField] Color activatableColor;
-	[SerializeField] GameObject gameController;
+	GameObject gameController;
 	[SerializeField] float jumpDuration = 1.5f;
 
 	// Use this for initialization
 	void Start () {
 		GetComponent<Renderer>().material.color = activatableColor;
+		gameController = GameObject.FindWithTag("GameController");
 	}
 	
 	// Update is called once per frame

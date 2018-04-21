@@ -8,13 +8,19 @@ public class Measurer : MonoBehaviour {
 	[SerializeField] bool visibleTime = true;
 	float time = 0.0f, startTime = 0.0f;
 	bool measuringTime = true;
+
 	[SerializeField] Text currentTimeText;
 	[SerializeField] Text recordText;
+
+	GameController gameController;
 
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
 		time = startTime;
+		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
+		recordText = GameObject.Find("Record").GetComponent<Text>();
+		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 	
 	// Update is called once per frame
@@ -33,6 +39,8 @@ public class Measurer : MonoBehaviour {
 			if (visibleTime) {
 				recordText.text = (time - startTime).ToString("00.0000");
 			}
+
+			// gameController.LoadStage();
 		}
 		door.SetActive(false);
 	}

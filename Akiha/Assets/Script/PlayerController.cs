@@ -56,10 +56,10 @@ public class PlayerController : MonoBehaviour {
 			transform.position = newPos;
 		}
 
-		Debug.DrawRay(transform.position, transform.forward * 10);
-
 		if (!isJumping && !isFalling) {
-			var ray = new Ray(transform.position, transform.forward);
+			var rayPos = transform.position;
+			rayPos.z = -4;
+			var ray = new Ray(rayPos, transform.forward);
 			if (!Physics.SphereCast(ray, 0.5f, 10.0f)) {
 				anim.SetTrigger("fall");
 				isFalling = true;
