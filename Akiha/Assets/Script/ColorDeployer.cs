@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ColorDeployer : MonoBehaviour {
-	[SerializeField] Color delpoyingColor = Color.red;
+	[SerializeField] Color32 delpoyingColor = Color.red;
 	[SerializeField] GameObject gameController;
 	Renderer rend;
 

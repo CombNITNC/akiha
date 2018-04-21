@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColorBarrier : MonoBehaviour {
 	[SerializeField] GameObject gameController;
-	[SerializeField] Color weakColor;
+	[SerializeField] Color32 weakColor;
 	[SerializeField] GameObject particle;
 
 	// Use this for initialization

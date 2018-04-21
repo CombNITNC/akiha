@@ -16,7 +16,15 @@ public class GameController : MonoBehaviour {
 		
 	}
 
+	public void Respawn() {
+		player.Respawn();
+	}
+
 	public PlayerController GetPlayer() {
 		return player;
+	}
+
+	public void SetRespawn(Vector3 pos) {
+		player.SetRespawn(pos);
 	}
 }
