@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
 		LoadStage();
-		// LoadStage(); // Prefetching
+		LoadStage(); // Prefetching
 	}
 	
 	// Update is called once per frame

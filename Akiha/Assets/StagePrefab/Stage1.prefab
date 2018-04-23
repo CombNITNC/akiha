@@ -3409,7 +3409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 255
 --- !u!114 &114480266793525896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3423,7 +3423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 0
 --- !u!114 &114663518400925808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3437,7 +3437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 255
 --- !u!114 &114664624450869204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3464,7 +3464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakColor:
     serializedVersion: 2
-    rgba: 4286513279
+    rgba: 8323199
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 2}
 --- !u!114 &114687767367813974
 MonoBehaviour:
@@ -3479,7 +3479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakColor:
     serializedVersion: 2
-    rgba: 4278190335
+    rgba: 255
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 2}
 --- !u!114 &114824165969454926
 MonoBehaviour:
@@ -3505,7 +3505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 4294901760
+    rgba: 16711680
 --- !u!114 &114998467083097406
 MonoBehaviour:
   m_ObjectHideFlags: 1

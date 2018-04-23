@@ -40,7 +40,7 @@ public class Measurer : MonoBehaviour {
 				recordText.text = (time - startTime).ToString("00.0000");
 			}
 
-			// gameController.LoadStage();
+			gameController.LoadStage();
 		}
 		door.SetActive(false);
 	}

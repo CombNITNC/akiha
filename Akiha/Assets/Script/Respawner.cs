@@ -19,5 +19,6 @@ public class Respawner : MonoBehaviour {
 		var respawnPos = transform.position;
 		respawnPos.z = 0;
 		gameController.GetComponent<GameController>().SetRespawn(respawnPos);
+		GetComponent<Renderer>().material.color = Color.cyan;
 	}
 }
