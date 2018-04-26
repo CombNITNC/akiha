@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
-	[SerializeField] Color32 color = Color.white;
-	[SerializeField] GameObject playerObject;
 	Renderer rend;
 	Animator anim;
+	[SerializeField] GameObject playerObject;
+
+	[SerializeField] Color32 color = Color.white;
+	[SerializeField] float colorSetWaitDuration = 0.2f;
+	float colorSetCounter = 0.2f;
 
 	bool isJumping = false;
 	float jumpingTime = 0.0f;
@@ -16,6 +19,10 @@ public class PlayerController : MonoBehaviour {
 
 	bool isFalling = false;
 	Vector3 respawnPos;
+	bool canInput = true;
+
+	[SerializeField] GameObject crushParticle;
+	[SerializeField] float crushWaitDuration = 1.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -28,14 +35,19 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		var x_in = Input.GetAxis("Horizontal");
-		var y_in = Input.GetAxis("Vertical");
-		if (x_in != 0 && y_in != 0) {
-			x_in *= 0.707f;
-			y_in *= 0.707f;
-		}
-		if (x_in != 0 || y_in != 0) {
-			body.AddForce(new Vector2(x_in, y_in));
+		if (colorSetCounter < colorSetWaitDuration)
+			colorSetCounter += Time.deltaTime;
+
+		if (canInput) {
+			var x_in = Input.GetAxis("Horizontal");
+			var y_in = Input.GetAxis("Vertical");
+			if (x_in != 0 && y_in != 0) {
+				x_in *= 0.707f;
+				y_in *= 0.707f;
+			}
+			if (x_in != 0 || y_in != 0) {
+				body.AddForce(new Vector2(x_in, y_in));
+			}
 		}
 
 		if (isFalling) { return; }
@@ -68,10 +80,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SetColor(Color32 new_c) {
-		if (IsEuqalRGB(color, Color.white)) {
-			color = new_c;
-		} else if (IsEuqalRGB(new_c, Color.black)) {
+		if (colorSetCounter < colorSetWaitDuration)
+			return;
+
+		colorSetCounter = 0.0f;
+		
+		if (IsEuqalRGB(new_c, Color.black)) {
 			color = Color.white;
+		} else if (IsEuqalRGB(color, Color.white)) {
+			color = new_c;
 		} else {
 			color = Color32.Lerp(color, new_c, 0.5f);
 		}
@@ -104,5 +121,14 @@ public class PlayerController : MonoBehaviour {
 		transform.position = respawnPos;
 		isFalling = false;
 		body.velocity = Vector2.zero;
+		rend.enabled = true;
+		canInput = true;
+	}
+
+	public void Crush() {
+		if (!canInput) return;
+		Instantiate(crushParticle, transform.position, transform.rotation);
+		rend.enabled = false;
+		Invoke("Respawn", crushWaitDuration);
 	}
 }

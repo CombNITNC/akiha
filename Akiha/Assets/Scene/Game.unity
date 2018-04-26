@@ -175,6 +175,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &106950274
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122014671603566, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &359695728
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,11 +297,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6cfa77bd76344f6884936a57b0853f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObject: {fileID: 1792930395}
   color:
     serializedVersion: 2
     rgba: 4294967295
-  playerObject: {fileID: 1792930395}
+  colorSetWaitDuration: 0.2
   jumpHeight: -4
+  crushParticle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf,
+    type: 2}
+  crushWaitDuration: 1.5
 --- !u!95 &359695733
 Animator:
   serializedVersion: 3

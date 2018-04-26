@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour {
 		Bounds bounds = new Bounds();
 		GetTotalBounds(ref bounds, newStage.transform);
 		stagesPointEnd += bounds.size.y;
-		Debug.Log(bounds.size.y);
 		loadedIndex++;
 	}
 
