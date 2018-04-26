@@ -24,18 +24,19 @@ public class GameController : MonoBehaviour {
 	public void LoadStage() {
 		var newStage = Instantiate(stages[loadedIndex], new Vector3(0, stagesPointEnd, 0), Quaternion.identity);
 		Bounds bounds = new Bounds();
-		GetTotalBounds(bounds, newStage.transform);
+		GetTotalBounds(ref bounds, newStage.transform);
 		stagesPointEnd += bounds.size.y;
+		Debug.Log(bounds.size.y);
 		loadedIndex++;
 	}
 
-	void GetTotalBounds(Bounds bounds, Transform target) {
+	void GetTotalBounds(ref Bounds bounds, Transform target) {
 		foreach(Transform child in target) {
 			if (child.GetComponent<Renderer>()) {
 				bounds.Encapsulate(child.GetComponent<Renderer>().bounds.min);
 				bounds.Encapsulate(child.GetComponent<Renderer>().bounds.max);
 			}
-			GetTotalBounds(bounds, child);
+			GetTotalBounds(ref bounds, child);
 		}
 	}
 

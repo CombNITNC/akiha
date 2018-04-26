@@ -68,9 +68,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SetColor(Color32 new_c) {
-		if (color == Color.white) {
+		if (IsEuqalRGB(color, Color.white)) {
 			color = new_c;
-		} else if (new_c == Color.black) {
+		} else if (IsEuqalRGB(new_c, Color.black)) {
 			color = Color.white;
 		} else {
 			color = Color32.Lerp(color, new_c, 0.5f);
@@ -80,6 +80,13 @@ public class PlayerController : MonoBehaviour {
 
 	public Color GetColor() {
 		return color;
+	}
+
+	bool IsEuqalRGB(Color lhs, Color rhs) {
+		var inR = ((lhs.r - rhs.r) < 0.008);
+		var inG = ((lhs.g - rhs.g) < 0.008);
+		var inB = ((lhs.b - rhs.b) < 0.008);
+		return inR && inG && inB;
 	}
 
 	public void StartJump(float duration) {

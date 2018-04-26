@@ -19,10 +19,17 @@ public class ColorBarrier : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
-		if (gameController.GetComponent<GameController>().GetPlayer().GetColor() == weakColor) {
+		if (IsEuqalRGB(gameController.GetComponent<GameController>().GetPlayer().GetColor(), weakColor)) {
 			GetComponent<BoxCollider2D>().isTrigger = true;
 			Instantiate(particle, transform.position, transform.rotation);
 			Destroy(gameObject);
 		}
+	}
+
+	bool IsEuqalRGB(Color lhs, Color rhs) {
+		var inR = ((lhs.r - rhs.r) < 0.008);
+		var inG = ((lhs.g - rhs.g) < 0.008);
+		var inB = ((lhs.b - rhs.b) < 0.008);
+		return inR && inG && inB;
 	}
 }
