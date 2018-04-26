@@ -175,7 +175,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &106950274
+--- !u!1001 &261401074
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -536,8 +536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stages:
-  - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
-  - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

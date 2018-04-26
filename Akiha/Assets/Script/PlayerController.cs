@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
 	Renderer rend;
 	Animator anim;
+	CircleCollider2D col;
 	[SerializeField] GameObject playerObject;
 
 	[SerializeField] Color32 color = Color.white;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 		rend.material.color = color;
 		anim = GetComponent<Animator>();
 		respawnPos = transform.position;
+		col = GetComponent<CircleCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -59,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 				var posForReset = transform.position;
 				posForReset.z = 0;
 				transform.position = posForReset;
-				GetComponent<CircleCollider2D>().enabled = true;
+				col.enabled = true;
 			}
 
 			var newPos = transform.position;
@@ -100,9 +103,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	bool IsEuqalRGB(Color lhs, Color rhs) {
-		var inR = ((lhs.r - rhs.r) < 0.008);
-		var inG = ((lhs.g - rhs.g) < 0.008);
-		var inB = ((lhs.b - rhs.b) < 0.008);
+		var inR = (Math.Abs(lhs.r - rhs.r) < 0.008);
+		var inG = (Math.Abs(lhs.g - rhs.g) < 0.008);
+		var inB = (Math.Abs(lhs.b - rhs.b) < 0.008);
 		return inR && inG && inB;
 	}
 
@@ -110,7 +113,7 @@ public class PlayerController : MonoBehaviour {
 		isJumping = true;
 		jumpingDuration = duration;
 		jumpingTime = 0.0f;
-		GetComponent<CircleCollider2D>().enabled = false;
+		col.enabled = false;
 	}
 
 	public void SetRespawn(Vector3 pos) {
@@ -123,12 +126,14 @@ public class PlayerController : MonoBehaviour {
 		body.velocity = Vector2.zero;
 		rend.enabled = true;
 		canInput = true;
+		col.enabled = true;
 	}
 
 	public void Crush() {
 		if (!canInput) return;
 		Instantiate(crushParticle, transform.position, transform.rotation);
 		rend.enabled = false;
+		col.enabled = false;
 		Invoke("Respawn", crushWaitDuration);
 	}
 }

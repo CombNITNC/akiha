@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,9 +28,9 @@ public class ColorBarrier : MonoBehaviour {
 	}
 
 	bool IsEuqalRGB(Color lhs, Color rhs) {
-		var inR = ((lhs.r - rhs.r) < 0.008);
-		var inG = ((lhs.g - rhs.g) < 0.008);
-		var inB = ((lhs.b - rhs.b) < 0.008);
+		var inR = (Math.Abs(lhs.r - rhs.r) < 0.008);
+		var inG = (Math.Abs(lhs.g - rhs.g) < 0.008);
+		var inB = (Math.Abs(lhs.b - rhs.b) < 0.008);
 		return inR && inG && inB;
 	}
 }
