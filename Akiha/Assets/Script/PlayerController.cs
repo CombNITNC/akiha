@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] GameObject crushParticle;
 	[SerializeField] float crushWaitDuration = 1.5f;
 
+	AudioSource source;
+	[SerializeField] AudioClip fallSound;
+
 	// Use this for initialization
 	void Start () {
 		body = GetComponent<Rigidbody2D>();
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		respawnPos = transform.position;
 		col = GetComponent<CircleCollider2D>();
+		source = gameObject.AddComponent<AudioSource>();
+		source.clip = fallSound;
 	}
 	
 	// Update is called once per frame
@@ -78,6 +83,7 @@ public class PlayerController : MonoBehaviour {
 			if (!Physics.SphereCast(ray, 0.5f, 10.0f)) {
 				anim.SetTrigger("fall");
 				isFalling = true;
+				source.Play();
 			}
 		}
 	}

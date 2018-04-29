@@ -7,8 +7,13 @@ public class Jumper : MonoBehaviour {
 	GameObject gameController;
 	[SerializeField] float jumpDuration = 1.5f;
 
+	AudioSource source;
+	[SerializeField] AudioClip jumpSound;
+
 	// Use this for initialization
 	void Start () {
+		source = gameObject.AddComponent<AudioSource>();
+		source.clip = jumpSound;
 		GetComponent<Renderer>().material.color = activatableColor;
 		gameController = GameObject.FindWithTag("GameController");
 	}
@@ -20,5 +25,6 @@ public class Jumper : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		gameController.GetComponent<GameController>().GetPlayer().StartJump(jumpDuration);
+		source.Play();
 	}
 }

@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 359695731}
   - component: {fileID: 359695730}
   - component: {fileID: 359695733}
+  - component: {fileID: 359695734}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -264,6 +265,7 @@ MonoBehaviour:
   crushParticle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf,
     type: 2}
   crushWaitDuration: 1.5
+  fallSound: {fileID: 8300000, guid: 27ff1600ba7184083a6b3ec5a575159c, type: 3}
 --- !u!95 &359695733
 Animator:
   serializedVersion: 3
@@ -281,6 +283,13 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!81 &359695734
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359695728}
+  m_Enabled: 1
 --- !u!1 &501476044
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +518,6 @@ GameObject:
   - component: {fileID: 1140302936}
   - component: {fileID: 1140302935}
   - component: {fileID: 1140302934}
-  - component: {fileID: 1140302933}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -517,13 +525,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1140302933
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1140302932}
-  m_Enabled: 1
 --- !u!124 &1140302934
 Behaviour:
   m_ObjectHideFlags: 0

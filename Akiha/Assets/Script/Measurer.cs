@@ -14,8 +14,14 @@ public class Measurer : MonoBehaviour {
 
 	GameController gameController;
 
+	AudioSource source;
+	[SerializeField] AudioClip clearSound;
+	[SerializeField] AudioClip highscoreSound;
+
 	// Use this for initialization
 	void Start () {
+		source = gameObject.AddComponent<AudioSource>();
+		source.clip = highscoreSound;
 		startTime = Time.time;
 		time = startTime;
 		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
@@ -41,6 +47,7 @@ public class Measurer : MonoBehaviour {
 			}
 
 			gameController.LoadStage();
+			source.Play();
 		}
 		door.SetActive(false);
 	}

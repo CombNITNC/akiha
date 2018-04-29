@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void LoadStage() {
+		if (stages[loadedIndex] == null) 
+			return;
+
 		var newStage = Instantiate(stages[loadedIndex], new Vector3(0, stagesPointEnd, 0), Quaternion.identity);
 		Bounds bounds = new Bounds();
 		GetTotalBounds(ref bounds, newStage.transform);
