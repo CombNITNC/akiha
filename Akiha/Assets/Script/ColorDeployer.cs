@@ -8,8 +8,13 @@ public class ColorDeployer : MonoBehaviour {
 	GameObject gameController;
 	Renderer rend;
 
+	AudioSource source;
+	[SerializeField] AudioClip depolySound;
+
 	// Use this for initialization
 	void Start () {
+		source = gameObject.AddComponent<AudioSource>();
+		source.clip = depolySound;
 		rend = GetComponent<Renderer>();
 		rend.material.color = delpoyingColor;
 		gameController = GameObject.FindWithTag("GameController");
@@ -22,5 +27,6 @@ public class ColorDeployer : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		gameController.GetComponent<GameController>().GetPlayer().SetColor(delpoyingColor);
+		source.Play();
 	}
 }

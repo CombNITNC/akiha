@@ -5,7 +5,8 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - breakSound: {fileID: 8300000, guid: d25cf4d9bbf2549c6aa1f2afbee4aca2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

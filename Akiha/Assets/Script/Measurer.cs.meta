@@ -5,7 +5,12 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - door: {instanceID: 0}
+  - currentTimeText: {instanceID: 0}
+  - recordText: {instanceID: 0}
+  - clearSound: {fileID: 8300000, guid: 4de49953023044c43bcba708bb1c5ee6, type: 3}
+  - highscoreSound: {fileID: 8300000, guid: f183b05da54994478a134b447901ba09, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
