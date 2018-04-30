@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	CircleCollider2D col;
 	[SerializeField] GameObject playerObject;
 
+	[SerializeField] float maxLength;
+
 	[SerializeField] Color32 color = Color.white;
 	[SerializeField] float colorSetWaitDuration = 0.2f;
 	float colorSetCounter = 0.2f;
@@ -50,12 +52,12 @@ public class PlayerController : MonoBehaviour {
 		
 		var x_in = Input.GetAxis("Horizontal");
 		var y_in = Input.GetAxis("Vertical");
-		if (x_in != 0 && y_in != 0) {
-			x_in *= 0.707f;
-			y_in *= 0.707f;
-		}
-		if (x_in != 0 || y_in != 0) {
+		var on_x = x_in != 0;
+		var on_y = y_in != 0;
+
+		if (on_x || on_y) {
 			body.AddForce(new Vector2(x_in, y_in));
+			body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
 		}
 
 		if (isFalling) { return; }

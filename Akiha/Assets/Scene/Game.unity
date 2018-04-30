@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1792930395}
+  maxLength: 5.65
   color:
     serializedVersion: 2
     rgba: 4294967295
