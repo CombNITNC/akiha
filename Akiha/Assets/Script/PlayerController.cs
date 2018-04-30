@@ -46,16 +46,16 @@ public class PlayerController : MonoBehaviour {
 		if (colorSetCounter < colorSetWaitDuration)
 			colorSetCounter += Time.deltaTime;
 
-		if (canInput) {
-			var x_in = Input.GetAxis("Horizontal");
-			var y_in = Input.GetAxis("Vertical");
-			if (x_in != 0 && y_in != 0) {
-				x_in *= 0.707f;
-				y_in *= 0.707f;
-			}
-			if (x_in != 0 || y_in != 0) {
-				body.AddForce(new Vector2(x_in, y_in));
-			}
+		if (!canInput) { return; }
+		
+		var x_in = Input.GetAxis("Horizontal");
+		var y_in = Input.GetAxis("Vertical");
+		if (x_in != 0 && y_in != 0) {
+			x_in *= 0.707f;
+			y_in *= 0.707f;
+		}
+		if (x_in != 0 || y_in != 0) {
+			body.AddForce(new Vector2(x_in, y_in));
 		}
 
 		if (isFalling) { return; }
@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour {
 		Instantiate(crushParticle, transform.position, transform.rotation);
 		rend.enabled = false;
 		col.enabled = false;
+		canInput = false;
 		Invoke("Respawn", crushWaitDuration);
 	}
 }
