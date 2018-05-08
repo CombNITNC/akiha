@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
 	bool isFalling = false;
 	Vector3 respawnPos;
 	bool canInput = true;
-
+	bool isDead = false;
 	[SerializeField] GameObject crushParticle;
 	[SerializeField] float crushWaitDuration = 1.5f;
 
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] AudioClip fallSound;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		body = GetComponent<Rigidbody2D>();
 		rend = playerObject.GetComponent<Renderer>();
 		rend.material.color = color;
@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviour {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = fallSound;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (colorSetCounter < colorSetWaitDuration)
 			colorSetCounter += Time.deltaTime;
 
@@ -101,25 +101,27 @@ public class PlayerController : MonoBehaviour {
 			var rayPos = transform.position;
 			rayPos.z = -4;
 			var ray = new Ray(rayPos, transform.forward);
-			if (!Physics.SphereCast(ray, 0.5f, 10.0f)) {
+			if (!Physics.SphereCast(ray, 0.5f, 10.0f) && !isDead) {
 				anim.SetTrigger("fall");
 				isFalling = true;
+				isDead = true;
 				source.Play();
 			}
 		}
 	}
 
 	public void SetColor(Color32 new_c) {
-		if (colorSetCounter < colorSetWaitDuration)
-			return;
+		if (colorSetCounter < colorSetWaitDuration) { return; }
 
 		colorSetCounter = 0.0f;
-		
+
 		if (IsEuqalRGB(new_c, Color.black)) {
 			color = Color.white;
-		} else if (IsEuqalRGB(color, Color.white)) {
+		}
+		else if (IsEuqalRGB(color, Color.white)) {
 			color = new_c;
-		} else {
+		}
+		else {
 			color = Color32.Lerp(color, new_c, 0.5f);
 		}
 		rend.material.color = color;
@@ -154,14 +156,17 @@ public class PlayerController : MonoBehaviour {
 		rend.enabled = true;
 		canInput = true;
 		col.enabled = true;
+		isDead = false;
 	}
 
 	public void Crush() {
-		if (!canInput) return;
+		if (!canInput || isDead)
+			return;
 		Instantiate(crushParticle, transform.position, transform.rotation);
 		rend.enabled = false;
 		col.enabled = false;
 		canInput = false;
+		isDead = true;
 		Invoke("Respawn", crushWaitDuration);
 	}
 }
