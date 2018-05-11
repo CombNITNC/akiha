@@ -79,6 +79,15 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
+		{ // Gyro Input
+			var gyro = Input.acceleration;
+			var attitude = new Vector2(gyro.x, gyro.y);
+			if (attitude.magnitude > 0.001) {
+				attitude *= 10.0f;
+				body.velocity = Vector2.ClampMagnitude(attitude, maxLength);
+			}
+		}
+
 		if (isFalling) { return; }
 
 		if (isJumping) {
