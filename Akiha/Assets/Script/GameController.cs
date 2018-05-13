@@ -7,39 +7,30 @@ public class GameController : MonoBehaviour {
 	PlayerController player;
 
 	[SerializeField] GameObject[] stages;
-	float stagesPointEnd = 0.0f;
+	Transform lastStageEnd = new Transform();
 	int loadedIndex = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
 		LoadStage();
 		LoadStage(); // Prefetching
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-	}
+	void Update() { }
 
 	public void LoadStage() {
-		if (stages[loadedIndex] == null) 
+		if (stages[loadedIndex] == null)
 			return;
 
-		var newStage = Instantiate(stages[loadedIndex], new Vector3(0, stagesPointEnd, 0), Quaternion.identity);
-		Bounds bounds = new Bounds();
-		GetTotalBounds(ref bounds, newStage.transform);
-		stagesPointEnd += bounds.size.y;
-		loadedIndex++;
-	}
-
-	void GetTotalBounds(ref Bounds bounds, Transform target) {
-		foreach(Transform child in target) {
-			if (child.GetComponent<Renderer>()) {
-				bounds.Encapsulate(child.GetComponent<Renderer>().bounds.min);
-				bounds.Encapsulate(child.GetComponent<Renderer>().bounds.max);
-			}
-			GetTotalBounds(ref bounds, child);
+		var newStage = Instantiate(stages[loadedIndex], lastStageEnd, 0,
+			Quaternion.identity);
+		foreach (var child in newStage.transform.Find("")) {
+			if (child.tag == "Goal")
+				lastStageEnd = child;
 		}
+		loadedIndex++;
 	}
 
 	public void Respawn() {
