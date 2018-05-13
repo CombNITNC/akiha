@@ -387,5 +387,6 @@ __pycache__/
 # By default, sensitive information, such as encrypted password
 # should be stored in the .pubxml.user file.
 
+Assets/akiha.sav
 
 # End of https://www.gitignore.io/api/macos,unity,windows,monodevelop,visualstudio,visualstudiocode

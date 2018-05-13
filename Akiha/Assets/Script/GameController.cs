@@ -17,6 +17,10 @@ public class GameController : MonoBehaviour {
 	Vector3 lastStageEnd;
 	int loadedIndex = 0;
 
+	GameStorageManager saver;
+	int playingIndex = 0;
+	float[] tmpScores = new float[5];
+
 	// Use this for initialization
 	void Start() {
 		lastStageEnd = transform.position;
@@ -25,6 +29,9 @@ public class GameController : MonoBehaviour {
 		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
 		recordText = GameObject.Find("Record").GetComponent<Text>();
 		diffText = GameObject.Find("Diff").GetComponent<Text>();
+		saver = GetComponent<GameStorageManager>();
+
+		saver.Load(out tmpScores);
 
 		LoadStage();
 		LoadStage(); // Prefetching
@@ -55,7 +62,7 @@ public class GameController : MonoBehaviour {
 				loadedMeasures[1] = child.gameObject.GetComponent<Measurer>();
 				if (loadedMeasures[0] != null) {
 					loadedMeasures[0].Init(currentTimeText, recordText, diffText);
-					loadedMeasures[0].MeasureStart();
+					loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
 				}
 			}
 		}
@@ -78,6 +85,10 @@ public class GameController : MonoBehaviour {
 
 	public void Goal(float score) {
 		LoadStage();
-		// TODO: save highscores
+
+		if (tmpScores[playingIndex] > score)
+			tmpScores[playingIndex] = score;
+		saver.Save(tmpScores);
+		++playingIndex;
 	}
 }
