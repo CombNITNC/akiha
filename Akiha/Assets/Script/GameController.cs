@@ -10,16 +10,16 @@ public class GameController : MonoBehaviour {
 	Text currentTimeText;
 	Text recordText;
 	Text diffText;
-	Measurer currentMeasurer;
+	Measurer[] loadedMeasures = new Measurer[2];
 
 	[SerializeField] GameObject[] stages;
-	GameObject[] loadedStages = new GameObject[2];
-	Transform lastStageEnd;
+	GameObject[] loadedStages = new GameObject[3];
+	Vector3 lastStageEnd;
 	int loadedIndex = 0;
 
 	// Use this for initialization
 	void Start() {
-		lastStageEnd = transform;
+		lastStageEnd = transform.position;
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
 		signText = GameObject.Find("Sign").GetComponent<Text>();
 		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
@@ -37,27 +37,29 @@ public class GameController : MonoBehaviour {
 		if (stages[loadedIndex] == null)
 			return;
 
-		if (loadedIndex > 2) {
+		if (loadedIndex >= 3) {
 			Destroy(loadedStages[0]);
 		}
 
 		loadedStages[0] = loadedStages[1];
+		loadedStages[1] = loadedStages[2];
 
-		var newStage = Instantiate(stages[loadedIndex], lastStageEnd.position,
+		var newStage = Instantiate(stages[loadedIndex], lastStageEnd,
 			Quaternion.identity);
 		foreach (Transform child in newStage.transform) {
-			if (child.tag == "Goal")
-				lastStageEnd = child;
+			if (child.tag == "Goal") {
+				lastStageEnd = child.position;
+			}
 			else if (child.tag == "Finish") {
-				var prevMeasurer = currentMeasurer;
-				currentMeasurer = child.gameObject.GetComponent<Measurer>();
-				if (loadedIndex > 0) {
-					prevMeasurer.Init(currentTimeText, recordText, diffText);
-					prevMeasurer.MeasureStart();
+				loadedMeasures[0] = loadedMeasures[1];
+				loadedMeasures[1] = child.gameObject.GetComponent<Measurer>();
+				if (loadedMeasures[0] != null) {
+					loadedMeasures[0].Init(currentTimeText, recordText, diffText);
+					loadedMeasures[0].MeasureStart();
 				}
 			}
 		}
-		loadedStages[1] = newStage;
+		loadedStages[2] = newStage;
 		signText.text = "AREA: " + loadedIndex.ToString();
 		++loadedIndex;
 	}

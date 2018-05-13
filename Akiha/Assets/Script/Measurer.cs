@@ -41,20 +41,11 @@ public class Measurer : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update() {
+	void FixedUpdate() {
 		if (measuringTime) {
-			time += Time.deltaTime;
+			time += Time.fixedDeltaTime;
 			if (visibleTime) {
 				currentTimeText.text = time.ToString("00.0000");
-			}
-		}
-	}
-
-	void OnCollisionEnter2D(Collision2D col) {
-		if (col.gameObject.tag == "Player" && measuringTime) {
-			measuringTime = false;
-			if (visibleTime) {
-				recordText.text = (time - startTime).ToString("00.0000");
 			}
 
 			if (highscore == 10000.0f) {
@@ -68,6 +59,15 @@ public class Measurer : MonoBehaviour {
 			else {
 				diffText.text = "+" + (time - startTime - highscore).ToString("00.000");
 				diffText.color = Color.red;
+			}
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D col) {
+		if (col.gameObject.tag == "Player" && measuringTime) {
+			measuringTime = false;
+			if (visibleTime) {
+				recordText.text = (time - startTime).ToString("00.0000");
 			}
 
 			gameController.Goal(time - startTime);
