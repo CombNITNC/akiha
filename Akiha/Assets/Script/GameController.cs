@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
+		/* Stage Builder
+		stages = GameObject.Find("StageBuilder").Fetch();
+		*/
 		lastStageEnd = transform.position;
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
 		signText = GameObject.Find("Sign").GetComponent<Text>();
