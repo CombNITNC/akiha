@@ -40,6 +40,16 @@ public class Measurer : MonoBehaviour {
 		measuringTime = true;
 	}
 
+	public void MeasureStop() {
+		measuringTime = false;
+	}
+
+	public void MeasureResume() {
+		measuringTime = true;
+	}
+
+	public bool IsMeasuring() { return measuringTime; }
+
 	// Update is called once per frame
 	void FixedUpdate() {
 		if (measuringTime) {
