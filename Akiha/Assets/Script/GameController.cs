@@ -94,4 +94,15 @@ public class GameController : MonoBehaviour {
 		saver.Save(tmpScores);
 		++playingIndex;
 	}
+
+	public void ToggleMeasurer() {
+		if (loadedMeasures[0].IsMeasuring()) {
+			Time.timeScale = 0;
+			loadedMeasures[0].MeasureStop();
+		}
+		else {
+			Time.timeScale = 1;
+			loadedMeasures[0].MeasureResume();
+		}
+	}
 }
