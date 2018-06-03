@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-
 	PlayerController player;
 	Text signText;
 	Text currentTimeText;
@@ -21,11 +20,17 @@ public class GameController : MonoBehaviour {
 	int playingIndex = 0;
 	float[] tmpScores = new float[5];
 
+	SceneLoader loader;
+
 	// Use this for initialization
 	void Start() {
-		/* Stage Builder
-		stages = GameObject.Find("StageBuilder").Fetch();
-		*/
+		var builderObj = GameObject.Find("StageBuilder");
+		if (builderObj != null) {
+			var builder = builderObj.GetComponent<StageBuilder>();
+			if (builder != null)
+				stages = builder.GetComponent<StageBuilder>().Fetch();
+		}
+
 		lastStageEnd = transform.position;
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
 		signText = GameObject.Find("Sign").GetComponent<Text>();
@@ -33,6 +38,7 @@ public class GameController : MonoBehaviour {
 		recordText = GameObject.Find("Record").GetComponent<Text>();
 		diffText = GameObject.Find("Diff").GetComponent<Text>();
 		saver = GetComponent<GameStorageManager>();
+		loader = builderObj.GetComponent<SceneLoader>();
 
 		saver.Load(out tmpScores);
 
@@ -97,7 +103,7 @@ public class GameController : MonoBehaviour {
 
 	public void ToggleMeasurer() {
 		if (loadedMeasures[0] == null) {
-			// TODO: Go back to main menu
+			loader.LoadScene("MainMenu");
 			return;
 		}
 
