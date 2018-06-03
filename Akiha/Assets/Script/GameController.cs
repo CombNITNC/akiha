@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
@@ -20,15 +21,13 @@ public class GameController : MonoBehaviour {
 	int playingIndex = 0;
 	float[] tmpScores = new float[5];
 
-	SceneLoader loader;
-
 	// Use this for initialization
 	void Start() {
-		var builderObj = GameObject.Find("StageBuilder");
-		if (builderObj != null) {
-			var builder = builderObj.GetComponent<StageBuilder>();
-			if (builder != null)
-				stages = builder.GetComponent<StageBuilder>().Fetch();
+		var god = GameObject.FindWithTag("God").GetComponent<GameGod>();
+		if (god != null) {
+			var story = god.GetStory();
+			if (story != null)
+				stages = story.Fetch();
 		}
 
 		lastStageEnd = transform.position;
@@ -38,7 +37,6 @@ public class GameController : MonoBehaviour {
 		recordText = GameObject.Find("Record").GetComponent<Text>();
 		diffText = GameObject.Find("Diff").GetComponent<Text>();
 		saver = GetComponent<GameStorageManager>();
-		loader = builderObj.GetComponent<SceneLoader>();
 
 		saver.Load(out tmpScores);
 
@@ -103,7 +101,7 @@ public class GameController : MonoBehaviour {
 
 	public void ToggleMeasurer() {
 		if (loadedMeasures[0] == null) {
-			loader.LoadScene("MainMenu");
+			GoToMainMenu();
 			return;
 		}
 
@@ -115,5 +113,9 @@ public class GameController : MonoBehaviour {
 			Time.timeScale = 1;
 			loadedMeasures[0].MeasureResume();
 		}
+	}
+
+	public void GoToMainMenu() {
+		SceneManager.LoadScene("MainMenu");
 	}
 }
