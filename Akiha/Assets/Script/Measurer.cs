@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Collider2D))]
 public class Measurer : MonoBehaviour {
 	[SerializeField] GameObject door;
 	[SerializeField] bool visibleTime = true;

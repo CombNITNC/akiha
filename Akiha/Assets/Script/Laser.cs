@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D), typeof(Renderer))]
 public class Laser : MonoBehaviour {
-
 	[SerializeField] float emitInterval = 2.0f;
 	[SerializeField] float emitDuration = 2.0f;
 	Collider2D col;

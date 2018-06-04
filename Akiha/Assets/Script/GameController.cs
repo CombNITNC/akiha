@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(GameStorageManager))]
 public class GameController : MonoBehaviour {
 	PlayerController player;
 	Text signText;
@@ -23,11 +24,11 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		var god = GameObject.FindWithTag("God").GetComponent<GameGod>();
+		var god = GameObject.FindWithTag("God");
 		if (god != null) {
-			var story = god.GetStory();
-			if (story != null)
-				stages = story.Fetch();
+			var gameGod = god.GetComponent<GameGod>();
+			if (gameGod != null)
+				stages = gameGod.GetStory().Fetch();
 		}
 
 		lastStageEnd = transform.position;
@@ -43,9 +44,6 @@ public class GameController : MonoBehaviour {
 		LoadStage();
 		LoadStage(); // Prefetching
 	}
-
-	// Update is called once per frame
-	void Update() { }
 
 	public void LoadStage() {
 		if (stages[loadedIndex] == null)
@@ -91,6 +89,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void Goal(float score) {
+		var playerPos = player.gameObject.transform.position;
+		playerPos.y += 20;
+		player.SetRespawn(playerPos);
 		LoadStage();
 
 		if (tmpScores[playingIndex] > score)

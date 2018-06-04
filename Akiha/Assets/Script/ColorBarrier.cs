@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
+[RequireComponent(typeof(Renderer), typeof(BoxCollider2D))]
 public class ColorBarrier : MonoBehaviour {
 	GameObject gameController;
 	[SerializeField] Color32 weakColor;

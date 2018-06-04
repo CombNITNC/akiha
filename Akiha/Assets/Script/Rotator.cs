@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Rotator : MonoBehaviour {
-
 	[SerializeField] bool clockwise = true;
 	[SerializeField] bool rotateX = false;
 	[SerializeField] bool rotateY = true;
