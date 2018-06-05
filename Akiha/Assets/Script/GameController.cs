@@ -1,42 +1,79 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(GameStorageManager))]
 public class GameController : MonoBehaviour {
-
 	PlayerController player;
+	Text signText;
+	Text currentTimeText;
+	Text recordText;
+	Text diffText;
+	Measurer[] loadedMeasures = new Measurer[2];
 
 	[SerializeField] GameObject[] stages;
-	float stagesPointEnd = 0.0f;
+	GameObject[] loadedStages = new GameObject[3];
+	Vector3 lastStageEnd;
 	int loadedIndex = 0;
 
+	GameStorageManager saver;
+	int playingIndex = 0;
+	float[] tmpScores = new float[5];
+
 	// Use this for initialization
-	void Start () {
+	void Start() {
+		var god = GameObject.FindWithTag("God");
+		if (god != null) {
+			var gameGod = god.GetComponent<GameGod>();
+			if (gameGod != null)
+				stages = gameGod.GetStory().Fetch();
+		}
+
+		lastStageEnd = transform.position;
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
+		signText = GameObject.Find("Sign").GetComponent<Text>();
+		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
+		recordText = GameObject.Find("Record").GetComponent<Text>();
+		diffText = GameObject.Find("Diff").GetComponent<Text>();
+		saver = GetComponent<GameStorageManager>();
+
+		saver.Load(out tmpScores);
+
 		LoadStage();
-		// LoadStage(); // Prefetching
-	}
-	
-	// Update is called once per frame
-	void Update () {
+		LoadStage(); // Prefetching
 	}
 
 	public void LoadStage() {
-		var newStage = Instantiate(stages[loadedIndex], new Vector3(0, stagesPointEnd, 0), Quaternion.identity);
-		Bounds bounds = new Bounds();
-		GetTotalBounds(bounds, newStage.transform);
-		stagesPointEnd += bounds.size.y;
-		loadedIndex++;
-	}
+		if (stages[loadedIndex] == null)
+			return;
 
-	void GetTotalBounds(Bounds bounds, Transform target) {
-		foreach(Transform child in target) {
-			if (child.GetComponent<Renderer>()) {
-				bounds.Encapsulate(child.GetComponent<Renderer>().bounds.min);
-				bounds.Encapsulate(child.GetComponent<Renderer>().bounds.max);
-			}
-			GetTotalBounds(bounds, child);
+		if (loadedIndex >= 3) {
+			Destroy(loadedStages[0]);
 		}
+
+		loadedStages[0] = loadedStages[1];
+		loadedStages[1] = loadedStages[2];
+
+		var newStage = Instantiate(stages[loadedIndex], lastStageEnd,
+			Quaternion.identity);
+		foreach (Transform child in newStage.transform) {
+			if (child.tag == "Goal") {
+				lastStageEnd = child.position;
+			}
+			else if (child.tag == "Finish") {
+				loadedMeasures[0] = loadedMeasures[1];
+				loadedMeasures[1] = child.gameObject.GetComponent<Measurer>();
+				if (loadedMeasures[0] != null) {
+					loadedMeasures[0].Init(currentTimeText, recordText, diffText);
+					loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
+				}
+			}
+		}
+		loadedStages[2] = newStage;
+		signText.text = "AREA: " + loadedIndex.ToString();
+		++loadedIndex;
 	}
 
 	public void Respawn() {
@@ -49,5 +86,37 @@ public class GameController : MonoBehaviour {
 
 	public void SetRespawn(Vector3 pos) {
 		player.SetRespawn(pos);
+	}
+
+	public void Goal(float score) {
+		var playerPos = player.gameObject.transform.position;
+		playerPos.y += 20;
+		player.SetRespawn(playerPos);
+		LoadStage();
+
+		if (tmpScores[playingIndex] > score)
+			tmpScores[playingIndex] = score;
+		saver.Save(tmpScores);
+		++playingIndex;
+	}
+
+	public void ToggleMeasurer() {
+		if (loadedMeasures[0] == null) {
+			GoToMainMenu();
+			return;
+		}
+
+		if (loadedMeasures[0].IsMeasuring()) {
+			Time.timeScale = 0;
+			loadedMeasures[0].MeasureStop();
+		}
+		else {
+			Time.timeScale = 1;
+			loadedMeasures[0].MeasureResume();
+		}
+	}
+
+	public void GoToMainMenu() {
+		SceneManager.LoadScene("MainMenu");
 	}
 }

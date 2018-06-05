@@ -5,7 +5,8 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - registerSound: {fileID: 8300000, guid: cbcf96e6c4b36401f8120372fc951f7f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

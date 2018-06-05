@@ -1,13 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(CircleCollider2D))]
 public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
-	[SerializeField] Color32 color = Color.white;
-	[SerializeField] GameObject playerObject;
 	Renderer rend;
 	Animator anim;
+	CircleCollider2D col;
+	[SerializeField] GameObject playerObject;
+
+	[SerializeField] float maxLength;
+
+	[SerializeField] Color32 color = Color.white;
+	[SerializeField] float colorSetWaitDuration = 0.2f;
+	float colorSetCounter = 0.2f;
 
 	bool isJumping = false;
 	float jumpingTime = 0.0f;
@@ -16,26 +24,69 @@ public class PlayerController : MonoBehaviour {
 
 	bool isFalling = false;
 	Vector3 respawnPos;
+	bool canInput = true;
+	bool isDead = false;
+	[SerializeField] GameObject crushParticle;
+	[SerializeField] float crushWaitDuration = 1.5f;
+
+	AudioSource source;
+	[SerializeField] AudioClip fallSound;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		body = GetComponent<Rigidbody2D>();
 		rend = playerObject.GetComponent<Renderer>();
 		rend.material.color = color;
 		anim = GetComponent<Animator>();
 		respawnPos = transform.position;
+		col = GetComponent<CircleCollider2D>();
+		source = gameObject.AddComponent<AudioSource>();
+		source.clip = fallSound;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		var x_in = Input.GetAxis("Horizontal");
-		var y_in = Input.GetAxis("Vertical");
-		if (x_in != 0 && y_in != 0) {
-			x_in *= 0.707f;
-			y_in *= 0.707f;
+	void Update() {
+		if (colorSetCounter < colorSetWaitDuration)
+			colorSetCounter += Time.deltaTime;
+
+		if (!canInput) { return; }
+
+		{ // JoyStick / Keyboard Input
+			var x_in = Input.GetAxis("Horizontal");
+			var y_in = Input.GetAxis("Vertical");
+			var on_x = x_in != 0;
+			var on_y = y_in != 0;
+
+			if (on_x || on_y) {
+				body.AddForce(new Vector2(x_in, y_in));
+				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
+			}
 		}
-		if (x_in != 0 || y_in != 0) {
-			body.AddForce(new Vector2(x_in, y_in));
+
+		{ // Mouse Input
+			var graceWidth = 50;
+			var mouse = Input.mousePosition;
+			var midX = Screen.width / 2;
+			var midY = Screen.height / 2;
+			var x_in = mouse.x - midX;
+			var y_in = mouse.y - midY;
+			var on_x = (midX - graceWidth > mouse.x || mouse.x > midX + graceWidth);
+			var on_y = (midY - graceWidth > mouse.y || mouse.y > midY + graceWidth);
+
+			if (on_x || on_y) {
+				var vel = new Vector2(x_in, y_in);
+				vel *= 0.01f;
+				body.velocity = Vector2.ClampMagnitude(vel, maxLength);
+			}
+		}
+
+		{ // Gyro Input
+			var gyro = Input.acceleration;
+			var attitude = new Vector2(gyro.x, gyro.y);
+			if (attitude.magnitude > 0.001) {
+				attitude *= 10.0f;
+				body.velocity = Vector2.ClampMagnitude(attitude, maxLength);
+			}
 		}
 
 		if (isFalling) { return; }
@@ -47,7 +98,7 @@ public class PlayerController : MonoBehaviour {
 				var posForReset = transform.position;
 				posForReset.z = 0;
 				transform.position = posForReset;
-				GetComponent<CircleCollider2D>().enabled = true;
+				col.enabled = true;
 			}
 
 			var newPos = transform.position;
@@ -60,19 +111,27 @@ public class PlayerController : MonoBehaviour {
 			var rayPos = transform.position;
 			rayPos.z = -4;
 			var ray = new Ray(rayPos, transform.forward);
-			if (!Physics.SphereCast(ray, 0.5f, 10.0f)) {
+			if (!Physics.SphereCast(ray, 0.5f, 10.0f) && !isDead) {
 				anim.SetTrigger("fall");
 				isFalling = true;
+				isDead = true;
+				source.Play();
 			}
 		}
 	}
 
 	public void SetColor(Color32 new_c) {
-		if (color == Color.white) {
-			color = new_c;
-		} else if (new_c == Color.black) {
+		if (colorSetCounter < colorSetWaitDuration) { return; }
+
+		colorSetCounter = 0.0f;
+
+		if (IsEuqalRGB(new_c, Color.black)) {
 			color = Color.white;
-		} else {
+		}
+		else if (IsEuqalRGB(color, Color.white)) {
+			color = new_c;
+		}
+		else {
 			color = Color32.Lerp(color, new_c, 0.5f);
 		}
 		rend.material.color = color;
@@ -82,11 +141,18 @@ public class PlayerController : MonoBehaviour {
 		return color;
 	}
 
+	bool IsEuqalRGB(Color lhs, Color rhs) {
+		var inR = (Math.Abs(lhs.r - rhs.r) < 0.008);
+		var inG = (Math.Abs(lhs.g - rhs.g) < 0.008);
+		var inB = (Math.Abs(lhs.b - rhs.b) < 0.008);
+		return inR && inG && inB;
+	}
+
 	public void StartJump(float duration) {
 		isJumping = true;
 		jumpingDuration = duration;
 		jumpingTime = 0.0f;
-		GetComponent<CircleCollider2D>().enabled = false;
+		col.enabled = false;
 	}
 
 	public void SetRespawn(Vector3 pos) {
@@ -97,5 +163,20 @@ public class PlayerController : MonoBehaviour {
 		transform.position = respawnPos;
 		isFalling = false;
 		body.velocity = Vector2.zero;
+		rend.enabled = true;
+		canInput = true;
+		col.enabled = true;
+		isDead = false;
+	}
+
+	public void Crush() {
+		if (!canInput || isDead)
+			return;
+		Instantiate(crushParticle, transform.position, transform.rotation);
+		rend.enabled = false;
+		col.enabled = false;
+		canInput = false;
+		isDead = true;
+		Invoke("Respawn", crushWaitDuration);
 	}
 }
