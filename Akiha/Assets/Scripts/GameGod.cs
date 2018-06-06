@@ -40,6 +40,9 @@ public class GameGod : MonoBehaviour {
 	}
 
 	void ExecuteStory() {
+		if (story.Invalid())
+			return;
+
 		StartCoroutine(ExecuteStoryWork());
 	}
 
