@@ -31,7 +31,9 @@ public class ScreenWiper : MonoBehaviour {
     tmpColor.a = alpha;
     GUI.color = tmpColor;
 
-    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), tex);
+    if (tex != null) {
+      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), tex);
+    }
   }
 
   void AlphaTimer(float time) {

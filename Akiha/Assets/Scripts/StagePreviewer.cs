@@ -8,11 +8,11 @@ using UnityEngine.UI;
 class PreviewContainer {
 	public GameObject stage;
 	public Camera camera;
-	public Animation anim;
 }
 
 [RequireComponent(typeof(GameStorageManager), typeof(ScreenWiper))]
 public class StagePreviewer : MonoBehaviour {
+	Animation[] anims = new Animation[5];
 	[SerializeField] PreviewContainer[] previews = new PreviewContainer[5];
 	[SerializeField] float cycleDuration = 5.0f;
 	[SerializeField] float fadeTime = 0.5f;
@@ -26,9 +26,9 @@ public class StagePreviewer : MonoBehaviour {
 	float[] tmpScores = new float[5];
 
 	void Start() {
-		thershold = Screen.width / 2.5f;
+		threshold = Screen.width / 2.5f;
 		GenerateAnimations();
-		saver = GetComponent<GameStorageManager>();
+		var saver = GetComponent<GameStorageManager>();
 		saver.Load(out tmpScores);
 		UpdateLabel();
 	}
@@ -41,7 +41,7 @@ public class StagePreviewer : MonoBehaviour {
 					start = touch.position.x;
 					break;
 				case TouchPhase.Ended:
-					if (Math.abs(start - touch.position.x) > threshold) {
+					if (Mathf.Abs(start - touch.position.x) > threshold) {
 						if (start > touch.position.x) {
 							ViewPrev();
 						}
@@ -55,23 +55,29 @@ public class StagePreviewer : MonoBehaviour {
 	}
 
 	void GenerateAnimations() {
-		foreach (PreviewContainer c in previews) {
-			c.anim = AddComponent<Animation>();
+		for (int i = 0; i < 5; ++i) {
+			if (previews[i].stage == null || previews[i].camera == null)
+				continue;
+
+			Instantiate(previews[i].stage, new Vector3(i * 100f, 0f, 0f), Quaternion.identity);
+
+			anims[i] = previews[i].camera.gameObject.AddComponent<Animation>();
 
 			Vector3 stageEnd = Vector3.zero;
-			foreach (Transform child in c.stage.transform) {
+			foreach (Transform child in previews[i].stage.transform) {
 				if (child.tag == "Goal") {
 					stageEnd = child.position;
 				}
 			}
 
 			AnimationClip clip = new AnimationClip();
-			AnimationCurve curveX = AnimationCurve.EaseInOut(0.0f, 0.0f, cycleDuration, stageEnd.x);
+			clip.legacy = true;
+			AnimationCurve curveX = AnimationCurve.EaseInOut(0.0f, i * 100f, cycleDuration, stageEnd.x + i * 100f);
 			AnimationCurve curveY = AnimationCurve.EaseInOut(0.0f, 0.0f, cycleDuration, stageEnd.y);
 			clip.SetCurve("", typeof(Transform), "localPosition.x", curveX);
 			clip.SetCurve("", typeof(Transform), "localPosition.y", curveY);
 
-			c.anim.AddClip(clip, "Preview");
+			anims[i].AddClip(clip, "Preview");
 		}
 	}
 
@@ -84,7 +90,8 @@ public class StagePreviewer : MonoBehaviour {
 	public void ViewNext() {
 		if (viewingIndex < 4) {
 			GetComponent<ScreenWiper>().CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex + 1].camera, fadeTime);
-			previews[viewingIndex + 1].anim.Play();
+			anims[viewingIndex].Stop();
+			anims[viewingIndex + 1].Play();
 			++viewingIndex;
 		}
 		UpdateLabel();
@@ -93,7 +100,8 @@ public class StagePreviewer : MonoBehaviour {
 	public void ViewPrev() {
 		if (0 < viewingIndex) {
 			GetComponent<ScreenWiper>().CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex - 1].camera, fadeTime);
-			previews[viewingIndex - 1].anim.Play();
+			anims[viewingIndex].Stop();
+			anims[viewingIndex - 1].Play();
 			--viewingIndex;
 		}
 		UpdateLabel();
