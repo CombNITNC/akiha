@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [Serializable]
 class PreviewContainer {
-	public GameObject stage;
-	public Camera camera;
+	public GameObject stage = null;
+	public Camera camera = null;
 }
 
 [RequireComponent(typeof(GameStorageManager), typeof(ScreenWiper))]
@@ -105,5 +106,9 @@ public class StagePreviewer : MonoBehaviour {
 			--viewingIndex;
 		}
 		UpdateLabel();
+	}
+
+	public void GoToMainMenu() {
+		SceneManager.LoadScene("MainMenu");
 	}
 }
