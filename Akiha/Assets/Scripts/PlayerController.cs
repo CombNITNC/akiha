@@ -51,6 +51,41 @@ public class PlayerController : MonoBehaviour {
 
 		if (!canInput) { return; }
 
+		Move();
+
+		if (isFalling) { return; }
+
+		if (isJumping) {
+			jumpingTime += Time.deltaTime;
+			if (jumpingTime > jumpingDuration) {
+				isJumping = false;
+				var posForReset = transform.position;
+				posForReset.z = 0;
+				transform.position = posForReset;
+				col.enabled = true;
+			}
+
+			var newPos = transform.position;
+			var a = jumpHeight / (jumpingDuration * jumpingDuration / 4);
+			newPos.z = -a * (jumpingTime - jumpingDuration / 2) * (jumpingTime - jumpingDuration / 2) + jumpHeight;
+			transform.position = newPos;
+		}
+
+		if (!isJumping && !isFalling) {
+			var rayPos = transform.position;
+			rayPos.z = -4;
+			var ray = new Ray(rayPos, transform.forward);
+			if (!Physics.SphereCast(ray, 0.5f, 10.0f) && !isDead) {
+				anim.SetTrigger("fall");
+				isFalling = true;
+				isDead = true;
+				source.Play();
+			}
+		}
+	}
+
+	void Move() {
+
 		{ // JoyStick / Keyboard Input
 			var x_in = Input.GetAxis("Horizontal");
 			var y_in = Input.GetAxis("Vertical");
@@ -86,36 +121,6 @@ public class PlayerController : MonoBehaviour {
 			if (attitude.magnitude > 0.001) {
 				attitude *= 10.0f;
 				body.velocity = Vector2.ClampMagnitude(attitude, maxLength);
-			}
-		}
-
-		if (isFalling) { return; }
-
-		if (isJumping) {
-			jumpingTime += Time.deltaTime;
-			if (jumpingTime > jumpingDuration) {
-				isJumping = false;
-				var posForReset = transform.position;
-				posForReset.z = 0;
-				transform.position = posForReset;
-				col.enabled = true;
-			}
-
-			var newPos = transform.position;
-			var a = jumpHeight / (jumpingDuration * jumpingDuration / 4);
-			newPos.z = -a * (jumpingTime - jumpingDuration / 2) * (jumpingTime - jumpingDuration / 2) + jumpHeight;
-			transform.position = newPos;
-		}
-
-		if (!isJumping && !isFalling) {
-			var rayPos = transform.position;
-			rayPos.z = -4;
-			var ray = new Ray(rayPos, transform.forward);
-			if (!Physics.SphereCast(ray, 0.5f, 10.0f) && !isDead) {
-				anim.SetTrigger("fall");
-				isFalling = true;
-				isDead = true;
-				source.Play();
 			}
 		}
 	}

@@ -8,7 +8,6 @@ using UnityEngine.Events;
 public class ColorDeployer : MonoBehaviour {
 	[SerializeField] Color32 delpoyingColor = Color.red;
 	GameController gameController;
-	Renderer rend;
 
 	AudioSource source;
 	[SerializeField] AudioClip depolySound;
@@ -17,8 +16,8 @@ public class ColorDeployer : MonoBehaviour {
 	void Start() {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = depolySound;
-		rend = GetComponent<Renderer>();
-		rend.material.color = delpoyingColor;
+		var rend = GetComponent<Renderer>();
+		rend.sharedMaterial.color = delpoyingColor;
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 

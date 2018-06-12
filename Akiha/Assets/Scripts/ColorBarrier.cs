@@ -11,7 +11,8 @@ public class ColorBarrier : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		GetComponent<Renderer>().material.color = weakColor;
+		var rend = GetComponent<Renderer>();
+		rend.sharedMaterial.color = weakColor;
 		gameController = GameObject.FindWithTag("GameController");
 	}
 
