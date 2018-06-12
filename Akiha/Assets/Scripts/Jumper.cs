@@ -15,7 +15,7 @@ public class Jumper : MonoBehaviour {
 	void Start() {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = jumpSound;
-		GetComponent<Renderer>().material.color = activatableColor;
+		GetComponent<Renderer>().sharedMaterial.color = activatableColor;
 		gameController = GameObject.FindWithTag("GameController");
 	}
 
