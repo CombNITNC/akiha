@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [ExecuteInEditMode]
-[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(ColorApplier), typeof(Collider2D))]
 public class ColorDeployer : MonoBehaviour {
 	[SerializeField] Color32 delpoyingColor = Color.red;
 	GameController gameController;
@@ -14,16 +14,23 @@ public class ColorDeployer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		source = gameObject.AddComponent<AudioSource>();
+		if (GetComponent<AudioSource>() == null)
+			source = gameObject.AddComponent<AudioSource>();
+		else
+			source = GetComponent<AudioSource>();
+
 		source.clip = depolySound;
-		var rend = GetComponent<Renderer>();
-		rend.sharedMaterial.color = delpoyingColor;
+		source.playOnAwake = false;
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 
 	// Update is called once per frame
 	void Update() {
 
+	}
+
+	void OnValidate() {
+		GetComponent<ColorApplier>().Apply(delpoyingColor);
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {

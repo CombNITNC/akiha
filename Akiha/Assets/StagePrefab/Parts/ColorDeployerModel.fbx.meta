@@ -1,24 +1,26 @@
 fileFormatVersion: 2
-guid: 3d86066d8db6345cdb0546eb8f6c42d9
+guid: 1c42a8623fcd743d7be1066265878f04
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Aura
-    100002: Base
-    100004: //RootNode
-    400000: Aura
-    400002: Base
-    400004: //RootNode
-    2100000: Edge
-    2100002: ColorPoint
-    2100004: Aura
-    2300000: Aura
-    2300002: Base
-    3300000: Aura
-    3300002: Base
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Material
+    2100002: Aura
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Base
-    4300002: Aura
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Aura
+    second: {fileID: 2100000, guid: e672844cc70c34743a3fdf9cbc2e3666, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: b7577207f7c1f4a76b069653b966d0e4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +70,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

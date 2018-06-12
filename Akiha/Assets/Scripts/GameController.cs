@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour {
 		var newStage = Instantiate(stages[loadedIndex], lastStageEnd,
 			Quaternion.identity);
 		foreach (Transform child in newStage.transform) {
-			if (child.tag == "Goal") {
+			if (child.tag == "End") {
 				lastStageEnd = child.position;
 			}
 			else if (child.tag == "Finish") {
