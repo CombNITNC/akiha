@@ -130,27 +130,24 @@ public class PlayerController : MonoBehaviour {
 
 		colorSetCounter = 0.0f;
 
-		if (IsEuqalRGB(new_c, Color.black)) {
+		if (new_c.IsEqualRGB(Color.black)) {
 			color = Color.white;
 		}
-		else if (IsEuqalRGB(color, Color.white)) {
+		else if (color.IsEqualRGB(Color.white)) {
 			color = new_c;
 		}
 		else {
 			color = Color32.Lerp(color, new_c, 0.5f);
 		}
-		rend.material.color = color;
+		ApplyColor();
 	}
 
 	public Color GetColor() {
 		return color;
 	}
 
-	bool IsEuqalRGB(Color lhs, Color rhs) {
-		var inR = (Math.Abs(lhs.r - rhs.r) < 0.008);
-		var inG = (Math.Abs(lhs.g - rhs.g) < 0.008);
-		var inB = (Math.Abs(lhs.b - rhs.b) < 0.008);
-		return inR && inG && inB;
+	void ApplyColor() {
+		rend.material.color = color;
 	}
 
 	public void StartJump(float duration) {

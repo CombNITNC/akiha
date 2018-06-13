@@ -1047,13 +1047,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1775749257652998}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 44.82, z: -2.55}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: -1, y: 44.82, z: -0.36}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 4122014671603566}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!4 &4460618188355280
 Transform:
   m_ObjectHideFlags: 1
@@ -1227,7 +1227,7 @@ Transform:
   m_GameObject: {fileID: 1959020091876818}
   m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: 0, w: 0}
   m_LocalPosition: {x: -0.76, y: 24.3, z: -0.83}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.21, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4122014671603566}
   m_RootOrder: 11
@@ -1329,13 +1329,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410192128228864}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1, y: 44.8, z: -2.5499992}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 1, y: 44.8, z: -0.36}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 4122014671603566}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!4 &4895593985158510
 Transform:
   m_ObjectHideFlags: 1
@@ -1622,7 +1622,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b7577207f7c1f4a76b069653b966d0e4, type: 2}
+  - {fileID: 2100000, guid: e672844cc70c34743a3fdf9cbc2e3666, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1903,7 +1904,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b7577207f7c1f4a76b069653b966d0e4, type: 2}
+  - {fileID: 2100000, guid: e672844cc70c34743a3fdf9cbc2e3666, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2854,7 +2856,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1775749257652998}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 1c42a8623fcd743d7be1066265878f04, type: 3}
 --- !u!33 &33433311363396140
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2966,7 +2968,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410192128228864}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 1c42a8623fcd743d7be1066265878f04, type: 3}
 --- !u!33 &33923441503422502
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -3024,7 +3026,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!58 &58574601173648346
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -3069,7 +3071,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!58 &58935534142325230
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -3297,7 +3299,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0065021515, y: 0.051983647}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3308,8 +3310,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.9999999}
-  m_EdgeRadius: 0
+  m_Size: {x: 4.8078437, y: 0.1285695}
+  m_EdgeRadius: 0.15
 --- !u!61 &61663755334577726
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -4204,7 +4206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 16711680
+    rgba: 4294901760
   depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
 --- !u!114 &114434897331239118
 MonoBehaviour:
@@ -4219,7 +4221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 255
+    rgba: 4278190335
   depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
 --- !u!114 &114464836429096190
 MonoBehaviour:
@@ -4245,7 +4247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4278190080
   depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
 --- !u!114 &114488718057144936
 MonoBehaviour:
@@ -4285,7 +4287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakColor:
     serializedVersion: 2
-    rgba: 8323199
+    rgba: 2139029631
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 2}
 --- !u!114 &114687767367813974
 MonoBehaviour:
@@ -4300,7 +4302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakColor:
     serializedVersion: 2
-    rgba: 255
+    rgba: 2130706687
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 2}
 --- !u!114 &114704111771735072
 MonoBehaviour:

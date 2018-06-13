@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Renderer), typeof(IHasColor))]
 public class ColorApplier : MonoBehaviour {
-	Material coloredMat;
+	Renderer rend;
+	Color src;
 
-	void OnDestroy() {
-		DestroyImmediate(coloredMat);
+	void Start() {
+		rend = GetComponent<Renderer>();
+		src = GetComponent<IHasColor>().GetColor();
+		if (rend != null) {
+			rend.materials[rend.materials.Length - 1].color = src;
+		}
 	}
 
-	public void Apply(Color c) {
-		var rend = GetComponent<Renderer>();
-		if (rend != null) {
-			for (int i = 0; i < rend.sharedMaterials.Length; ++i) {
-				var mat = rend.sharedMaterials[i];
-				if (mat.IsKeywordEnabled("_ALPHAPREMULTIPLY_ON")) {
-					coloredMat = new Material(mat);
-					coloredMat.color = c;
-					mat = coloredMat;
-				}
-			}
+	void OnDestory() {
+		for (int i = 0; i < rend.materials.Length; ++i) {
+			DestroyImmediate(rend.materials[i]);
 		}
+	}
+
+	void OnDrawGizmos() {
+		Gizmos.color = src;
+		Gizmos.DrawWireCube(transform.position, Vector3.one);
 	}
 }

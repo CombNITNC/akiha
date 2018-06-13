@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(ColorApplier), typeof(BoxCollider2D))]
-public class ColorBarrier : MonoBehaviour {
+public class ColorBarrier : MonoBehaviour, IHasColor {
 	GameObject gameController;
 	[SerializeField] Color32 weakColor;
 	[SerializeField] GameObject particle;
@@ -14,13 +13,8 @@ public class ColorBarrier : MonoBehaviour {
 		gameController = GameObject.FindWithTag("GameController");
 	}
 
-	// Update is called once per frame
-	void Update() {
-
-	}
-
-	void OnValidate() {
-		GetComponent<ColorApplier>().Apply(weakColor);
+	public Color32 GetColor() {
+		return weakColor;
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {

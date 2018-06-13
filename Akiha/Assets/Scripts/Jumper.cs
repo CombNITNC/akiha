@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(ColorApplier))]
-public class Jumper : MonoBehaviour {
+public class Jumper : MonoBehaviour, IHasColor {
 	[SerializeField] Color activatableColor;
 	GameObject gameController;
 	[SerializeField] float jumpDuration = 1.5f;
@@ -12,7 +11,6 @@ public class Jumper : MonoBehaviour {
 	AudioSource source;
 	[SerializeField] AudioClip jumpSound;
 
-	// Use this for initialization
 	void Start() {
 		if (GetComponent<AudioSource>() == null)
 			source = gameObject.AddComponent<AudioSource>();
@@ -21,16 +19,12 @@ public class Jumper : MonoBehaviour {
 
 		source.clip = jumpSound;
 		source.playOnAwake = false;
+
 		gameController = GameObject.FindWithTag("GameController");
 	}
 
-	// Update is called once per frame
-	void Update() {
-
-	}
-
-	void OnValidate() {
-		GetComponent<ColorApplier>().Apply(activatableColor);
+	public Color32 GetColor() {
+		return activatableColor;
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
