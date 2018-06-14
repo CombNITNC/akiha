@@ -119,4 +119,8 @@ public class GameController : MonoBehaviour {
 	public void GoToMainMenu() {
 		SceneManager.LoadScene("MainMenu");
 	}
+
+	public void GoToStageSelect() {
+		SceneManager.LoadScene("StageSelect");
+	}
 }

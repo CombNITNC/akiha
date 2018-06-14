@@ -717,7 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
-  - {fileID: 0}
+  - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1199,7 +1199,18 @@ MonoBehaviour:
   holdTime: 0.8
   onHold:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 875624040}
+        m_MethodName: GoToStageSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1417046616

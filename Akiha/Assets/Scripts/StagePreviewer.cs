@@ -66,13 +66,14 @@ public class StagePreviewer : MonoBehaviour {
 
 			Vector3 stageEnd = Vector3.zero;
 			foreach (Transform child in previews[i].stage.transform) {
-				if (child.tag == "Goal") {
+				if (child.tag == "End") {
 					stageEnd = child.position;
 				}
 			}
 
 			AnimationClip clip = new AnimationClip();
 			clip.legacy = true;
+			clip.wrapMode = WrapMode.Loop;
 			AnimationCurve curveX = AnimationCurve.EaseInOut(0.0f, i * 100f, cycleDuration, stageEnd.x + i * 100f);
 			AnimationCurve curveY = AnimationCurve.EaseInOut(0.0f, 0.0f, cycleDuration, stageEnd.y);
 			clip.SetCurve("", typeof(Transform), "localPosition.x", curveX);
@@ -90,6 +91,10 @@ public class StagePreviewer : MonoBehaviour {
 
 	public void ViewNext() {
 		if (viewingIndex < 4) {
+			if (previews[viewingIndex + 1].camera == null) {
+				return;
+			}
+
 			GetComponent<ScreenWiper>().CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex + 1].camera, fadeTime);
 			anims[viewingIndex].Stop();
 			anims[viewingIndex + 1].Play();
@@ -100,6 +105,10 @@ public class StagePreviewer : MonoBehaviour {
 
 	public void ViewPrev() {
 		if (0 < viewingIndex) {
+			if (previews[viewingIndex - 1].camera == null) {
+				return;
+			}
+
 			GetComponent<ScreenWiper>().CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex - 1].camera, fadeTime);
 			anims[viewingIndex].Stop();
 			anims[viewingIndex - 1].Play();
