@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Canvas))]
 public class SettingsController : MonoBehaviour {
   int _controlMode = 0;
   float _sensivity = 1f;
@@ -43,7 +44,11 @@ public class SettingsController : MonoBehaviour {
     StartCoroutine(SaveButtonAnimate());
   }
 
+  public void Open() {
+    GetComponent<Canvas>().enabled = true;
+  }
+
   public void Close() {
-    StartCoroutine(UnloadThisScene());
+    GetComponent<Canvas>().enabled = false;
   }
 }
