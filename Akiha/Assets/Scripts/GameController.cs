@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour {
 	int playingIndex = 0;
 	float[] tmpScores = new float[5];
 
+	WaitViewer waitViewer;
+
 	// Use this for initialization
 	void Start() {
 		var god = GameObject.FindWithTag("God");
@@ -37,12 +39,15 @@ public class GameController : MonoBehaviour {
 		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
 		recordText = GameObject.Find("Record").GetComponent<Text>();
 		diffText = GameObject.Find("Diff").GetComponent<Text>();
+		waitViewer = GameObject.Find("ReadyContainer").GetComponent<WaitViewer>();
 		saver = GetComponent<GameStorageManager>();
 
 		saver.Load(out tmpScores);
 
 		LoadStage();
 		LoadStage(); // Prefetching
+
+		waitViewer.ViewGetReady();
 	}
 
 	public void LoadStage() {
@@ -111,7 +116,7 @@ public class GameController : MonoBehaviour {
 			loadedMeasures[0].MeasureStop();
 		}
 		else {
-			Time.timeScale = 1;
+			waitViewer.ViewGetReady();
 			loadedMeasures[0].MeasureResume();
 		}
 	}

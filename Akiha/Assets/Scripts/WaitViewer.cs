@@ -2,22 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(UITransition))]
+[RequireComponent(typeof(Animator))]
 public class WaitViewer : MonoBehaviour {
   Animator anim;
-  UITransition transitioner;
 
   void Start() {
     anim = GetComponent<Animator>();
-    transitioner = GetComponent<UITransition>();
   }
 
   public void Done() {
-    gameObject.SetActive(false);
+    Time.timeScale = 1f;
   }
 
   public void ViewGetReady() {
-    gameObject.SetActive(true);
     anim.SetTrigger("Play");
+    Time.timeScale = 0f;
   }
 }
