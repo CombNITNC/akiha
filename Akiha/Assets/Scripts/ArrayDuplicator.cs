@@ -20,14 +20,11 @@ public class ArrayDuplicator : MonoBehaviour {
 			for (int z = 0; z < param.count.z; ++z) {
 				for (int y = 0; y < param.count.y; ++y) {
 					for (int x = 0; x < param.count.x; ++x) {
-						var posX = x * param.padding.x;
-						var posY = y * param.padding.y;
-						var posZ = z * param.padding.z;
 						var clone = Instantiate(prevObj, Vector3.zero, Quaternion.identity);
 						clone.transform.parent = prevObj.transform;
 						clone.transform.localScale = param.scaleOffset;
-						clone.transform.rotation = Quaternion.Euler(param.rotateOffset);
-						clone.transform.localPosition = new Vector3(posX, posY, posZ);
+						clone.transform.localRotation = Quaternion.Euler(param.rotateOffset);
+						clone.transform.localPosition = param.padding;
 
 						prevObj = clone;
 					}
