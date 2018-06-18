@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 	AudioSource source;
 	[SerializeField] AudioClip fallSound;
 
-	int controlMode = 1;
+	int controlMode = 0;
 
 	// Use this for initialization
 	void Start() {
