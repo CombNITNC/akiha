@@ -93,24 +93,35 @@ public class PlayerController : MonoBehaviour {
 			var mouse = Input.mousePosition;
 			var midX = Screen.width / 2;
 			var midY = Screen.height / 2;
-			var x_in = mouse.x - midX;
-			var y_in = mouse.y - midY;
-			var on_x = (midX - graceWidth > mouse.x || mouse.x > midX + graceWidth);
-			var on_y = (midY - graceWidth > mouse.y || mouse.y > midY + graceWidth);
 
-			if (on_x || on_y) {
+			var x_in = 0;
+			if (midX - graceWidth <= mouse.x) {
+				x_in = -1;
+			}
+			else if (mouse.x <= midX - graceWidth) {
+				x_in = 1;
+			}
+
+			var y_in = 0;
+			if (midY - graceWidth <= mouse.y) {
+				y_in = -1;
+			}
+			else if (mouse.y <= midY - graceWidth) {
+				y_in = 1;
+			}
+
+			if (x_in != 0 || y_in != 0) {
 				var vel = new Vector2(x_in, y_in);
-				vel *= 0.01f;
-				body.velocity = Vector2.ClampMagnitude(vel, maxLength);
+				vel *= 2.3f;
+				body.AddForce(vel);
+				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
 			}
 		}
 		else if (controlMode == 1) { // JoyStick / Keyboard Input
 			var x_in = Input.GetAxis("Horizontal");
 			var y_in = Input.GetAxis("Vertical");
-			var on_x = x_in != 0;
-			var on_y = y_in != 0;
 
-			if (on_x || on_y) {
+			if (x_in != 0 || y_in != 0) {
 				var vel = new Vector2(x_in, y_in);
 				vel *= 2.3f;
 				body.AddForce(vel);
