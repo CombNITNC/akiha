@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 	AudioSource source;
 	[SerializeField] AudioClip fallSound;
 
-	int controlMode;
+	int controlMode = 1;
 
 	// Use this for initialization
 	void Start() {
@@ -111,7 +111,9 @@ public class PlayerController : MonoBehaviour {
 			var on_y = y_in != 0;
 
 			if (on_x || on_y) {
-				body.AddForce(new Vector2(x_in, y_in));
+				var vel = new Vector2(x_in, y_in);
+				vel *= 2.3f;
+				body.AddForce(vel);
 				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
 			}
 		}
