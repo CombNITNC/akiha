@@ -15,10 +15,14 @@ public class SettingsController : MonoBehaviour {
   [SerializeField] Slider volumeSlider;
   [SerializeField] Button saveButton;
 
+  GameController gameController;
+
   void Start() {
     _controlMode = PlayerPrefs.GetInt("ControlMode", 0);
     _sensivity = PlayerPrefs.GetFloat("Sensivity", 1f);
     _volume = PlayerPrefs.GetFloat("Volume", 1f);
+
+    gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
   }
 
   IEnumerator UnloadThisScene() {
@@ -40,6 +44,8 @@ public class SettingsController : MonoBehaviour {
     PlayerPrefs.SetInt("ControlMode", _controlMode);
     PlayerPrefs.SetFloat("Sensivity", _sensivity);
     PlayerPrefs.SetFloat("Volume", _volume);
+
+    gameController.NotifyChangedSettings();
 
     StartCoroutine(SaveButtonAnimate());
   }

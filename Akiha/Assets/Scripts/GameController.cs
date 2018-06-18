@@ -128,4 +128,8 @@ public class GameController : MonoBehaviour {
 	public void GoToStageSelect() {
 		SceneManager.LoadScene("StageSelect");
 	}
+
+	public void NotifyChangedSettings() {
+		player.SetControlMode(PlayerPrefs.GetInt("ControlMode"));
+	}
 }

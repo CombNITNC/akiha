@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour {
 	AudioSource source;
 	[SerializeField] AudioClip fallSound;
 
+	int controlMode;
+
 	// Use this for initialization
 	void Start() {
 		body = GetComponent<Rigidbody2D>();
@@ -86,19 +88,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Move() {
 
-		{ // JoyStick / Keyboard Input
-			var x_in = Input.GetAxis("Horizontal");
-			var y_in = Input.GetAxis("Vertical");
-			var on_x = x_in != 0;
-			var on_y = y_in != 0;
-
-			if (on_x || on_y) {
-				body.AddForce(new Vector2(x_in, y_in));
-				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
-			}
-		}
-
-		{ // Mouse Input
+		if (controlMode == 0) { // Mouse Input
 			var graceWidth = 50;
 			var mouse = Input.mousePosition;
 			var midX = Screen.width / 2;
@@ -114,8 +104,18 @@ public class PlayerController : MonoBehaviour {
 				body.velocity = Vector2.ClampMagnitude(vel, maxLength);
 			}
 		}
+		else if (controlMode == 1) { // JoyStick / Keyboard Input
+			var x_in = Input.GetAxis("Horizontal");
+			var y_in = Input.GetAxis("Vertical");
+			var on_x = x_in != 0;
+			var on_y = y_in != 0;
 
-		{ // Gyro Input
+			if (on_x || on_y) {
+				body.AddForce(new Vector2(x_in, y_in));
+				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
+			}
+		}
+		else if (controlMode == 2) { // Gyro Input
 			var gyro = Input.acceleration;
 			var attitude = new Vector2(gyro.x, gyro.y);
 			if (attitude.magnitude > 0.001) {
@@ -123,10 +123,13 @@ public class PlayerController : MonoBehaviour {
 				body.velocity = Vector2.ClampMagnitude(attitude, maxLength);
 			}
 		}
+		else {
+			controlMode = 0;
+		}
 	}
 
 	public void SetColor(Color32 new_c) {
-		if (colorSetCounter < colorSetWaitDuration) { return; }
+		if (colorSetCounter < colorSetWaitDuration || isDead) { return; }
 
 		colorSetCounter = 0.0f;
 
@@ -151,6 +154,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void StartJump(float duration) {
+		if (isDead)
+			return;
+
 		isJumping = true;
 		jumpingDuration = duration;
 		jumpingTime = 0.0f;
@@ -174,11 +180,16 @@ public class PlayerController : MonoBehaviour {
 	public void Crush() {
 		if (!canInput || isDead)
 			return;
+
 		Instantiate(crushParticle, transform.position, transform.rotation);
 		rend.enabled = false;
 		col.enabled = false;
 		canInput = false;
 		isDead = true;
 		Invoke("Respawn", crushWaitDuration);
+	}
+
+	public void SetControlMode(int mode) {
+		controlMode = mode;
 	}
 }
