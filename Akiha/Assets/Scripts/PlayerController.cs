@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(CircleCollider2D), typeof(PlayerMover))]
 public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
 	Renderer rend;
@@ -17,22 +17,20 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] float colorSetWaitDuration = 0.2f;
 	float colorSetCounter = 0.2f;
 
-	bool isJumping = false;
-	float jumpingTime = 0.0f;
-	float jumpingDuration = 0.0f;
 	[SerializeField] float jumpHeight = 2.0f;
-
+	bool isJumping = false;
 	bool isFalling = false;
-	Vector3 respawnPos;
-	bool canInput = true;
 	bool isDead = false;
+	Vector3 respawnPos;
+
 	[SerializeField] GameObject crushParticle;
 	[SerializeField] float crushWaitDuration = 1.5f;
 
 	AudioSource source;
 	[SerializeField] AudioClip fallSound;
 
-	int controlMode = 0;
+	PlayerMover mover;
+	UnityEvent deathEvent = new UnityEvent();
 
 	// Use this for initialization
 	void Start() {
@@ -43,102 +41,54 @@ public class PlayerController : MonoBehaviour {
 		respawnPos = transform.position;
 		col = GetComponent<CircleCollider2D>();
 		source = gameObject.AddComponent<AudioSource>();
+		mover = GetComponent<PlayerMover>();
 		source.clip = fallSound;
 	}
 
 	// Update is called once per frame
 	void Update() {
-		if (colorSetCounter < colorSetWaitDuration)
-			colorSetCounter += Time.deltaTime;
+		colorSetCounter += Time.deltaTime;
 
-		if (!canInput) { return; }
-
-		Move();
-
-		if (isFalling) { return; }
-
-		if (isJumping) {
-			jumpingTime += Time.deltaTime;
-			if (jumpingTime > jumpingDuration) {
-				isJumping = false;
-				var posForReset = transform.position;
-				posForReset.z = 0;
-				transform.position = posForReset;
-				col.enabled = true;
-			}
-
-			var newPos = transform.position;
-			var a = jumpHeight / (jumpingDuration * jumpingDuration / 4);
-			newPos.z = -a * (jumpingTime - jumpingDuration / 2) * (jumpingTime - jumpingDuration / 2) + jumpHeight;
-			transform.position = newPos;
-		}
-
-		if (!isJumping && !isFalling) {
-			var rayPos = transform.position;
-			rayPos.z = -4;
-			var ray = new Ray(rayPos, transform.forward);
-			if (!Physics.SphereCast(ray, 0.5f, 10.0f) && !isDead) {
-				anim.SetTrigger("fall");
-				isFalling = true;
-				isDead = true;
-				source.Play();
-			}
+		if (!(isJumping || isFalling || isDead)) {
+			DetectFalling();
 		}
 	}
 
-	void Move() {
-
-		if (controlMode == 0) { // Mouse Input
-			var graceWidth = 50;
-			var mouse = Input.mousePosition;
-			var midX = Screen.width / 2;
-			var midY = Screen.height / 2;
-
-			var x_in = 0;
-			if (midX - graceWidth <= mouse.x) {
-				x_in = -1;
-			}
-			else if (mouse.x <= midX - graceWidth) {
-				x_in = 1;
-			}
-
-			var y_in = 0;
-			if (midY - graceWidth <= mouse.y) {
-				y_in = -1;
-			}
-			else if (mouse.y <= midY - graceWidth) {
-				y_in = 1;
-			}
-
-			if (x_in != 0 || y_in != 0) {
-				var vel = new Vector2(x_in, y_in);
-				vel *= 2.3f;
-				body.AddForce(vel);
-				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
-			}
+	void DetectFalling() {
+		var rayPos = transform.position;
+		rayPos.z = -4;
+		var ray = new Ray(rayPos, transform.forward);
+		if (!Physics.SphereCast(ray, 0.5f, 10.0f)) {
+			isFalling = true;
+			anim.SetTrigger("fall");
+			source.Play();
 		}
-		else if (controlMode == 1) { // JoyStick / Keyboard Input
-			var x_in = Input.GetAxis("Horizontal");
-			var y_in = Input.GetAxis("Vertical");
+	}
 
-			if (x_in != 0 || y_in != 0) {
-				var vel = new Vector2(x_in, y_in);
-				vel *= 2.3f;
-				body.AddForce(vel);
-				body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
-			}
-		}
-		else if (controlMode == 2) { // Gyro Input
-			var gyro = Input.acceleration;
-			var attitude = new Vector2(gyro.x, gyro.y);
-			if (attitude.magnitude > 0.001) {
-				attitude *= 10.0f;
-				body.velocity = Vector2.ClampMagnitude(attitude, maxLength);
-			}
-		}
-		else {
-			controlMode = 0;
-		}
+	IEnumerator JumpWork(float duration) {
+		isJumping = true;
+		var jumpingTime = 0f;
+		col.enabled = false;
+
+		Vector3 newPos = Vector3.zero;
+		var a = jumpHeight / (duration * duration / 4);
+		var t = 0f;
+		do {
+			jumpingTime += Time.deltaTime;
+			newPos = transform.position;
+			t = jumpingTime - duration / 2;
+
+			newPos.z = -a * t * t + jumpHeight;
+			transform.position = newPos;
+			yield return null;
+		} while (jumpingTime < duration);
+
+		var posForReset = transform.position;
+		posForReset.z = 0;
+		transform.position = posForReset;
+		col.enabled = true;
+		isJumping = false;
+		yield break;
 	}
 
 	public void SetColor(Color32 new_c) {
@@ -167,13 +117,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void StartJump(float duration) {
-		if (isDead)
-			return;
-
-		isJumping = true;
-		jumpingDuration = duration;
-		jumpingTime = 0.0f;
-		col.enabled = false;
+		SraerCoroutine(JumpWork(duration));
 	}
 
 	public void SetRespawn(Vector3 pos) {
@@ -185,24 +129,24 @@ public class PlayerController : MonoBehaviour {
 		isFalling = false;
 		body.velocity = Vector2.zero;
 		rend.enabled = true;
-		canInput = true;
+		mover.enabled = true;
 		col.enabled = true;
 		isDead = false;
 	}
 
 	public void Crush() {
-		if (!canInput || isDead)
+		if (isDead)
 			return;
 
 		Instantiate(crushParticle, transform.position, transform.rotation);
 		rend.enabled = false;
 		col.enabled = false;
-		canInput = false;
+		mover.enabled = false;
 		isDead = true;
 		Invoke("Respawn", crushWaitDuration);
 	}
 
-	public void SetControlMode(int mode) {
-		controlMode = mode;
+	public void SetControlMode(ControlMode mode) {
+		mover.SetControlMode(mode);
 	}
 }

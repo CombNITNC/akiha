@@ -130,6 +130,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void NotifyChangedSettings() {
-		player.SetControlMode(PlayerPrefs.GetInt("ControlMode"));
+		player.SetControlMode((ControlMode) PlayerPrefs.GetInt("ControlMode"));
 	}
 }
