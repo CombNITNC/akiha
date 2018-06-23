@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer), typeof(IHasColor))]
+[RequireComponent(typeof(IHasColor))]
 public class ColorApplier : MonoBehaviour {
-	Renderer rend;
+	[SerializeField] Renderer rend;
 	Color src;
 
 	void Start() {
-		rend = GetComponent<Renderer>();
 		src = GetComponent<IHasColor>().GetColor();
 		if (rend != null) {
 			rend.materials[rend.materials.Length - 1].color = src;

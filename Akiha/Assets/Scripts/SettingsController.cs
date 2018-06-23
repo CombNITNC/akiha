@@ -15,6 +15,7 @@ public class SettingsController : MonoBehaviour {
   [SerializeField] Slider volumeSlider;
   [SerializeField] Button saveButton;
 
+  Canvas canvas;
   GameController gameController;
 
   void Start() {
@@ -22,7 +23,11 @@ public class SettingsController : MonoBehaviour {
     _sensivity = PlayerPrefs.GetFloat("Sensivity", 1f);
     _volume = PlayerPrefs.GetFloat("Volume", 1f);
 
-    gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+    canvas = GetComponent<Canvas>();
+    var gameControllerObj = GameObject.FindWithTag("GameController");
+    if (gameControllerObj != null) {
+      gameController = gameControllerObj.GetComponent<GameController>();
+    }
   }
 
   IEnumerator UnloadThisScene() {
@@ -45,16 +50,18 @@ public class SettingsController : MonoBehaviour {
     PlayerPrefs.SetFloat("Sensivity", _sensivity);
     PlayerPrefs.SetFloat("Volume", _volume);
 
-    gameController.NotifyChangedSettings();
+    if (gameController != null) {
+      gameController.NotifyChangedSettings();
+    }
 
     StartCoroutine(SaveButtonAnimate());
   }
 
   public void Open() {
-    GetComponent<Canvas>().enabled = true;
+    canvas.enabled = true;
   }
 
   public void Close() {
-    GetComponent<Canvas>().enabled = false;
+    canvas.enabled = false;
   }
 }
