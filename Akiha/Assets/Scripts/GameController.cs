@@ -50,9 +50,23 @@ public class GameController : MonoBehaviour {
 		waitViewer.ViewGetReady();
 	}
 
+	void InitMeasurer() {
+		if (loadedMeasures[0] != null) {
+			loadedMeasures[0].Init(currentTimeText, recordText, diffText);
+			loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
+		}
+	}
+
 	public void LoadStage() {
-		if (stages[loadedIndex] == null)
+		if (stages[loadedIndex] == null) {
+			loadedStages[0] = loadedStages[1];
+			loadedStages[1] = loadedStages[2];
+			loadedStages[2] = null;
+			loadedMeasures[0] = loadedMeasures[1];
+			loadedMeasures[1] = null;
+			InitMeasurer();
 			return;
+		}
 
 		if (loadedIndex >= 3) {
 			Destroy(loadedStages[0]);
@@ -70,10 +84,7 @@ public class GameController : MonoBehaviour {
 			else if (child.tag == "Finish") {
 				loadedMeasures[0] = loadedMeasures[1];
 				loadedMeasures[1] = child.gameObject.GetComponent<Measurer>();
-				if (loadedMeasures[0] != null) {
-					loadedMeasures[0].Init(currentTimeText, recordText, diffText);
-					loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
-				}
+				InitMeasurer();
 			}
 		}
 		loadedStages[2] = newStage;

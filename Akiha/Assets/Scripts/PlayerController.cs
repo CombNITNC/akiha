@@ -3,15 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(CircleCollider2D), typeof(PlayerMover))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+[RequireComponent(typeof(CircleCollider2D), typeof(PlayerMover))]
 public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
 	Renderer rend;
 	Animator anim;
 	CircleCollider2D col;
 	[SerializeField] GameObject playerObject;
-
-	[SerializeField] float maxLength;
 
 	[SerializeField] Color32 color = Color.white;
 	[SerializeField] float colorSetWaitDuration = 0.2f;
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] AudioClip fallSound;
 
 	PlayerMover mover;
-	UnityEvent deathEvent = new UnityEvent();
 
 	// Use this for initialization
 	void Start() {
@@ -117,7 +115,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void StartJump(float duration) {
-		SraerCoroutine(JumpWork(duration));
+		StartCoroutine(JumpWork(duration));
 	}
 
 	public void SetRespawn(Vector3 pos) {

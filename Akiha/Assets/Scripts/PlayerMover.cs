@@ -10,11 +10,18 @@ public enum ControlMode {
 
 public class PlayerMover : MonoBehaviour {
 
-  ControlMode controlMode = 0;
+  [SerializeField] float maxLength = 5.65f;
+
+  Rigidbody2D body;
+  ControlMode controlMode = ControlMode.mouse;
+
+  void Start() {
+    body = GetComponent<Rigidbody2D>();
+  }
 
   void Update() {
     switch (controlMode) {
-      case mouse:
+      case ControlMode.mouse:
         {
           var graceWidth = 50;
           var mouse = Input.mousePosition;
@@ -22,19 +29,19 @@ public class PlayerMover : MonoBehaviour {
           var midY = Screen.height / 2;
 
           var x_in = 0;
-          if (midX - graceWidth <= mouse.x) {
-            x_in = -1;
+          if (midX + graceWidth <= mouse.x) {
+            x_in = 1;
           }
           else if (mouse.x <= midX - graceWidth) {
-            x_in = 1;
+            x_in = -1;
           }
 
           var y_in = 0;
-          if (midY - graceWidth <= mouse.y) {
-            y_in = -1;
+          if (midY + graceWidth <= mouse.y) {
+            y_in = 1;
           }
           else if (mouse.y <= midY - graceWidth) {
-            y_in = 1;
+            y_in = -1;
           }
 
           if (x_in != 0 || y_in != 0) {
@@ -45,7 +52,7 @@ public class PlayerMover : MonoBehaviour {
           }
         }
         break;
-      case normalized:
+      case ControlMode.normalized:
         {
           var x_in = Input.GetAxis("Horizontal");
           var y_in = Input.GetAxis("Vertical");
@@ -58,7 +65,7 @@ public class PlayerMover : MonoBehaviour {
           }
         }
         break;
-      case gyro:
+      case ControlMode.gyro:
         {
           var gyro = Input.acceleration;
           var attitude = new Vector2(gyro.x, gyro.y);
@@ -70,7 +77,7 @@ public class PlayerMover : MonoBehaviour {
         break;
       default:
         {
-          controlMode = 0;
+          controlMode = ControlMode.mouse;
         }
         break;
     }
