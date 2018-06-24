@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class Spikes : MonoBehaviour {
 	[SerializeField] bool rotateClockwise = false;
 	[SerializeField] float rotateSpeed = 40.0f;
