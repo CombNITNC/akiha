@@ -19,15 +19,26 @@ public class SettingsController : MonoBehaviour {
   GameController gameController;
 
   void Start() {
-    _controlMode = PlayerPrefs.GetInt("ControlMode", 0);
-    _sensivity = PlayerPrefs.GetFloat("Sensivity", 1f);
-    _volume = PlayerPrefs.GetFloat("Volume", 1f);
+    Init();
 
     canvas = GetComponent<Canvas>();
     var gameControllerObj = GameObject.FindWithTag("GameController");
     if (gameControllerObj != null) {
       gameController = gameControllerObj.GetComponent<GameController>();
     }
+  }
+
+  void OnEnable() {
+    Init();
+    controlModeSelector.value = _controlMode;
+    sensivitySlider.normalizedValue = _sensivity;
+    volumeSlider.normalizedValue = _volume;
+  }
+
+  void Init() {
+    _controlMode = PlayerPrefs.GetInt("ControlMode", 0);
+    _sensivity = PlayerPrefs.GetFloat("Sensivity", 1f);
+    _volume = PlayerPrefs.GetFloat("Volume", 1f);
   }
 
   IEnumerator UnloadThisScene() {

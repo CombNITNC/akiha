@@ -20,6 +20,8 @@ public class PlayerMover : MonoBehaviour {
   }
 
   void Update() {
+    var x_in = 0f;
+    var y_in = 0f;
     switch (controlMode) {
       case ControlMode.mouse:
         {
@@ -28,7 +30,6 @@ public class PlayerMover : MonoBehaviour {
           var midX = Screen.width / 2;
           var midY = Screen.height / 2;
 
-          var x_in = 0;
           if (midX + graceWidth <= mouse.x) {
             x_in = 1;
           }
@@ -36,42 +37,37 @@ public class PlayerMover : MonoBehaviour {
             x_in = -1;
           }
 
-          var y_in = 0;
           if (midY + graceWidth <= mouse.y) {
             y_in = 1;
           }
           else if (mouse.y <= midY - graceWidth) {
             y_in = -1;
           }
-
-          if (x_in != 0 || y_in != 0) {
-            var vel = new Vector2(x_in, y_in);
-            vel *= 2.3f;
-            body.AddForce(vel);
-            body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
-          }
         }
         break;
       case ControlMode.normalized:
         {
-          var x_in = Input.GetAxis("Horizontal");
-          var y_in = Input.GetAxis("Vertical");
-
-          if (x_in != 0 || y_in != 0) {
-            var vel = new Vector2(x_in, y_in);
-            vel *= 2.3f;
-            body.AddForce(vel);
-            body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
-          }
+          x_in = Input.GetAxis("Horizontal");
+          y_in = Input.GetAxis("Vertical");
         }
         break;
       case ControlMode.gyro:
         {
+          var graceWidth = 0.01;
           var gyro = Input.acceleration;
-          var attitude = new Vector2(gyro.x, gyro.y);
-          if (attitude.magnitude > 0.001) {
-            attitude *= 10.0f;
-            body.velocity = Vector2.ClampMagnitude(attitude, maxLength);
+
+          if (graceWidth < gyro.x) {
+            x_in = 1;
+          }
+          else if (gyro.x < -graceWidth) {
+            x_in = -1;
+          }
+
+          if (graceWidth < gyro.y) {
+            y_in = 1;
+          }
+          else if (gyro.y < -graceWidth) {
+            y_in = -1;
           }
         }
         break;
@@ -80,6 +76,13 @@ public class PlayerMover : MonoBehaviour {
           controlMode = ControlMode.mouse;
         }
         break;
+    }
+
+    if (x_in != 0 || y_in != 0) {
+      var vel = new Vector2(x_in, y_in);
+      vel *= 2.3f;
+      body.AddForce(vel);
+      body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
     }
   }
 
