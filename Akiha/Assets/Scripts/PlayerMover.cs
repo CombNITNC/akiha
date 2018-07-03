@@ -86,8 +86,20 @@ public class PlayerMover : MonoBehaviour {
     }
   }
 
-  public void Stop() {
+  IEnumerator StopWork(Vector3 pos) {
+    float count = 0f;
+    var before = transform.position;
+    while (count < 1f) {
+      count += Time.deltaTime;
+      transform.position = Vector3.Lerp(before, pos, count);
+      yield return null;
+    }
+    yield break;
+  }
+
+  public void Stop(Vector3 pos) {
     body.velocity = Vector2.zero;
+    StartCoroutine(StopWork(pos));
   }
 
   public void SetControlMode(ControlMode mode) {

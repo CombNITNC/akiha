@@ -7,7 +7,7 @@ public interface IHasColor {
 }
 
 public static class SacredColor {
-	const float thresholdF = 0.08f;
+	const float thresholdF = 0.02f;
 	const int thresholdI = 5;
 
 	public static bool IsEqualRGB(this Color lhs, Color rhs) {

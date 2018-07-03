@@ -148,8 +148,8 @@ public class PlayerController : MonoBehaviour {
 		mover.SetControlMode(mode);
 	}
 
-	public void Finish() {
-		mover.Stop();
+	public void Finish(Vector3 finishPos) {
+		mover.Stop(finishPos);
 		mover.enabled = false;
 		anim.SetTrigger("finish");
 	}

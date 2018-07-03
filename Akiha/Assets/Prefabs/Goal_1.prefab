@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 4384983105398850}
   - component: {fileID: 61220789307003974}
   - component: {fileID: 114464522018930386}
-  - component: {fileID: 251969356817830126}
   m_Layer: 0
   m_Name: Goal_1
   m_TagString: Finish
@@ -856,21 +855,3 @@ MonoBehaviour:
   visibleTime: 1
   clearSound: {fileID: 8300000, guid: 4de49953023044c43bcba708bb1c5ee6, type: 3}
   highscoreSound: {fileID: 8300000, guid: f183b05da54994478a134b447901ba09, type: 3}
---- !u!251 &251969356817830126
-PlatformEffector2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1600705330670022}
-  m_Enabled: 1
-  m_UseColliderMask: 0
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1

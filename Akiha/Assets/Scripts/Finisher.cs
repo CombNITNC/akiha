@@ -17,7 +17,7 @@ public class Finisher : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.tag == "Player") {
-			gameController.Finish();
+			gameController.Finish(transform.position);
 		}
 	}
 }

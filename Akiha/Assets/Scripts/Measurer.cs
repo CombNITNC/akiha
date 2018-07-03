@@ -24,9 +24,47 @@ public class Measurer : MonoBehaviour {
 	void Start() {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = clearSound;
-		startTime = Time.time;
-		time = startTime;
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+	}
+
+	void Update() {
+		if (measuringTime) {
+			time += Time.deltaTime;
+			if (visibleTime) {
+				currentTimeText.text = time.ToString("00.0000");
+			}
+
+			if (highscore == 10000.0f) {
+				diffText.text = "First record.";
+			}
+			else if ((time - startTime) < highscore) {
+				source.clip = highscoreSound;
+				diffText.text = "-" + (-(time - startTime - highscore)).ToString("00.000");
+				diffText.color = Color.green;
+			}
+			else {
+				diffText.text = "+" + (time - startTime - highscore).ToString("00.000");
+				diffText.color = Color.red;
+			}
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		measuringTime = false;
+		if (col.gameObject.tag == "Player") {
+			if (visibleTime) {
+				recordText.text = (time - startTime).ToString("00.0000");
+			}
+
+			gameController.Goal(time - startTime);
+			source.Play();
+		}
+		door.SetActive(false);
+	}
+
+	void OnTriggerExit2D(Collider2D col) {
+		GetComponent<Collider2D>().isTrigger = false;
+		door.SetActive(true);
 	}
 
 	public void Init(Text _current, Text _record, Text _diff) {
@@ -38,6 +76,8 @@ public class Measurer : MonoBehaviour {
 	public void MeasureStart(float _highscore = 10000.0f) {
 		highscore = _highscore;
 		recordText.text = highscore.ToString("00.0000");
+		startTime = Time.time;
+		time = startTime;
 		measuringTime = true;
 	}
 
@@ -50,44 +90,4 @@ public class Measurer : MonoBehaviour {
 	}
 
 	public bool IsMeasuring() { return measuringTime; }
-
-	// Update is called once per frame
-	void FixedUpdate() {
-		if (measuringTime) {
-			time += Time.fixedDeltaTime;
-			if (visibleTime) {
-				currentTimeText.text = time.ToString("00.0000");
-			}
-
-			if (highscore == 10000.0f) {
-				diffText.text = "First record.";
-			}
-			else if ((time - startTime) < highscore) {
-				source.clip = highscoreSound;
-				diffText.text = "-" + (highscore - time + startTime).ToString("00.000");
-				diffText.color = Color.green;
-			}
-			else {
-				diffText.text = "+" + (time - startTime - highscore).ToString("00.000");
-				diffText.color = Color.red;
-			}
-		}
-	}
-
-	void OnCollisionEnter2D(Collision2D col) {
-		if (col.gameObject.tag == "Player" && measuringTime) {
-			measuringTime = false;
-			if (visibleTime) {
-				recordText.text = (time - startTime).ToString("00.0000");
-			}
-
-			gameController.Goal(time - startTime);
-			source.Play();
-		}
-		door.SetActive(false);
-	}
-
-	void OnCollisionExit2D(Collision2D col) {
-		door.SetActive(true);
-	}
 }
