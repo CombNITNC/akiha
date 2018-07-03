@@ -147,4 +147,10 @@ public class PlayerController : MonoBehaviour {
 	public void SetControlMode(ControlMode mode) {
 		mover.SetControlMode(mode);
 	}
+
+	public void Finish() {
+		mover.Stop();
+		mover.enabled = false;
+		anim.SetTrigger("finish");
+	}
 }

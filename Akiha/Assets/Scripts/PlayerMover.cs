@@ -86,6 +86,10 @@ public class PlayerMover : MonoBehaviour {
     }
   }
 
+  public void Stop() {
+    body.velocity = Vector2.zero;
+  }
+
   public void SetControlMode(ControlMode mode) {
     controlMode = mode;
   }

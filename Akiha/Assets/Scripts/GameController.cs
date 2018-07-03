@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour {
 	int playingIndex = 0;
 	float[] tmpScores = new float[5];
 
+	[SerializeField] Canvas wholeCanvas;
+	[SerializeField] Image fader;
 	WaitViewer waitViewer;
 
 	// Use this for initialization
@@ -55,6 +57,19 @@ public class GameController : MonoBehaviour {
 			loadedMeasures[0].Init(currentTimeText, recordText, diffText);
 			loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
 		}
+	}
+
+	IEnumerator FinishWork() {
+		float count = 0;
+		while (count < 2f) {
+			count += Time.deltaTime;
+			var c = fader.color;
+			c.a = count / 2f;
+			fader.color = c;
+			yield return null;
+		}
+		GoToMainMenu();
+		yield break;
 	}
 
 	public void LoadStage() {
@@ -142,5 +157,11 @@ public class GameController : MonoBehaviour {
 
 	public void NotifyChangedSettings() {
 		player.SetControlMode((ControlMode) PlayerPrefs.GetInt("ControlMode"));
+	}
+
+	public void Finish() {
+		wholeCanvas.enabled = false;
+		player.Finish();
+		StartCoroutine(FinishWork());
 	}
 }
