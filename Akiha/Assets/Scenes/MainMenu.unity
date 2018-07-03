@@ -1703,7 +1703,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  goalForSingle: {fileID: 0}
+  goalForSingle: {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e,
+    type: 2}
 --- !u!114 &1261440569
 MonoBehaviour:
   m_ObjectHideFlags: 0
