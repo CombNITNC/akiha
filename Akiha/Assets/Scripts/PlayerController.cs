@@ -90,7 +90,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SetColor(Color32 new_c) {
-		if (colorSetCounter < colorSetWaitDuration || isDead) { return; }
+		if (colorSetCounter < colorSetWaitDuration || isDead || isFalling) {
+			return;
+		}
 
 		colorSetCounter = 0.0f;
 
@@ -107,6 +109,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public Color GetColor() {
+		if (isFalling) {
+			return Color.black;
+		}
 		return color;
 	}
 
@@ -119,6 +124,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SetRespawn(Vector3 pos) {
+		if (isFalling) {
+			return;
+		}
 		respawnPos = pos;
 	}
 
