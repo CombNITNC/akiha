@@ -31,7 +31,7 @@ public class Measurer : MonoBehaviour {
 		if (measuringTime) {
 			time += Time.deltaTime;
 			if (visibleTime) {
-				currentTimeText.text = time.ToString("00.0000");
+				currentTimeText.text = (time - startTime).ToString("00.0000");
 			}
 
 			if (highscore == 10000.0f) {

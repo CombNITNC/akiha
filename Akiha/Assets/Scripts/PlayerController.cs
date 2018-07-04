@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour {
 		col = GetComponent<CircleCollider2D>();
 		source = gameObject.AddComponent<AudioSource>();
 		mover = GetComponent<PlayerMover>();
+		mover.SetControlMode((ControlMode) PlayerPrefs.GetInt("ControlMode", 0));
 		source.clip = fallSound;
 	}
 

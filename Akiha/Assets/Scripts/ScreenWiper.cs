@@ -43,7 +43,6 @@ public class ScreenWiper : MonoBehaviour {
   }
 
   void CameraSetup() {
-    this.enabled = true;
     _cam1.gameObject.SetActive(true);
     _cam2.gameObject.SetActive(true);
     var listener = _cam2.GetComponent<AudioListener>();
@@ -62,7 +61,6 @@ public class ScreenWiper : MonoBehaviour {
       listener.enabled = true;
     }
     _cam1.gameObject.SetActive(false);
-    this.enabled = false;
   }
 
   public void CrossFadePro(Camera cam1, Camera cam2, float time) {
