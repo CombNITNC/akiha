@@ -952,9 +952,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1807317122312092, guid: bb82225f61fc64d1babff16f03750b77, type: 2}
+  - {fileID: 1802514592653448, guid: 4f72986db4a30427d8162f500cf88453, type: 2}
+  - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 2}

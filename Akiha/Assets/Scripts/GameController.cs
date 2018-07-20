@@ -99,8 +99,7 @@ public class GameController : MonoBehaviour {
 		foreach (Transform child in newStage.transform) {
 			if (child.tag == "End") {
 				lastStageEnd = child.position;
-			}
-			else if (child.tag == "Finish") {
+			} else if (child.tag == "Finish") {
 				loadedMeasures[0] = loadedMeasures[1];
 				loadedMeasures[1] = child.gameObject.GetComponent<Measurer>();
 				InitMeasurer();
@@ -125,7 +124,7 @@ public class GameController : MonoBehaviour {
 
 	public void Goal(float score) {
 		var playerPos = player.gameObject.transform.position;
-		playerPos.y += 20;
+		playerPos.y += 2;
 		player.SetRespawn(playerPos);
 		LoadStage();
 
@@ -144,8 +143,7 @@ public class GameController : MonoBehaviour {
 		if (loadedMeasures[0].IsMeasuring()) {
 			Time.timeScale = 0;
 			loadedMeasures[0].MeasureStop();
-		}
-		else {
+		} else {
 			waitViewer.ViewGetReady();
 			loadedMeasures[0].MeasureResume();
 		}
