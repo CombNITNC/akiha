@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour {
 	[SerializeField] Image fader;
 	WaitViewer waitViewer;
 
+	Vector3 stageStartPos;
+
 	// Use this for initialization
 	void Start() {
 		var god = GameObject.FindWithTag("God");
@@ -37,6 +39,7 @@ public class GameController : MonoBehaviour {
 
 		lastStageEnd = transform.position;
 		player = GameObject.Find("Player").GetComponent<PlayerController>();
+		stageStartPos = player.gameObject.transform.position;
 		signText = GameObject.Find("Sign").GetComponent<Text>();
 		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
 		recordText = GameObject.Find("Record").GetComponent<Text>();
@@ -126,6 +129,7 @@ public class GameController : MonoBehaviour {
 		var playerPos = player.gameObject.transform.position;
 		playerPos.y += 2;
 		player.SetRespawn(playerPos);
+		stageStartPos = playerPos;
 		LoadStage();
 
 		if (tmpScores[playingIndex] > score)
@@ -155,6 +159,12 @@ public class GameController : MonoBehaviour {
 
 	public void GoToStageSelect() {
 		SceneManager.LoadScene("StageSelect");
+	}
+
+	public void Restart() {
+		player.SetRespawn(stageStartPos);
+		player.Respawn();
+		waitViewer.ViewGetReady();
 	}
 
 	public void NotifyChangedSettings() {
