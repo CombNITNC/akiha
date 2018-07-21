@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour {
 			loadedMeasures[0] = loadedMeasures[1];
 			loadedMeasures[1] = null;
 		}
-		loadedMeasures[0].Init(currentTimeText, recordText, diffText);
+		loadedMeasures[0].Init(currentTimeText, recordText, diffText, this.Goal);
 		loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
 	}
 

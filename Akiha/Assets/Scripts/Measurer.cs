@@ -14,7 +14,8 @@ public class Measurer : MonoBehaviour {
 	Text recordText;
 	Text diffText;
 
-	GameController gameController;
+	public delegate void GoalDelegate(float time);
+	GoalDelegate delegater;
 
 	AudioSource source;
 	[SerializeField] AudioClip clearSound;
@@ -24,7 +25,6 @@ public class Measurer : MonoBehaviour {
 	void Start() {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = clearSound;
-		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 
 	void Update() {
@@ -36,13 +36,11 @@ public class Measurer : MonoBehaviour {
 
 			if (highscore == 10000.0f) {
 				diffText.text = "First record.";
-			}
-			else if ((time - startTime) < highscore) {
+			} else if ((time - startTime) < highscore) {
 				source.clip = highscoreSound;
 				diffText.text = "-" + (-(time - startTime - highscore)).ToString("00.000");
 				diffText.color = Color.green;
-			}
-			else {
+			} else {
 				diffText.text = "+" + (time - startTime - highscore).ToString("00.000");
 				diffText.color = Color.red;
 			}
@@ -56,7 +54,7 @@ public class Measurer : MonoBehaviour {
 				recordText.text = (time - startTime).ToString("00.0000");
 			}
 
-			gameController.Goal(time - startTime);
+			delegater(time - startTime);
 			source.Play();
 		}
 		door.SetActive(false);
@@ -67,7 +65,8 @@ public class Measurer : MonoBehaviour {
 		door.SetActive(true);
 	}
 
-	public void Init(Text _current, Text _record, Text _diff) {
+	public void Init(Text _current, Text _record, Text _diff, GoalDelegate _delegater) {
+		delegater = _delegater;
 		currentTimeText = _current;
 		recordText = _record;
 		diffText = _diff;
