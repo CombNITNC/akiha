@@ -1464,7 +1464,7 @@ MonoBehaviour:
   rotateX: 0
   rotateY: 0
   rotateZ: 1
-  speed: 1
+  speed: 2
 --- !u!4 &1136913935 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 65e1a29e43f634ab8bf028f775e805a4, type: 3}
