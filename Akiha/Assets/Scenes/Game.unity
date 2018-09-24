@@ -956,6 +956,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06f5b71389c54bc18aa07ce6a0d0514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  signText: {fileID: 2128501726}
+  currentTimeText: {fileID: 680745348}
+  recordText: {fileID: 1417046618}
+  diffText: {fileID: 1715781505}
   stages:
   - {fileID: 1807317122312092, guid: bb82225f61fc64d1babff16f03750b77, type: 2}
   - {fileID: 1802514592653448, guid: 4f72986db4a30427d8162f500cf88453, type: 2}

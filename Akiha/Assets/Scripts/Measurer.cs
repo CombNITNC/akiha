@@ -51,7 +51,8 @@ public class Measurer : MonoBehaviour {
 		measuringTime = false;
 		if (col.gameObject.tag == "Player") {
 			if (visibleTime) {
-				recordText.text = (time - startTime).ToString("00.0000");
+				var text = (time - startTime).ToString("00.0000");
+				recordText.text = text;
 			}
 
 			delegater(time - startTime);

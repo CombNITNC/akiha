@@ -8,10 +8,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GameStorageManager))]
 public class GameController : MonoBehaviour {
 	PlayerController player;
-	Text signText;
-	Text currentTimeText;
-	Text recordText;
-	Text diffText;
+	[SerializeField] Text signText;
+	[SerializeField] Text currentTimeText;
+	[SerializeField] Text recordText;
+	[SerializeField] Text diffText;
 	Queue<Measurer> loadedMeasures = new Queue<Measurer>();
 
 	[SerializeField] GameObject[] stages;
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
 
 	GameStorageManager saver;
 	int playingIndex = 0;
-	float[] tmpScores = new float[5];
+	float[] tmpScores;
 
 	[SerializeField] Canvas wholeCanvas;
 	[SerializeField] Image fader;
@@ -40,14 +40,11 @@ public class GameController : MonoBehaviour {
 			if (gameGod != null)
 				stages = gameGod.GetStory().Fetch();
 		}
+		tmpScores = new float[stages.Length];
 
 		lastStageEnd = transform.position;
-		player = GameObject.Find("Player").GetComponent<PlayerController>();
+		player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 		stageStartPos = player.gameObject.transform.position;
-		signText = GameObject.Find("Sign").GetComponent<Text>();
-		currentTimeText = GameObject.Find("Timer").GetComponent<Text>();
-		recordText = GameObject.Find("Record").GetComponent<Text>();
-		diffText = GameObject.Find("Diff").GetComponent<Text>();
 		waitViewer = GameObject.Find("ReadyContainer").GetComponent<WaitViewer>();
 		saver = GetComponent<GameStorageManager>();
 
@@ -62,12 +59,12 @@ public class GameController : MonoBehaviour {
 		});
 	}
 
-	void InitMeasurer() {
-		if (loadedMeasures.Peek() == null) {
+	void InitMeasurer(Measurer measurer) {
+		if (measurer == null) {
 			return;
 		}
-		loadedMeasures.Peek().Init(currentTimeText, recordText, diffText, this.Goal);
-		loadedMeasures.Peek().MeasureStart(tmpScores[playingIndex]);
+		measurer.Init(currentTimeText, recordText, diffText, this.Goal);
+		measurer.MeasureStart(tmpScores[playingIndex]);
 	}
 
 	IEnumerator FinishWork() {
@@ -99,16 +96,16 @@ public class GameController : MonoBehaviour {
 			if (child.tag == "End") {
 				lastStageEnd = child.position;
 			} else if (child.tag == "Finish") {
-				if (loadedMeasures.Count > 2) {
-					loadedMeasures.Dequeue();
-				}
 				loadedMeasures.Enqueue(child.gameObject.GetComponent<Measurer>());
-				InitMeasurer();
 			}
 		}
 		loadedStages.Enqueue(newStage);
 		signText.text = "AREA: " + loadedIndex.ToString();
 		++loadedIndex;
+
+		if (loadedIndex > 1) {
+			InitMeasurer(loadedMeasures.Dequeue());
+		}
 	}
 
 	public void Respawn() {
