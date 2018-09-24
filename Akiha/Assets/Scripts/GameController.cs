@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,10 +12,10 @@ public class GameController : MonoBehaviour {
 	Text currentTimeText;
 	Text recordText;
 	Text diffText;
-	Measurer[] loadedMeasures = new Measurer[2];
+	Queue<Measurer> loadedMeasures = new Queue<Measurer>();
 
 	[SerializeField] GameObject[] stages;
-	GameObject[] loadedStages = new GameObject[3];
+	Queue<GameObject> loadedStages = new Queue<GameObject>();
 	Vector3 lastStageEnd;
 	int loadedIndex = 0;
 
@@ -27,6 +28,9 @@ public class GameController : MonoBehaviour {
 	WaitViewer waitViewer;
 
 	Vector3 stageStartPos;
+
+	[SerializeField] UnityEvent pauseEvent;
+	[SerializeField] UnityEvent continueEvent;
 
 	// Use this for initialization
 	void Start() {
@@ -49,22 +53,21 @@ public class GameController : MonoBehaviour {
 
 		saver.Load(out tmpScores);
 
+		Time.timeScale = 0f;
 		LoadStage();
 		LoadStage(); // Prefetching
 
-		waitViewer.ViewGetReady();
+		waitViewer.ViewGetReady(() => {
+			continueEvent.Invoke();
+		});
 	}
 
 	void InitMeasurer() {
-		if (loadedMeasures[0] == null) {
-			if (loadedMeasures[1] == null) {
-				return;
-			}
-			loadedMeasures[0] = loadedMeasures[1];
-			loadedMeasures[1] = null;
+		if (loadedMeasures.Peek() == null) {
+			return;
 		}
-		loadedMeasures[0].Init(currentTimeText, recordText, diffText, this.Goal);
-		loadedMeasures[0].MeasureStart(tmpScores[playingIndex]);
+		loadedMeasures.Peek().Init(currentTimeText, recordText, diffText, this.Goal);
+		loadedMeasures.Peek().MeasureStart(tmpScores[playingIndex]);
 	}
 
 	IEnumerator FinishWork() {
@@ -82,20 +85,13 @@ public class GameController : MonoBehaviour {
 
 	public void LoadStage() {
 		if (stages[loadedIndex] == null) {
-			loadedStages[0] = loadedStages[1];
-			loadedStages[1] = loadedStages[2];
-			loadedStages[2] = null;
-			loadedMeasures[0] = loadedMeasures[1];
-			loadedMeasures[1] = null;
 			return;
 		}
 
 		if (loadedIndex >= 3) {
-			Destroy(loadedStages[0]);
+			Destroy(loadedStages.Peek());
+			loadedStages.Dequeue();
 		}
-
-		loadedStages[0] = loadedStages[1];
-		loadedStages[1] = loadedStages[2];
 
 		var newStage = Instantiate(stages[loadedIndex], lastStageEnd,
 			Quaternion.identity);
@@ -103,12 +99,14 @@ public class GameController : MonoBehaviour {
 			if (child.tag == "End") {
 				lastStageEnd = child.position;
 			} else if (child.tag == "Finish") {
-				loadedMeasures[0] = loadedMeasures[1];
-				loadedMeasures[1] = child.gameObject.GetComponent<Measurer>();
+				if (loadedMeasures.Count > 2) {
+					loadedMeasures.Dequeue();
+				}
+				loadedMeasures.Enqueue(child.gameObject.GetComponent<Measurer>());
 				InitMeasurer();
 			}
 		}
-		loadedStages[2] = newStage;
+		loadedStages.Enqueue(newStage);
 		signText.text = "AREA: " + loadedIndex.ToString();
 		++loadedIndex;
 	}
@@ -139,17 +137,20 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void ToggleMeasurer() {
-		if (loadedMeasures[0] == null) {
+		if (loadedMeasures.Peek() == null) {
 			GoToMainMenu();
 			return;
 		}
 
-		if (loadedMeasures[0].IsMeasuring()) {
+		if (loadedMeasures.Peek().IsMeasuring()) {
+			pauseEvent.Invoke();
 			Time.timeScale = 0;
-			loadedMeasures[0].MeasureStop();
+			loadedMeasures.Peek().MeasureStop();
 		} else {
-			waitViewer.ViewGetReady();
-			loadedMeasures[0].MeasureResume();
+			waitViewer.ViewGetReady(() => {
+				continueEvent.Invoke();
+			});
+			loadedMeasures.Peek().MeasureResume();
 		}
 	}
 

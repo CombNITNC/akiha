@@ -99,11 +99,9 @@ public class PlayerController : MonoBehaviour {
 
 		if (new_c.IsEqualRGB(Color.black)) {
 			color = Color.white;
-		}
-		else if (color.IsEqualRGB(Color.white)) {
+		} else if (color.IsEqualRGB(Color.white)) {
 			color = new_c;
-		}
-		else {
+		} else {
 			color = Color32.Lerp(color, new_c, 0.5f);
 		}
 		ApplyColor();
@@ -142,7 +140,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void Crush() {
-		if (isDead)
+		if (isDead || isFalling)
 			return;
 
 		Instantiate(crushParticle, transform.position, transform.rotation);

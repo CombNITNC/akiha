@@ -965,6 +965,38 @@ MonoBehaviour:
   - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 2}
   wholeCanvas: {fileID: 501476047}
   fader: {fileID: 1622477344}
+  pauseEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 359695735}
+        m_MethodName: OnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  continueEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 359695735}
+        m_MethodName: OnContinue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &875624041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,22 +2097,22 @@ Prefab:
     - target: {fileID: 224797082879070894, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224272649013572174, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224618263478185158, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224969273284707912, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7928305fcda9245bea14a5349e1a775c, type: 2}

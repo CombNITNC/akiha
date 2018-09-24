@@ -678,22 +678,22 @@ Prefab:
     - target: {fileID: 224797082879070894, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224272649013572174, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224618263478185158, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224969273284707912, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224071339481838862, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 2}

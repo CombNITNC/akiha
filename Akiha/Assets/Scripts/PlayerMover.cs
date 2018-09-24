@@ -15,11 +15,14 @@ public class PlayerMover : MonoBehaviour {
   Rigidbody2D body;
   ControlMode controlMode = ControlMode.mouse;
 
+  bool pausing = true;
+
   void Start() {
     body = GetComponent<Rigidbody2D>();
   }
 
   void Update() {
+    if (pausing) { return; }
     var x_in = 0f;
     var y_in = 0f;
     switch (controlMode) {
@@ -32,15 +35,13 @@ public class PlayerMover : MonoBehaviour {
 
           if (midX + graceWidth <= mouse.x) {
             x_in = 1;
-          }
-          else if (mouse.x <= midX - graceWidth) {
+          } else if (mouse.x <= midX - graceWidth) {
             x_in = -1;
           }
 
           if (midY + graceWidth <= mouse.y) {
             y_in = 1;
-          }
-          else if (mouse.y <= midY - graceWidth) {
+          } else if (mouse.y <= midY - graceWidth) {
             y_in = -1;
           }
         }
@@ -58,15 +59,13 @@ public class PlayerMover : MonoBehaviour {
 
           if (graceWidth < gyro.x) {
             x_in = 1;
-          }
-          else if (gyro.x < -graceWidth) {
+          } else if (gyro.x < -graceWidth) {
             x_in = -1;
           }
 
           if (graceWidth < gyro.y) {
             y_in = 1;
-          }
-          else if (gyro.y < -graceWidth) {
+          } else if (gyro.y < -graceWidth) {
             y_in = -1;
           }
         }
@@ -104,5 +103,13 @@ public class PlayerMover : MonoBehaviour {
 
   public void SetControlMode(ControlMode mode) {
     controlMode = mode;
+  }
+
+  public void OnContinue() {
+    body.velocity = Vector2.zero;
+    pausing = false;
+  }
+  public void OnPause() {
+    pausing = true;
   }
 }
