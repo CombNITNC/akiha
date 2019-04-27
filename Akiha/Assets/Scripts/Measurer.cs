@@ -28,6 +28,7 @@ public class Measurer : MonoBehaviour {
 	}
 
 	void Update() {
+		if (currentTimeText == null || diffText == null) return;
 		if (measuringTime) {
 			time += Time.deltaTime;
 			if (visibleTime) {

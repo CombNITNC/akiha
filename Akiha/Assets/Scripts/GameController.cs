@@ -104,7 +104,7 @@ public class GameController : MonoBehaviour {
 		++loadedIndex;
 
 		if (loadedIndex > 1) {
-			InitMeasurer(loadedMeasures.Dequeue());
+			InitMeasurer(loadedMeasures.Peek());
 		}
 	}
 
