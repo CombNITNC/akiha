@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHasColor {
-	Color32 GetColor();
-}
-
 public static class SacredColor {
 	const float thresholdF = 0.02f;
 	const int thresholdI = 5;

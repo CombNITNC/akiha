@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(ColorApplier), typeof(Collider2D))]
 public class ColorDeployer : MonoBehaviour, IHasColor {
 	[SerializeField] Color32 delpoyingColor = Color.red;
-	GameController gameController;
-
 	AudioSource source;
-	[SerializeField] AudioClip depolySound;
+	[SerializeField] AudioClip depolySound = null;
 
 	void Start() {
 		if (GetComponent<AudioSource>() == null)
@@ -19,16 +16,10 @@ public class ColorDeployer : MonoBehaviour, IHasColor {
 
 		source.clip = depolySound;
 		source.playOnAwake = false;
-
-		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
 
 	public Color32 GetColor() {
-		return delpoyingColor;
-	}
-
-	void OnTriggerEnter2D(Collider2D other) {
-		gameController.GetPlayer().SetColor(delpoyingColor);
 		source.Play();
+		return delpoyingColor;
 	}
 }

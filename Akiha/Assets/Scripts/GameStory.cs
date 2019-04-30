@@ -6,7 +6,7 @@ public class GameStory : MonoBehaviour {
   GameObject[] stages = new GameObject[5];
 
   [SerializeField] GameObject[] presets = new GameObject[5];
-  [SerializeField] GameObject goalForSingle;
+  [SerializeField] GameObject goalForSingle = null;
 
   public GameObject[] Fetch() { return stages; }
 

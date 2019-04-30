@@ -6,7 +6,7 @@ using UnityEngine;
 public class ParticleDestroyer : MonoBehaviour {
 	ParticleSystem ps;
 	AudioSource source;
-	[SerializeField] AudioClip breakSound;
+	[SerializeField] AudioClip breakSound = null;
 
 	// Use this for initialization
 	void Start() {

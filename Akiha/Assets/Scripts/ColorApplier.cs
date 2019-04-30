@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(IHasColor))]
 public class ColorApplier : MonoBehaviour {
-	[SerializeField] Renderer rend;
+	[SerializeField] Renderer rend = null;
 	Color src;
 
 	void Start() {

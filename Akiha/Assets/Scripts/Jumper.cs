@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ColorApplier), typeof(CircleCollider2D), typeof(Animation))]
-public class Jumper : MonoBehaviour, IHasColor {
-	[SerializeField] Color activatableColor;
-	GameController gameController;
+public class Jumper : MonoBehaviour, IHasColor, ICollideWithColor {
+	[SerializeField] Color activatableColor = Color.red;
 	[SerializeField] float jumpDuration = 3.0f;
 
 	AudioSource source;
-	[SerializeField] AudioClip jumpSound;
+	[SerializeField] AudioClip jumpSound = null;
 
 	Animation anim;
+	PlayerController player;
 
 	void Start() {
 		if (GetComponent<AudioSource>() == null)
@@ -22,23 +22,19 @@ public class Jumper : MonoBehaviour, IHasColor {
 		source.clip = jumpSound;
 		source.playOnAwake = false;
 
-		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 		anim = GetComponent<Animation>();
+		player = GameObject.FindWithTag("GameController").GetComponent<GameController>().GetPlayer();
 	}
 
 	public Color32 GetColor() {
 		return activatableColor;
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		var player = gameController.GetPlayer();
-		if (player != null) {
-			if (player.GetColor().IsEqualRGB(activatableColor)) {
-				player.StartJump(jumpDuration);
-				source.Play();
-			}
+	public void CollideWith(Color32 color) {
+		if (color.IsEqualRGB(activatableColor)) {
+			player.StartJump(jumpDuration);
+			source.Play();
+			anim.Play();
 		}
-
-		anim.Play();
 	}
 }

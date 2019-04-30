@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 359695729}
   - component: {fileID: 359695732}
   - component: {fileID: 359695735}
+  - component: {fileID: 359695736}
   - component: {fileID: 359695731}
   - component: {fileID: 359695730}
   - component: {fileID: 359695733}
@@ -266,10 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1792930395}
-  color:
-    serializedVersion: 2
-    rgba: 4294967295
-  colorSetWaitDuration: 0.2
   jumpHeight: -4
   crushParticle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf,
     type: 3}
@@ -315,6 +312,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLength: 5.65
+--- !u!114 &359695736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359695728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b314d1d8f6546d2ba6ee1b89046dba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  colorSetWaitDuration: 0.2
 --- !u!114 &371844061 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114416584821132556, guid: 7928305fcda9245bea14a5349e1a775c,

@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class WaitViewer : MonoBehaviour {
   Animator anim;
-  [SerializeField] GameObject blocker;
+  [SerializeField] GameObject blocker = null;
 
   public delegate void Callback();
 

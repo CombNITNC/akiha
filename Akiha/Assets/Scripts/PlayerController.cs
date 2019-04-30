@@ -3,18 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IHasColor {
+	Color32 GetColor();
+}
+
+public interface ICollideWithColor {
+	void CollideWith(Color32 color);
+}
+
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 [RequireComponent(typeof(CircleCollider2D), typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerPaintable))]
 public class PlayerController : MonoBehaviour {
 	Rigidbody2D body;
 	Renderer rend;
 	Animator anim;
 	CircleCollider2D col;
-	[SerializeField] GameObject playerObject;
-
-	[SerializeField] Color32 color = Color.white;
-	[SerializeField] float colorSetWaitDuration = 0.2f;
-	float colorSetCounter = 0.2f;
+	[SerializeField] GameObject playerObject = null;
 
 	[SerializeField] float jumpHeight = 2.0f;
 	bool isJumping = false;
@@ -22,33 +27,32 @@ public class PlayerController : MonoBehaviour {
 	bool isDead = false;
 	Vector3 respawnPos;
 
-	[SerializeField] GameObject crushParticle;
+	[SerializeField] GameObject crushParticle = null;
 	[SerializeField] float crushWaitDuration = 1.5f;
-
 	AudioSource source;
-	[SerializeField] AudioClip fallSound;
+	[SerializeField] AudioClip fallSound = null;
 
 	PlayerMover mover;
+	PlayerPaintable paintable;
 
 	// Use this for initialization
 	void Start() {
 		body = GetComponent<Rigidbody2D>();
 		rend = playerObject.GetComponent<Renderer>();
-		rend.material.color = color;
 		anim = GetComponent<Animator>();
 		respawnPos = transform.position;
 		col = GetComponent<CircleCollider2D>();
 		source = gameObject.AddComponent<AudioSource>();
 		mover = GetComponent<PlayerMover>();
 		mover.SetControlMode((ControlMode) PlayerPrefs.GetInt("ControlMode", 0));
+		paintable = GetComponent<PlayerPaintable>();
+		paintable.SetDelegate(ApplyColorDelegate);
 		source.clip = fallSound;
 	}
 
 	// Update is called once per frame
 	void Update() {
-		colorSetCounter += Time.deltaTime;
-
-		if (!(isJumping || isFalling || isDead)) {
+		if (IsOnFloor()) {
 			DetectFalling();
 		}
 	}
@@ -66,8 +70,8 @@ public class PlayerController : MonoBehaviour {
 
 	IEnumerator JumpWork(float duration) {
 		isJumping = true;
-		var jumpingTime = 0f;
 		col.enabled = false;
+		var jumpingTime = 0f;
 
 		Vector3 newPos = Vector3.zero;
 		var a = jumpHeight / (duration * duration / 4);
@@ -90,32 +94,31 @@ public class PlayerController : MonoBehaviour {
 		yield break;
 	}
 
-	public void SetColor(Color32 new_c) {
-		if (colorSetCounter < colorSetWaitDuration || isDead || isFalling) {
-			return;
+	void OnTriggerEnter2D(Collider2D col) {
+		var color = col.GetComponent<IHasColor>();
+		if (color != null && IsOnFloor()) {
+			paintable.SetColor(color);
 		}
 
-		colorSetCounter = 0.0f;
-
-		if (new_c.IsEqualRGB(Color.black)) {
-			color = Color.white;
-		} else if (color.IsEqualRGB(Color.white)) {
-			color = new_c;
-		} else {
-			color = Color32.Lerp(color, new_c, 0.5f);
+		var collider = col.GetComponent<ICollideWithColor>();
+		if (collider != null) {
+			collider.CollideWith(paintable.GetColor());
 		}
-		ApplyColor();
 	}
 
-	public Color GetColor() {
-		if (isFalling) {
-			return Color.black;
+	void OnCollisionEnter2D(Collision2D col) {
+		var breakable = col.gameObject.GetComponent<ICollideWithColor>();
+		if (breakable != null) {
+			breakable.CollideWith(paintable.GetColor());
 		}
-		return color;
 	}
 
-	void ApplyColor() {
+	void ApplyColorDelegate(Color32 color) {
 		rend.material.color = color;
+	}
+
+	bool IsOnFloor() {
+		return !(isJumping || isDead || isFalling);
 	}
 
 	public void StartJump(float duration) {
@@ -123,9 +126,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SetRespawn(Vector3 pos) {
-		if (isFalling) {
+		if (!IsOnFloor())
 			return;
-		}
+
 		respawnPos = pos;
 	}
 
@@ -140,7 +143,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void Crush() {
-		if (isDead || isFalling)
+		if (!IsOnFloor())
 			return;
 
 		Instantiate(crushParticle, transform.position, transform.rotation);

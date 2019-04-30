@@ -10,10 +10,9 @@ public class SettingsController : MonoBehaviour {
   float _sensivity = 1f;
   float _volume = 1f;
 
-  [SerializeField] Dropdown controlModeSelector;
-  [SerializeField] Slider sensivitySlider;
-  [SerializeField] Slider volumeSlider;
-  [SerializeField] Button saveButton;
+  [SerializeField] Dropdown controlModeSelector = null;
+  [SerializeField] Slider sensivitySlider = null;
+  [SerializeField] Slider volumeSlider = null;
 
   Canvas canvas;
   GameController gameController;
@@ -46,10 +45,6 @@ public class SettingsController : MonoBehaviour {
     yield break;
   }
 
-  IEnumerator SaveButtonAnimate() {
-    yield return null;
-  }
-
   public void ApplyValue() {
     _controlMode = controlModeSelector.value;
     _sensivity = sensivitySlider.normalizedValue;
@@ -64,8 +59,6 @@ public class SettingsController : MonoBehaviour {
     if (gameController != null) {
       gameController.NotifyChangedSettings();
     }
-
-    StartCoroutine(SaveButtonAnimate());
   }
 
   public void Open() {

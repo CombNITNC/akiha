@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
 public class Measurer : MonoBehaviour {
-	[SerializeField] GameObject door;
+	[SerializeField] GameObject door = null;
 	[SerializeField] bool visibleTime = true;
 	float time = 0.0f, startTime = 0.0f, highscore = 0.0f;
 	bool measuringTime = false;
@@ -18,8 +18,8 @@ public class Measurer : MonoBehaviour {
 	GoalDelegate delegater;
 
 	AudioSource source;
-	[SerializeField] AudioClip clearSound;
-	[SerializeField] AudioClip highscoreSound;
+	[SerializeField] AudioClip clearSound = null;
+	[SerializeField] AudioClip highscoreSound = null;
 
 	// Use this for initialization
 	void Start() {

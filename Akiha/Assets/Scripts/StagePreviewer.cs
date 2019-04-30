@@ -26,8 +26,8 @@ public class StagePreviewer : MonoBehaviour {
 	float threshold = 0f;
 	float start = 0f;
 
-	[SerializeField] Text layerLabel;
-	[SerializeField] Text scoreLabel;
+	[SerializeField] Text layerLabel = null;
+	[SerializeField] Text scoreLabel = null;
 	float[] tmpScores = new float[5];
 
 	void Start() {
@@ -53,8 +53,7 @@ public class StagePreviewer : MonoBehaviour {
 					if (Mathf.Abs(start - touch.position.x) > threshold) {
 						if (start > touch.position.x) {
 							ViewPrev();
-						}
-						else {
+						} else {
 							ViewNext();
 						}
 					}

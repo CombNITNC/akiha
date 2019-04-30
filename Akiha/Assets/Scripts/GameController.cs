@@ -8,13 +8,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GameStorageManager))]
 public class GameController : MonoBehaviour {
 	PlayerController player;
-	[SerializeField] Text signText;
-	[SerializeField] Text currentTimeText;
-	[SerializeField] Text recordText;
-	[SerializeField] Text diffText;
+	[SerializeField] Text signText = null;
+	[SerializeField] Text currentTimeText = null;
+	[SerializeField] Text recordText = null;
+	[SerializeField] Text diffText = null;
 	Queue<Measurer> loadedMeasures = new Queue<Measurer>();
 
-	[SerializeField] GameObject[] stages;
+	[SerializeField] GameObject[] stages = new GameObject[5];
 	Queue<GameObject> loadedStages = new Queue<GameObject>();
 	Vector3 lastStageEnd;
 	int loadedIndex = 0;
@@ -23,14 +23,14 @@ public class GameController : MonoBehaviour {
 	int playingIndex = 0;
 	float[] tmpScores;
 
-	[SerializeField] Canvas wholeCanvas;
-	[SerializeField] Image fader;
+	[SerializeField] Canvas wholeCanvas = null;
+	[SerializeField] Image fader = null;
 	WaitViewer waitViewer;
 
 	Vector3 stageStartPos;
 
-	[SerializeField] UnityEvent pauseEvent;
-	[SerializeField] UnityEvent continueEvent;
+	[SerializeField] UnityEvent pauseEvent = null;
+	[SerializeField] UnityEvent continueEvent = null;
 
 	// Use this for initialization
 	void Start() {

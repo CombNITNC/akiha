@@ -11,10 +11,10 @@ public class SceneLoader : MonoBehaviour {
 	float alpha = 0.0f;
 
 	[SerializeField] string entry = "MainMenu";
-	[SerializeField] Text text;
+	[SerializeField] Text text = null;
 	[SerializeField] float speedPerSec = 2f;
-	[SerializeField] UnityEvent willTransition;
-	[SerializeField] UnityEvent didTransition;
+	[SerializeField] UnityEvent willTransition = null;
+	[SerializeField] UnityEvent didTransition = null;
 
 	void Awake() {
 		if (!made) {

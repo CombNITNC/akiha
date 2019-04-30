@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-struct ArrayDuplicatorParam {
-	[SerializeField] public GameObject target;
-	[SerializeField] public Vector3 count;
-	[SerializeField] public Vector3 padding;
-	[SerializeField] public Vector3 rotateOffset;
-	[SerializeField] public Vector3 scaleOffset;
+class ArrayDuplicatorParam {
+	[SerializeField] public GameObject target = null;
+	[SerializeField] public Vector3 count = new Vector3(1, 1, 1);
+	[SerializeField] public Vector3 padding = new Vector3(1, 1, 1);
+	[SerializeField] public Vector3 rotateOffset = Vector3.zero;
+	[SerializeField] public Vector3 scaleOffset = Vector3.zero;
 }
 
 public class ArrayDuplicator : MonoBehaviour {
-	[SerializeField] ArrayDuplicatorParam[] pars;
+	[SerializeField] ArrayDuplicatorParam[] pars = new ArrayDuplicatorParam[1];
 
 	void Start() {
 		foreach (var param in pars) {

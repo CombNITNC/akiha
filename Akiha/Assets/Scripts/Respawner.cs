@@ -5,18 +5,18 @@ using UnityEngine;
 public class Respawner : MonoBehaviour {
 	GameObject gameController;
 	AudioSource source;
-	[SerializeField] AudioClip registerSound;
+	[SerializeField] AudioClip registerSound = null;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = registerSound;
 		gameController = GameObject.FindWithTag("GameController");
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		
+	void Update() {
+
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
