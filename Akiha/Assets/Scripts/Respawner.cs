@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Respawner : MonoBehaviour {
-	GameObject gameController;
+public class Respawner : MonoBehaviour, ICollideWithColor {
 	AudioSource source;
 	[SerializeField] AudioClip registerSound = null;
 
@@ -11,18 +10,12 @@ public class Respawner : MonoBehaviour {
 	void Start() {
 		source = gameObject.AddComponent<AudioSource>();
 		source.clip = registerSound;
-		gameController = GameObject.FindWithTag("GameController");
 	}
 
-	// Update is called once per frame
-	void Update() {
-
-	}
-
-	void OnTriggerEnter2D(Collider2D other) {
+	public void CollideWith(Color32 color, PlayerController player) {
 		var respawnPos = transform.position;
 		respawnPos.z = 0;
-		gameController.GetComponent<GameController>().SetRespawn(respawnPos);
+		player.SetRespawn(respawnPos);
 		GetComponent<Renderer>().material.color = Color.cyan;
 		source.Play();
 	}

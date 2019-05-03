@@ -8,6 +8,7 @@ class GameData {
   public float[] _data = new float[5];
 }
 
+[DisallowMultipleComponent]
 public class GameStorageManager : MonoBehaviour {
   [SerializeField] string saveFilePath = "akiha.sav";
 

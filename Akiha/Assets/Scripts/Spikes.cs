@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Spikes : MonoBehaviour {
+public class Spikes : MonoBehaviour, ICollideWithColor {
 	[SerializeField] bool rotateClockwise = false;
 	[SerializeField] float rotateSpeed = 40.0f;
-
-	GameController gameController;
-
-	// Use this for initialization
-	void Start() {
-		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-	}
 
 	// Update is called once per frame
 	void Update() {
@@ -20,8 +13,7 @@ public class Spikes : MonoBehaviour {
 		transform.Rotate(0f, 0f, deg);
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == "Player")
-			gameController.GetPlayer().Crush();
+	public void CollideWith(Color32 color, PlayerController player) {
+		player.Crush();
 	}
 }

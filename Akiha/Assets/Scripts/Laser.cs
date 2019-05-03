@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D), typeof(Renderer))]
-public class Laser : MonoBehaviour {
+public class Laser : MonoBehaviour, ICollideWithColor {
 	[SerializeField] float emitInterval = 2.0f;
 	[SerializeField] float emitDuration = 2.0f;
 	Collider2D col;
 	Renderer rend;
 	float time = 0.0f;
-	GameController gameController;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		col = GetComponent<Collider2D>();
 		rend = GetComponent<Renderer>();
-		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		time += Time.deltaTime;
 
 		// Transition the state
@@ -38,9 +36,7 @@ public class Laser : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (col.enabled) {
-			gameController.GetPlayer().Crush();
-		}
+	public void CollideWith(Color32 color, PlayerController player) {
+		player.Crush();
 	}
 }

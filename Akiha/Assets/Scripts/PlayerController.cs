@@ -8,7 +8,7 @@ public interface IHasColor {
 }
 
 public interface ICollideWithColor {
-	void CollideWith(Color32 color);
+	void CollideWith(Color32 color, PlayerController player);
 }
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour {
 
 		var collider = col.GetComponent<ICollideWithColor>();
 		if (collider != null) {
-			collider.CollideWith(paintable.GetColor());
+			collider.CollideWith(paintable.GetColor(), this);
 		}
 	}
 

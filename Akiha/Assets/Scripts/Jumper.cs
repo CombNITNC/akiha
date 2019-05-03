@@ -11,7 +11,6 @@ public class Jumper : MonoBehaviour, IHasColor, ICollideWithColor {
 	[SerializeField] AudioClip jumpSound = null;
 
 	Animation anim;
-	PlayerController player;
 
 	void Start() {
 		if (GetComponent<AudioSource>() == null)
@@ -23,14 +22,13 @@ public class Jumper : MonoBehaviour, IHasColor, ICollideWithColor {
 		source.playOnAwake = false;
 
 		anim = GetComponent<Animation>();
-		player = GameObject.FindWithTag("GameController").GetComponent<GameController>().GetPlayer();
 	}
 
 	public Color32 GetColor() {
 		return activatableColor;
 	}
 
-	public void CollideWith(Color32 color) {
+	public void CollideWith(Color32 color, PlayerController player) {
 		if (color.IsEqualRGB(activatableColor)) {
 			player.StartJump(jumpDuration);
 			source.Play();

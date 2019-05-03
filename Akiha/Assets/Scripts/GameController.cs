@@ -5,7 +5,6 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(GameStorageManager))]
 public class GameController : MonoBehaviour {
 	PlayerController player;
 	[SerializeField] Text signText = null;
@@ -47,6 +46,8 @@ public class GameController : MonoBehaviour {
 		stageStartPos = player.gameObject.transform.position;
 		waitViewer = GameObject.Find("ReadyContainer").GetComponent<WaitViewer>();
 		saver = GetComponent<GameStorageManager>();
+		if (saver == null)
+			saver = AddComponent<GameStorageManager>();
 
 		saver.Load(out tmpScores);
 
@@ -114,10 +115,6 @@ public class GameController : MonoBehaviour {
 
 	public PlayerController GetPlayer() {
 		return player;
-	}
-
-	public void SetRespawn(Vector3 pos) {
-		player.SetRespawn(pos);
 	}
 
 	public void Goal(float score) {
