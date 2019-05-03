@@ -5,12 +5,13 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+#pragma warning disable 0649
 public class GameController : MonoBehaviour {
 	PlayerController player;
-	[SerializeField] Text signText = null;
-	[SerializeField] Text currentTimeText = null;
-	[SerializeField] Text recordText = null;
-	[SerializeField] Text diffText = null;
+	[SerializeField] Text signText;
+	[SerializeField] Text currentTimeText;
+	[SerializeField] Text recordText;
+	[SerializeField] Text diffText;
 	Queue<Measurer> loadedMeasures = new Queue<Measurer>();
 
 	[SerializeField] GameObject[] stages = new GameObject[5];
@@ -47,25 +48,16 @@ public class GameController : MonoBehaviour {
 		waitViewer = GameObject.Find("ReadyContainer").GetComponent<WaitViewer>();
 		saver = GetComponent<GameStorageManager>();
 		if (saver == null)
-			saver = AddComponent<GameStorageManager>();
+			saver = gameObject.AddComponent<GameStorageManager>();
 
 		saver.Load(out tmpScores);
 
 		Time.timeScale = 0f;
-		LoadStage();
-		LoadStage(); // Prefetching
+		StartCoroutine(PrefetchStage());
 
 		waitViewer.ViewGetReady(() => {
 			continueEvent.Invoke();
 		});
-	}
-
-	void InitMeasurer(Measurer measurer) {
-		if (measurer == null) {
-			return;
-		}
-		measurer.Init(currentTimeText, recordText, diffText, this.Goal);
-		measurer.MeasureStart(tmpScores[playingIndex]);
 	}
 
 	IEnumerator FinishWork() {
@@ -81,48 +73,53 @@ public class GameController : MonoBehaviour {
 		yield break;
 	}
 
-	public void LoadStage() {
+	private void PreProcessStage(GameObject newStage) {
+		foreach (Transform child in newStage.transform) {
+			if (child.tag == "End") {
+				lastStageEnd = child.position;
+			} else if (child.tag == "Finish") {
+				var m = Measurer.AttachMeasure(child.gameObject, currentTimeText, diffText, this.Goal, tmpScores[playingIndex]);
+				loadedMeasures.Enqueue(m);
+			}
+		}
+	}
+
+	private IEnumerator PrefetchStage() {
+		yield return StartCoroutine(LoadStage());
+		yield return StartCoroutine(LoadStage());
+	}
+
+	public IEnumerator LoadStage() {
 		if (stages[loadedIndex] == null) {
-			return;
+			yield break;
 		}
 
 		if (loadedIndex >= 3) {
-			Destroy(loadedStages.Peek());
 			loadedStages.Dequeue();
 		}
 
 		var newStage = Instantiate(stages[loadedIndex], lastStageEnd,
 			Quaternion.identity);
-		foreach (Transform child in newStage.transform) {
-			if (child.tag == "End") {
-				lastStageEnd = child.position;
-			} else if (child.tag == "Finish") {
-				loadedMeasures.Enqueue(child.gameObject.GetComponent<Measurer>());
-			}
-		}
+		PreProcessStage(newStage);
 		loadedStages.Enqueue(newStage);
 		signText.text = "AREA: " + loadedIndex.ToString();
 		++loadedIndex;
 
 		if (loadedIndex > 1) {
-			InitMeasurer(loadedMeasures.Peek());
+			var text = tmpScores[playingIndex].ToString("00.0000");
+			recordText.text = text;
+			loadedMeasures.Peek().MeasureStart();
 		}
+
+		yield return newStage;
 	}
 
-	public void Respawn() {
-		player.Respawn();
-	}
-
-	public PlayerController GetPlayer() {
-		return player;
-	}
-
-	public void Goal(float score) {
+	private void Goal(float score) {
 		var playerPos = player.gameObject.transform.position;
 		playerPos.y += 2;
 		player.SetRespawn(playerPos);
 		stageStartPos = playerPos;
-		LoadStage();
+		StartCoroutine(LoadStage());
 
 		if (tmpScores[playingIndex] > score)
 			tmpScores[playingIndex] = score;

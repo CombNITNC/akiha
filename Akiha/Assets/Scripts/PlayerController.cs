@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col) {
 		var breakable = col.gameObject.GetComponent<ICollideWithColor>();
 		if (breakable != null) {
-			breakable.CollideWith(paintable.GetColor());
+			breakable.CollideWith(paintable.GetColor(), this);
 		}
 	}
 

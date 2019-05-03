@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+#pragma warning disable 0649
 [RequireComponent(typeof(Collider2D))]
 public class Measurer : MonoBehaviour {
-	[SerializeField] GameObject door = null;
+	[SerializeField] GameObject door;
 	[SerializeField] bool visibleTime = true;
 	float time = 0.0f, startTime = 0.0f, highscore = 0.0f;
 	bool measuringTime = false;
 
 	Text currentTimeText;
-	Text recordText;
 	Text diffText;
 
 	public delegate void GoalDelegate(float time);
@@ -28,21 +28,25 @@ public class Measurer : MonoBehaviour {
 	}
 
 	void Update() {
-		if (currentTimeText == null || diffText == null) return;
-		if (measuringTime) {
-			time += Time.deltaTime;
-			if (visibleTime) {
-				currentTimeText.text = (time - startTime).ToString("00.0000");
-			}
+		if (!measuringTime) {
+			return;
+		}
 
-			if (highscore == 10000.0f) {
-				diffText.text = "First record.";
-			} else if ((time - startTime) < highscore) {
+		time += Time.deltaTime;
+		if (visibleTime) {
+			currentTimeText.text = (time - startTime).ToString("00.0000");
+		}
+
+		if (highscore == 10000.0f) {
+			diffText.text = "First record.";
+		} else {
+			var diff = time - startTime - highscore;
+			if ((time - startTime) < highscore) {
 				source.clip = highscoreSound;
-				diffText.text = "-" + (-(time - startTime - highscore)).ToString("00.000");
+				diffText.text = "-" + (-diff).ToString("00.000");
 				diffText.color = Color.green;
 			} else {
-				diffText.text = "+" + (time - startTime - highscore).ToString("00.000");
+				diffText.text = "+" + diff.ToString("00.000");
 				diffText.color = Color.red;
 			}
 		}
@@ -51,12 +55,8 @@ public class Measurer : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		measuringTime = false;
 		if (col.gameObject.tag == "Player") {
-			if (visibleTime) {
-				var text = (time - startTime).ToString("00.0000");
-				recordText.text = text;
-			}
-
-			delegater(time - startTime);
+			if (delegater != null)
+				delegater(time - startTime);
 			source.Play();
 		}
 		door.SetActive(false);
@@ -67,16 +67,19 @@ public class Measurer : MonoBehaviour {
 		door.SetActive(true);
 	}
 
-	public void Init(Text _current, Text _record, Text _diff, GoalDelegate _delegater) {
-		delegater = _delegater;
-		currentTimeText = _current;
-		recordText = _record;
-		diffText = _diff;
+	public static Measurer AttachMeasure(GameObject target, Text _current, Text _diff, GoalDelegate _delegater, float _highscore = 10000.0f) {
+		var self = target.GetComponent<Measurer>();
+		if (self == null)
+			self = target.AddComponent<Measurer>();
+
+		self.delegater = _delegater;
+		self.currentTimeText = _current;
+		self.diffText = _diff;
+		self.highscore = _highscore;
+		return self;
 	}
 
-	public void MeasureStart(float _highscore = 10000.0f) {
-		highscore = _highscore;
-		recordText.text = highscore.ToString("00.0000");
+	public void MeasureStart() {
 		startTime = Time.time;
 		time = startTime;
 		measuringTime = true;
