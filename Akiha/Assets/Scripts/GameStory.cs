@@ -14,7 +14,7 @@ public class GameStory : MonoBehaviour {
     for (int i = 0; i < 5; ++i) {
       if (presets[i] == null) {
         Debug.LogError("The stage is invalid at " + i);
-        continue;
+        return;
       }
       stages[i] = presets[i];
     }
