@@ -16,17 +16,17 @@ public class ArrayDuplicator : MonoBehaviour {
 
 	void Start() {
 		foreach (var param in pars) {
-			GameObject prevObj = param.target;
+			bool needToScale = param.scaleOffset != Vector3.zero;
 			for (int z = 0; z < param.count.z; ++z) {
 				for (int y = 0; y < param.count.y; ++y) {
 					for (int x = 0; x < param.count.x; ++x) {
-						var clone = Instantiate(prevObj, Vector3.zero, Quaternion.identity);
-						clone.transform.parent = prevObj.transform;
-						clone.transform.localScale = param.scaleOffset;
+						var clone = Instantiate(param.target, Vector3.zero, Quaternion.identity);
+						clone.transform.parent = transform;
+						if (needToScale) {
+							clone.transform.localScale = Vector3.Scale(param.scaleOffset, new Vector3(x, y, z));
+						}
 						clone.transform.localRotation = Quaternion.Euler(param.rotateOffset);
-						clone.transform.localPosition = param.padding;
-
-						prevObj = clone;
+						clone.transform.localPosition = Vector3.Scale(param.padding, new Vector3(x, y, z));
 					}
 				}
 			}
