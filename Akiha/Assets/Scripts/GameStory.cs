@@ -11,9 +11,10 @@ public class GameStory : MonoBehaviour {
   public GameObject[] Fetch() { return stages; }
 
   public void All() {
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < presets.Length; ++i) {
       if (presets[i] == null) {
         Debug.LogError("The stage is invalid at " + i);
+        stages[i] = goalForSingle;
         return;
       }
       stages[i] = presets[i];

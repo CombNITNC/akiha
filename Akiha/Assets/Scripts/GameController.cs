@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (loadedIndex >= 3) {
-			loadedStages.Dequeue();
+			Destroy(loadedStages.Dequeue());
 		}
 
 		var newStage = Instantiate(stages[loadedIndex], lastStageEnd,

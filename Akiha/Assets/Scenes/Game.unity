@@ -1026,10 +1026,10 @@ MonoBehaviour:
   recordText: {fileID: 1417046618}
   diffText: {fileID: 1715781505}
   stages:
-  - {fileID: 1807317122312092, guid: bb82225f61fc64d1babff16f03750b77, type: 3}
   - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
-  - {fileID: 1802514592653448, guid: 4f72986db4a30427d8162f500cf88453, type: 3}
   - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 3}
+  - {fileID: 1802514592653448, guid: 4f72986db4a30427d8162f500cf88453, type: 3}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 3}
   wholeCanvas: {fileID: 501476047}
@@ -2266,6 +2266,11 @@ PrefabInstance:
     - target: {fileID: 224969273284707912, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223215823112286208, guid: 7928305fcda9245bea14a5349e1a775c,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
