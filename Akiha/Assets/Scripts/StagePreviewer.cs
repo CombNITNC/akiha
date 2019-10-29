@@ -72,7 +72,7 @@ public class StagePreviewer : MonoBehaviour {
 			anims[i] = previews[i].camera.gameObject.AddComponent<Animation>();
 
 			Vector3 stageEnd = Vector3.zero;
-			foreach (Transform child in stage.transform) {
+			foreach (Transform child in previews[i].stage.transform) {
 				if (child.tag == "End") {
 					stageEnd = child.position;
 				}
