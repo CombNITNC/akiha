@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 58622158718229758}
   - component: {fileID: 114293746185581982}
   - component: {fileID: 114424490854151554}
+  - component: {fileID: 2732002053817910314}
   - component: {fileID: 51621511200451539}
   m_Layer: 0
   m_Name: ColorDeployerModel (7)
@@ -128,6 +129,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 23210848275338304}
+--- !u!114 &2732002053817910314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009837079302046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!82 &51621511200451539
 AudioSource:
   m_ObjectHideFlags: 0
@@ -509,6 +527,7 @@ GameObject:
   - component: {fileID: 58309873113182506}
   - component: {fileID: 114131862982327118}
   - component: {fileID: 114867968130685304}
+  - component: {fileID: 5381828462850935210}
   - component: {fileID: 3016033168602432419}
   m_Layer: 0
   m_Name: ColorDeployerModel (5)
@@ -623,6 +642,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 23036438648716792}
+--- !u!114 &5381828462850935210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065662623353958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!82 &3016033168602432419
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2123,6 +2159,7 @@ GameObject:
   - component: {fileID: 58834675309971588}
   - component: {fileID: 114873584042096662}
   - component: {fileID: 114083222705314658}
+  - component: {fileID: 8035912703101393212}
   - component: {fileID: 1679814709455895532}
   m_Layer: 0
   m_Name: ColorDeployerModel (1)
@@ -2237,6 +2274,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 23307599694148456}
+--- !u!114 &8035912703101393212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302973663756710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!82 &1679814709455895532
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2785,6 +2839,7 @@ GameObject:
   - component: {fileID: 58085627548781940}
   - component: {fileID: 114152821351983378}
   - component: {fileID: 114640752403952378}
+  - component: {fileID: 7210166276181965607}
   - component: {fileID: 8213075802364576537}
   m_Layer: 0
   m_Name: ColorDeployerModel (6)
@@ -2899,6 +2954,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 23962826941460604}
+--- !u!114 &7210166276181965607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374440131943788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!82 &8213075802364576537
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3574,6 +3646,7 @@ GameObject:
   - component: {fileID: 58532144522496052}
   - component: {fileID: 114659148960005974}
   - component: {fileID: 114666526809419150}
+  - component: {fileID: 4513318598476466474}
   - component: {fileID: 659424784838500783}
   m_Layer: 0
   m_Name: ColorDeployerModel (8)
@@ -3688,6 +3761,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 23589501545165138}
+--- !u!114 &4513318598476466474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455959935568956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!82 &659424784838500783
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4193,6 +4283,7 @@ GameObject:
   - component: {fileID: 114119236134972460}
   - component: {fileID: 114261836972518460}
   - component: {fileID: 2228713632060507443}
+  - component: {fileID: 6489259890380359610}
   m_Layer: 0
   m_Name: ColorDeployerModel
   m_TagString: Untagged
@@ -4402,6 +4493,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6489259890380359610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557230250479694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!1 &1561755008546780
 GameObject:
   m_ObjectHideFlags: 0
@@ -5122,6 +5230,7 @@ GameObject:
   - component: {fileID: 58299276769216940}
   - component: {fileID: 114244758042271254}
   - component: {fileID: 114297410076500364}
+  - component: {fileID: 6032467206717085944}
   - component: {fileID: 8420918151013216196}
   m_Layer: 0
   m_Name: ColorDeployerModel (3)
@@ -5236,6 +5345,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 23321229056054060}
+--- !u!114 &6032467206717085944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670871823099898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!82 &8420918151013216196
 AudioSource:
   m_ObjectHideFlags: 0

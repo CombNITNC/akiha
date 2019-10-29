@@ -1705,6 +1705,7 @@ GameObject:
   - component: {fileID: 58770521256131168}
   - component: {fileID: 114480266793525896}
   - component: {fileID: 82037589229466270}
+  - component: {fileID: 8962619311194761110}
   m_Layer: 0
   m_Name: ColorDepolyer (2)
   m_TagString: Untagged
@@ -1914,6 +1915,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8962619311194761110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410192128228864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!1 &1423150292386426
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,6 +2897,7 @@ GameObject:
   - component: {fileID: 114159642897900492}
   - component: {fileID: 58338690129490426}
   - component: {fileID: 82732901653048480}
+  - component: {fileID: 2231355666003652203}
   m_Layer: 0
   m_Name: ColorDeployerModel
   m_TagString: Untagged
@@ -3088,6 +3107,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2231355666003652203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760871558644928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!1 &1775749257652998
 GameObject:
   m_ObjectHideFlags: 0
@@ -3103,6 +3139,7 @@ GameObject:
   - component: {fileID: 58450051730490102}
   - component: {fileID: 114434897331239118}
   - component: {fileID: 82372196169838538}
+  - component: {fileID: 1988580936323707435}
   m_Layer: 0
   m_Name: ColorDepolyer (3)
   m_TagString: Untagged
@@ -3312,6 +3349,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1988580936323707435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775749257652998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!1 &1785665853934738
 GameObject:
   m_ObjectHideFlags: 0
@@ -3752,6 +3806,7 @@ GameObject:
   - component: {fileID: 114413056567736498}
   - component: {fileID: 58574601173648346}
   - component: {fileID: 82226887759599146}
+  - component: {fileID: 3442724000017671582}
   m_Layer: 0
   m_Name: ColorDeployerModel (1)
   m_TagString: Untagged
@@ -3961,6 +4016,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3442724000017671582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854202293579248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5de1515ccc04e78aa5252618a3ddeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockwise: 1
+  rotateX: 0
+  rotateY: 0
+  rotateZ: 1
+  speed: 10
 --- !u!1 &1858436885791158
 GameObject:
   m_ObjectHideFlags: 0
