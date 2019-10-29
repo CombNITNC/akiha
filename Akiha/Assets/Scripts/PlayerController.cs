@@ -101,14 +101,14 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		var collider = col.GetComponent<ICollideWithColor>();
-		if (collider != null) {
+		if (collider != null && IsOnFloor()) {
 			collider.CollideWith(paintable.GetColor(), this);
 		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
 		var breakable = col.gameObject.GetComponent<ICollideWithColor>();
-		if (breakable != null) {
+		if (breakable != null && IsOnFloor()) {
 			breakable.CollideWith(paintable.GetColor(), this);
 		}
 	}
