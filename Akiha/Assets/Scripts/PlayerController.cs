@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using UnityEngine;
 
 public interface IHasColor {
@@ -114,7 +116,18 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void ApplyColorDelegate(Color32 color) {
-		rend.material.color = color;
+		StartCoroutine(ApplyColorWithLerp(color, 0.1f));
+	}
+
+	IEnumerator ApplyColorWithLerp(Color32 dst, float duration) {
+		Color32 src = rend.material.color;
+		for (float time = 0f; time <= duration; time += Time.deltaTime) {
+			rend.material.color = Color32.Lerp(src, dst, time / duration);
+			yield return null;
+		}
+
+		rend.material.color = dst;
+		yield break;
 	}
 
 	bool IsOnFloor() {
