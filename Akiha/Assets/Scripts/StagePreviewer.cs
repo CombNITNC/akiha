@@ -81,7 +81,6 @@ public class StagePreviewer : MonoBehaviour {
 				if (stage == null) {
 					continue;
 				}
-				Debug.Log(stage);
 			}
 			stage = Instantiate(stage, new Vector3(i * 100f, 0f, 0f), Quaternion.identity);
 
