@@ -17,6 +17,7 @@ class PreviewContainer {
 
 [RequireComponent(typeof(GameStorageManager), typeof(ScreenWiper))]
 public class StagePreviewer : MonoBehaviour {
+	GameGod god = null;
 	Animation[] anims = new Animation[5];
 	[SerializeField] PreviewContainer[] previews = new PreviewContainer[5];
 	[SerializeField] float cycleDuration = 5.0f;
@@ -31,6 +32,9 @@ public class StagePreviewer : MonoBehaviour {
 	float[] tmpScores = new float[5];
 
 	void Start() {
+		var godObj = GameObject.FindWithTag("God");
+		if (godObj != null) { god = godObj.GetComponent<GameGod>(); }
+
 		threshold = Screen.width / 2.5f;
 		GenerateAnimations();
 		if (anims[0] != null) {
@@ -63,11 +67,23 @@ public class StagePreviewer : MonoBehaviour {
 	}
 
 	void GenerateAnimations() {
+		if (god != null) {
+			god.GetStory().All();
+		}
+
 		for (int i = 0; i < previews.Length; ++i) {
 			if (!previews[i].IsValid())
 				continue;
 
-			var stage = Instantiate(previews[i].stage, new Vector3(i * 100f, 0f, 0f), Quaternion.identity);
+			var stage = previews[i].stage;
+			if (god != null) {
+				stage = god.GetStory().Fetch() [i];
+				if (stage == null) {
+					continue;
+				}
+				Debug.Log(stage);
+			}
+			stage = Instantiate(stage, new Vector3(i * 100f, 0f, 0f), Quaternion.identity);
 
 			anims[i] = previews[i].camera.gameObject.AddComponent<Animation>();
 
@@ -128,5 +144,9 @@ public class StagePreviewer : MonoBehaviour {
 
 	public void GoToMainMenu() {
 		SceneManager.LoadScene("MainMenu");
+	}
+
+	public void Play() {
+		god.ExecuteSingleStory(viewingIndex);
 	}
 }

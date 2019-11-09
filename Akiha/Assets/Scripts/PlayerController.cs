@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
 	PlayerPaintable paintable;
 
 	// Use this for initialization
-	void Start() {
+	void Awake() {
 		body = GetComponent<Rigidbody2D>();
 		rend = playerObject.GetComponent<Renderer>();
 		anim = GetComponent<Animator>();

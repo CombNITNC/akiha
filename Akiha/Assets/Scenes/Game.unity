@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   colorSetWaitDuration: 0.2
 --- !u!114 &371844061 stripped
 MonoBehaviour:
@@ -1027,10 +1027,8 @@ MonoBehaviour:
   diffText: {fileID: 1715781505}
   stages:
   - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
-  - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 3}
+  - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
   - {fileID: 1802514592653448, guid: 4f72986db4a30427d8162f500cf88453, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 3}
   wholeCanvas: {fileID: 501476047}
   fader: {fileID: 1622477344}
