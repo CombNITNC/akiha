@@ -19,21 +19,25 @@ class PreviewContainer {
 public class StagePreviewer : MonoBehaviour {
 	GameGod god = null;
 	Animation[] anims = new Animation[5];
+	ScreenWiper wiper;
+
 	[SerializeField] PreviewContainer[] previews = new PreviewContainer[5];
 	[SerializeField] float cycleDuration = 5.0f;
 	[SerializeField] float fadeTime = 0.2f;
 
 	int viewingIndex = 0;
-	float threshold = 0f;
+	float threshold = 20f;
 	float start = 0f;
 
 	[SerializeField] Text layerLabel = null;
 	[SerializeField] Text scoreLabel = null;
-	float[] tmpScores = new float[5];
+	float[] scores = new float[5];
 
-	void Start() {
+	void Awake() {
 		var godObj = GameObject.FindWithTag("God");
 		if (godObj != null) { god = godObj.GetComponent<GameGod>(); }
+
+		wiper = GetComponent<ScreenWiper>();
 
 		threshold = Screen.width / 2.5f;
 		GenerateAnimations();
@@ -42,7 +46,7 @@ public class StagePreviewer : MonoBehaviour {
 		}
 
 		var saver = GetComponent<GameStorageManager>();
-		saver.Load(out tmpScores);
+		saver.Load(out scores);
 		UpdateLabel();
 	}
 
@@ -109,35 +113,39 @@ public class StagePreviewer : MonoBehaviour {
 
 	void UpdateLabel() {
 		layerLabel.text = "AREA: " + (viewingIndex + 1).ToString();
-		var highscore = tmpScores[viewingIndex];
+		var highscore = scores[viewingIndex];
 		scoreLabel.text = "SCORE: " + (highscore == 10000.0f ? "NONE" : highscore.ToString("00.000"));
 	}
 
 	public void ViewNext() {
-		if (viewingIndex < 4) {
-			if (!previews[viewingIndex + 1].IsValid()) {
-				return;
-			}
-
-			GetComponent<ScreenWiper>().CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex + 1].camera, fadeTime);
-			anims[viewingIndex].Stop();
-			anims[viewingIndex + 1].Play("Preview");
-			++viewingIndex;
+		if (!(viewingIndex < previews.Length - 1)) {
+			return;
 		}
+		if (!previews[viewingIndex + 1].IsValid()) {
+			return;
+		}
+
+		wiper.CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex + 1].camera, fadeTime);
+		anims[viewingIndex].Stop();
+		anims[viewingIndex + 1].Play("Preview");
+		++viewingIndex;
+
 		UpdateLabel();
 	}
 
 	public void ViewPrev() {
-		if (0 < viewingIndex) {
-			if (!previews[viewingIndex - 1].IsValid()) {
-				return;
-			}
-
-			GetComponent<ScreenWiper>().CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex - 1].camera, fadeTime);
-			anims[viewingIndex].Stop();
-			anims[viewingIndex - 1].Play("Preview");
-			--viewingIndex;
+		if (!(0 < viewingIndex)) {
+			return;
 		}
+		if (!previews[viewingIndex - 1].IsValid()) {
+			return;
+		}
+
+		wiper.CrossFadePro(previews[viewingIndex].camera, previews[viewingIndex - 1].camera, fadeTime);
+		anims[viewingIndex].Stop();
+		anims[viewingIndex - 1].Play("Preview");
+		--viewingIndex;
+
 		UpdateLabel();
 	}
 
