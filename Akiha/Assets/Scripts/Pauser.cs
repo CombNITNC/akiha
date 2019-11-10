@@ -9,15 +9,9 @@ public class Pauser : MonoBehaviour {
 
 	GameController gameController;
 
-	// Use this for initialization
-	void Start() {
+	void Awake() {
 		anim = GetComponent<Animator>();
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
-	}
-
-	// Update is called once per frame
-	void Update() {
-
 	}
 
 	public void Pause() {
