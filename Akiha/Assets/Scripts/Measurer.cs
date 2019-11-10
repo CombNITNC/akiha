@@ -1,21 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-#pragma warning disable 0649
 [RequireComponent(typeof(Collider2D))]
 public class Measurer : MonoBehaviour {
-	[SerializeField] GameObject door;
-	[SerializeField] bool visibleTime = true;
-	float time = 0.0f, startTime = 0.0f, highscore = 0.0f;
+	[SerializeField] GameObject door = null;
+	float elapsed = 0.0f;
 	bool measuringTime = false;
 
-	Text currentTimeText;
-	Text diffText;
+	public delegate void ElapsedDelegate(float elapsed);
+	ElapsedDelegate NotifyElapsed;
 
-	public delegate void GoalDelegate(float time);
-	GoalDelegate delegater;
+	public delegate bool GoalDelegate(float time);
+	GoalDelegate OnGoal;
 
 	AudioSource source;
 	[SerializeField] AudioClip clearSound = null;
@@ -32,56 +31,47 @@ public class Measurer : MonoBehaviour {
 			return;
 		}
 
-		time += Time.deltaTime;
-		if (visibleTime) {
-			currentTimeText.text = (time - startTime).ToString("00.0000");
-		}
-
-		if (highscore == 10000.0f) {
-			diffText.text = "First record.";
-		} else {
-			var diff = time - startTime - highscore;
-			if ((time - startTime) < highscore) {
-				source.clip = highscoreSound;
-				diffText.text = "-" + (-diff).ToString("00.000");
-				diffText.color = Color.green;
-			} else {
-				diffText.text = "+" + diff.ToString("00.000");
-				diffText.color = Color.red;
-			}
-		}
+		elapsed += Time.deltaTime;
+		NotifyElapsed(elapsed);
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
 		measuringTime = false;
 		if (col.gameObject.tag == "Player") {
-			if (delegater != null)
-				delegater(time - startTime);
+			if (OnGoal(elapsed)) {
+				source.clip = highscoreSound;
+			}
 			source.Play();
 		}
-		door.SetActive(false);
+		if (door != null)
+			door.SetActive(false);
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 		GetComponent<Collider2D>().isTrigger = false;
-		door.SetActive(true);
+		if (door != null)
+			door.SetActive(true);
 	}
 
-	public static Measurer AttachMeasure(GameObject target, Text _current, Text _diff, GoalDelegate _delegater, float _highscore = 10000.0f) {
+	public static Measurer AttachMeasure(GameObject target, ElapsedDelegate _elapsed, GoalDelegate _goal) {
+		if (_elapsed == null) {
+			throw new ArgumentNullException("_elapsed");
+		}
+		if (_goal == null) {
+			throw new ArgumentNullException("_goal");
+		}
+
 		var self = target.GetComponent<Measurer>();
 		if (self == null)
 			self = target.AddComponent<Measurer>();
 
-		self.delegater = _delegater;
-		self.currentTimeText = _current;
-		self.diffText = _diff;
-		self.highscore = _highscore;
+		self.OnGoal = _goal;
+		self.NotifyElapsed = _elapsed;
 		return self;
 	}
 
 	public void MeasureStart() {
-		startTime = Time.time;
-		time = startTime;
+		elapsed = 0;
 		measuringTime = true;
 	}
 

@@ -986,6 +986,7 @@ GameObject:
   - component: {fileID: 875624039}
   - component: {fileID: 875624040}
   - component: {fileID: 875624041}
+  - component: {fileID: 875624042}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1021,10 +1022,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06f5b71389c54bc18aa07ce6a0d0514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signText: {fileID: 2128501726}
-  currentTimeText: {fileID: 680745348}
-  recordText: {fileID: 1417046618}
-  diffText: {fileID: 1715781505}
   stages:
   - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
   - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
@@ -1073,6 +1070,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveFilePath: akiha.sav
+--- !u!114 &875624042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875624038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d6c5f8a821a484188af020a15de4c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signText: {fileID: 2128501726}
+  currentTimeText: {fileID: 680745348}
+  recordText: {fileID: 1417046618}
+  diffText: {fileID: 1715781505}
+  visibleTime: 1
 --- !u!1 &944896733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
