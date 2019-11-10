@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D), typeof(Renderer))]
-public class Laser : MonoBehaviour, ICollideWithColor {
+[RequireComponent(typeof(Collider2D), typeof(Renderer), typeof(ColorApplier))]
+public class Laser : MonoBehaviour, ICollideWithColor, IHasColor {
 	[SerializeField] float emitInterval = 2.0f;
 	[SerializeField] float emitDuration = 2.0f;
+	[SerializeField] Color32 lazerColor = Color.white;
 	Collider2D col;
 	Renderer rend;
 	float time = 0.0f;
@@ -20,6 +22,7 @@ public class Laser : MonoBehaviour, ICollideWithColor {
 	void Update() {
 		time += Time.deltaTime;
 
+		if (emitInterval == 0.0f) { return; }
 		// Transition the state
 		if (col.enabled) {
 			if (time > emitDuration) {
@@ -36,7 +39,12 @@ public class Laser : MonoBehaviour, ICollideWithColor {
 		}
 	}
 
+	public Color32 GetColor() {
+		return lazerColor;
+	}
+
 	public void CollideWith(Color32 color, PlayerController player) {
-		player.Crush();
+		if (!lazerColor.IsEqualRGB(color))
+			player.Crush();
 	}
 }

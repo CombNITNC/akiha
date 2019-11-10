@@ -2170,7 +2170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 1599697823607688}
-  visibleTime: 1
   clearSound: {fileID: 8300000, guid: 4de49953023044c43bcba708bb1c5ee6, type: 3}
   highscoreSound: {fileID: 8300000, guid: f183b05da54994478a134b447901ba09, type: 3}
 --- !u!1 &1484442500447566
@@ -2311,6 +2310,7 @@ GameObject:
   - component: {fileID: 23947933100552698}
   - component: {fileID: 61524583408674030}
   - component: {fileID: 114184601307260726}
+  - component: {fileID: 6446370218864185194}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -2416,8 +2416,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b164737a86dc5440db50ffe2f9b784ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitInterval: 2
+  emitInterval: 0
   emitDuration: 2
+  lazerColor:
+    serializedVersion: 2
+    rgba: 4294901760
+--- !u!114 &6446370218864185194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494509293423216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2b0f51985b14af897f51f4db273e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rend: {fileID: 23947933100552698}
 --- !u!1 &1561963053817044
 GameObject:
   m_ObjectHideFlags: 0
