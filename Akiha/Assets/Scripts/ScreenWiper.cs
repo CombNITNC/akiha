@@ -4,25 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenWiper : MonoBehaviour {
-  Texture tex;
-  RenderTexture renderTex;
+  RenderTexture renderTex = null;
   float alpha = 0.0f;
-  bool reEnableListener;
-  Camera _cam1, _cam2;
-
-  bool isWaiting = false;
-  float waitRate = 1.0f;
-
-  void Update() {
-    if (isWaiting) {
-      alpha -= Time.deltaTime * waitRate;
-      if (alpha <= 0.0f) {
-        isWaiting = false;
-        CameraCleanup();
-      }
-      return;
-    }
-  }
+  bool reEnableListener = false;
 
   void OnGUI() {
     GUI.depth = -9999999;
@@ -31,51 +15,60 @@ public class ScreenWiper : MonoBehaviour {
     tmpColor.a = alpha;
     GUI.color = tmpColor;
 
-    if (tex != null) {
-      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), tex);
+    if (renderTex != null) {
+      GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), renderTex);
     }
   }
 
-  void AlphaTimer(float time) {
-    waitRate = 1.0f / time;
+  IEnumerator AlphaTimer(Camera cam1, Camera cam2, float time) {
+    CameraSetup(cam1, cam2);
+
+    var elapsed = 0.0f;
     alpha = 1.0f;
-    isWaiting = true;
+    while (elapsed < time) {
+      alpha = 1.0f - elapsed / time;
+      yield return null;
+      elapsed += Time.deltaTime;
+    }
+    alpha = 0.0f;
+
+    CameraCleanup(cam1, cam2);
   }
 
-  void CameraSetup() {
-    _cam1.gameObject.SetActive(true);
-    _cam2.gameObject.SetActive(true);
-    var listener = _cam2.GetComponent<AudioListener>();
+  void CameraSetup(Camera cam1, Camera cam2) {
+    if (renderTex == null) {
+      renderTex = new RenderTexture(Screen.width, Screen.height, 24);
+    }
+    cam1.targetTexture = renderTex;
+    cam1.Render();
+
+    cam1.gameObject.SetActive(true);
+    cam2.gameObject.SetActive(true);
+    var listener = cam2.GetComponent<AudioListener>();
     if (listener != null) {
       reEnableListener = listener.enabled;
       listener.enabled = false;
     }
   }
 
-  void CameraCleanup() {
-    _cam1.targetTexture = null;
+  void CameraCleanup(Camera cam1, Camera cam2) {
+    cam1.targetTexture = null;
     renderTex.Release();
+    renderTex = null;
 
-    var listener = _cam2.GetComponent<AudioListener>();
+    var listener = cam2.GetComponent<AudioListener>();
     if (listener != null && reEnableListener) {
       listener.enabled = true;
     }
-    _cam1.gameObject.SetActive(false);
+    cam1.gameObject.SetActive(false);
   }
 
   public void CrossFadePro(Camera cam1, Camera cam2, float time) {
-    _cam1 = cam1;
-    _cam2 = cam2;
-    if (_cam1 == null || _cam1 == null) {
+    if (cam1 == null || cam1 == null) {
       Debug.LogError("Argument exception. cam1 or cam2 is null.");
       return;
     }
-    if (renderTex == null) {
-      renderTex = new RenderTexture(Screen.width, Screen.height, 24);
-    }
-    _cam1.targetTexture = renderTex;
-    tex = renderTex;
-    CameraSetup();
-    AlphaTimer(time);
+
+    StartCoroutine(AlphaTimer(cam1, cam2, time));
   }
 }

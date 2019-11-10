@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class PlayerPaintable : MonoBehaviour, IHasColor {
-  [SerializeField] Color32 color = Color.white;
+  [SerializeField] Color32 color = Color.black;
   [SerializeField] float colorSetWaitDuration = 0.2f;
 
   float colorSetCounter = 0.2f;
@@ -13,6 +13,10 @@ public class PlayerPaintable : MonoBehaviour, IHasColor {
 
   public void SetDelegate(ApplyColorDelegate applier) {
     ApplyColor = applier;
+  }
+
+  void Awake() {
+    ApplyColor(color);
   }
 
   void Update() {
@@ -28,11 +32,9 @@ public class PlayerPaintable : MonoBehaviour, IHasColor {
     colorSetCounter = 0.0f;
 
     if (new_c.IsEqualRGB(Color.black)) {
-      color = Color.white;
-    } else if (color.IsEqualRGB(Color.white)) {
-      color = new_c;
+      color = Color.black;
     } else {
-      color = Color32.Lerp(color, new_c, 0.5f);
+      color = color.Add(new_c);
     }
     ApplyColor(color);
   }
