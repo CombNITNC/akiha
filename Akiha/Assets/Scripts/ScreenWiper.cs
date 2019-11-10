@@ -22,7 +22,6 @@ public class ScreenWiper : MonoBehaviour {
 
   IEnumerator AlphaTimer(Camera cam1, Camera cam2, float time) {
     CameraSetup(cam1, cam2);
-    yield return null;
 
     var elapsed = 0.0f;
     alpha = 1.0f;
