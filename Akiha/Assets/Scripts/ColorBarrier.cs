@@ -12,8 +12,6 @@ public class ColorBarrier : MonoBehaviour, IHasColor, ICollideWithColor {
 	}
 
 	public void CollideWith(CMYK color, PlayerController player) {
-		Debug.Log(color.ToString());
-		Debug.Log(weakColor.ToString());
 		if (color == weakColor) {
 			GetComponent<BoxCollider2D>().isTrigger = true;
 			Instantiate(particle, transform.position, transform.rotation);

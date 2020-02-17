@@ -364,9 +364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    C: 0
-    M: 0.058823526
-    Y: 0.9529412
+    C: 1
+    M: 0
+    Y: 1
     K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114463711974270748
@@ -1325,9 +1325,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    C: 0
-    M: 0.058823526
-    Y: 0.9529412
+    C: 1
+    M: 0
+    Y: 1
     K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114238390278247842
@@ -1962,10 +1962,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    C: 1
-    M: 0.24999994
-    Y: -0.000000118743635
-    K: 0.9372549
+    C: 0
+    M: 0
+    Y: 0
+    K: 1
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114792460171152222
 MonoBehaviour:
@@ -2520,9 +2520,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    C: 0
-    M: 0.058823526
-    Y: 0.9529412
+    C: 1
+    M: 0
+    Y: 1
     K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114138542601543430
@@ -5110,9 +5110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    C: 0
-    M: 0.058823526
-    Y: 0.9529412
+    C: 1
+    M: 0
+    Y: 1
     K: 0
   depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114297410076500364
@@ -5599,9 +5599,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    C: 0
-    M: 0.062745094
-    Y: 0.8666667
+    C: 1
+    M: 0
+    Y: 1
     K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114344290951102778

@@ -19,25 +19,39 @@ public struct CMYK {
   public static readonly CMYK White = new CMYK(0, 0, 0, 0);
   public static readonly CMYK Red = new CMYK(0, 1, 1);
 
-  const float threshold = 0.1f;
+  const float threshold = 0.2f;
 
   public static bool operator ==(CMYK l, CMYK r) {
-    var inY = (Mathf.Abs(l.Y - r.Y) < threshold);
-    var inM = (Mathf.Abs(l.M - r.M) < threshold);
+    if (0.99 <= l.K) { // If l is black
+      var rK = r.C * r.M * r.Y;
+      return Mathf.Abs(l.K - rK) < threshold;
+    }
+    if (0.99 <= r.K) { // If r is black
+      var lK = l.C * l.M * l.Y;
+      return Mathf.Abs(lK - r.K) < threshold;
+    }
+
     var inC = (Mathf.Abs(l.C - r.C) < threshold);
+    var inM = (Mathf.Abs(l.M - r.M) < threshold);
+    var inY = (Mathf.Abs(l.Y - r.Y) < threshold);
     var inK = (Mathf.Abs(l.K - r.K) < threshold);
-    return inY && inM && inC && inK;
+    return inC && inM && inY && inK;
   }
   public static bool operator !=(CMYK l, CMYK r) {
     return !(l == r);
   }
 
+  static float SafetyAdd(float a, float b) {
+    return Mathf.Clamp01(Mathf.Clamp01(a) + Mathf.Clamp01(b));
+  }
+
   public CMYK Mix(CMYK r) {
-    return new CMYK(Mathf.Clamp01(C + r.C), Mathf.Clamp01(M + r.M), Mathf.Clamp01(Y + r.Y), Mathf.Clamp01(K + r.K));
+    return new CMYK(SafetyAdd(C, r.C), SafetyAdd(M, r.M), SafetyAdd(Y, r.Y), SafetyAdd(K, r.K));
   }
 
   public static CMYK from(Color c) {
     var k = 1 - Math.Max(c.r, Math.Max(c.g, c.b));
+    if (0.99 <= k) return CMYK.Black;
     return new CMYK((1 - c.r - k) / (1 - k), (1 - c.g - k) / (1 - k), (1 - c.b - k) / (1 - k), k);
   }
 
@@ -45,7 +59,7 @@ public struct CMYK {
     return new Color((1 - C) * (1 - K), (1 - M) * (1 - K), (1 - Y) * (1 - K));
   }
 
-  public String ToString() {
+  public override String ToString() {
     return String.Format("{0} {1} {2} {3}", C, M, Y, K);
   }
 

@@ -1707,7 +1707,7 @@ GameObject:
   - component: {fileID: 82037589229466270}
   - component: {fileID: 8962619311194761110}
   m_Layer: 0
-  m_Name: ColorDepolyer (2)
+  m_Name: ColorDepolyer (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1725,7 +1725,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8669396375822885570}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &33908168866023150
 MeshFilter:
@@ -1816,10 +1816,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    C: 0.5761905
-    M: 0.12380952
+    C: 1
+    M: 0
     Y: 0
-    K: 0.17647058
+    K: 0
   depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!82 &82037589229466270
 AudioSource:
@@ -2421,10 +2421,10 @@ MonoBehaviour:
   emitInterval: 0
   emitDuration: 2
   lazerColor:
-    C: NaN
-    M: NaN
-    Y: NaN
-    K: NaN
+    C: 0
+    M: 0
+    Y: 0
+    K: 0
 --- !u!114 &6446370218864185194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2916,7 +2916,7 @@ GameObject:
   - component: {fileID: 82732901653048480}
   - component: {fileID: 2231355666003652203}
   m_Layer: 0
-  m_Name: ColorDeployerModel
+  m_Name: ColorDeployer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3010,9 +3010,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     C: 0
-    M: 0.95098037
-    Y: 0.84313726
-    K: 0.19999999
+    M: 1
+    Y: 1
+    K: 0
   depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!58 &58338690129490426
 CircleCollider2D:
@@ -3160,7 +3160,7 @@ GameObject:
   - component: {fileID: 82372196169838538}
   - component: {fileID: 1988580936323707435}
   m_Layer: 0
-  m_Name: ColorDepolyer (3)
+  m_Name: ColorDepolyer (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3178,7 +3178,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8669396375822885570}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &33416466556406950
 MeshFilter:
@@ -3271,8 +3271,8 @@ MonoBehaviour:
   delpoyingColor:
     C: 0
     M: 1
-    Y: 0.4715026
-    K: 0.24313724
+    Y: 0
+    K: 0
   depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!82 &82372196169838538
 AudioSource:
@@ -3717,10 +3717,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    C: 0.2278482
-    M: 0.7088608
-    Y: 0.000000096197354
-    K: 0.69019604
+    C: 1
+    M: 1
+    Y: 0
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!1 &1837335168721024
 GameObject:
@@ -3831,7 +3831,7 @@ GameObject:
   - component: {fileID: 82226887759599146}
   - component: {fileID: 3442724000017671582}
   m_Layer: 0
-  m_Name: ColorDeployerModel (1)
+  m_Name: ColorDeployer (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3849,7 +3849,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8669396375822885570}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &33348105718912736
 MeshFilter:
@@ -3925,8 +3925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     C: 0
-    M: 0.007843137
-    Y: 0.007843137
+    M: 0
+    Y: 0
     K: 0
   depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!58 &58574601173648346
@@ -4794,9 +4794,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weakColor:
     C: 0
-    M: 0.9920319
-    Y: 0.9721116
-    K: 0.015686274
+    M: 1
+    Y: 1
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!1 &1999145517435418
 GameObject:
@@ -4907,7 +4907,7 @@ GameObject:
   - component: {fileID: 5267814659068229603}
   - component: {fileID: 244065610800615093}
   m_Layer: 0
-  m_Name: ColorDepolyer (4)
+  m_Name: ColorDepolyer (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4925,7 +4925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8669396375822885570}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!33 &737732399789880805
 MeshFilter:
@@ -5017,8 +5017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delpoyingColor:
     C: 0
-    M: 0.007843137
-    Y: 0.007843137
+    M: 0
+    Y: 0
     K: 0
   depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!82 &5267814659068229603
@@ -5303,10 +5303,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4576838914144024}
+  - {fileID: 8967557361622444656}
   - {fileID: 4375930051692036}
   - {fileID: 4882634241961744}
   - {fileID: 4459962891782326}
-  - {fileID: 8967557361622444656}
   m_Father: {fileID: 4122014671603566}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

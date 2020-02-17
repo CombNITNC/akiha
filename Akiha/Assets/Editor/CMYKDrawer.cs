@@ -12,7 +12,7 @@ public class CMYKDrawer : PropertyDrawer {
     if (C == null || M == null || Y == null || K == null) return;
     var cmyk = new CMYK(C.floatValue, M.floatValue, Y.floatValue, K.floatValue);
 
-    var newColor = EditorGUI.ColorField(position, label.text, cmyk.ToColor());
+    var newColor = EditorGUI.ColorField(position, label, cmyk.ToColor(), false, true, true);
     cmyk = CMYK.from(newColor);
 
     C.floatValue = cmyk.C;
