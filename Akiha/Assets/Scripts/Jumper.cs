@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(ColorApplier), typeof(CircleCollider2D), typeof(Animation))]
 public class Jumper : MonoBehaviour, IHasColor, ICollideWithColor {

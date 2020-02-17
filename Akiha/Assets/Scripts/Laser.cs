@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D), typeof(Renderer), typeof(ColorApplier))]
 public class Laser : MonoBehaviour, ICollideWithColor, IHasColor {

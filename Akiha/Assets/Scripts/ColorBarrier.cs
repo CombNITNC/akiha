@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(ColorApplier), typeof(BoxCollider2D))]
 public class ColorBarrier : MonoBehaviour, IHasColor, ICollideWithColor {
