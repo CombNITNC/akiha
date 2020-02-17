@@ -17,6 +17,7 @@ public class ColorDeployer : MonoBehaviour, IHasColor, ICollideWithColor {
 	}
 
 	public void CollideWith(CMYK color, PlayerController player) {
+		player.Paint(delpoyingColor);
 		source.Play();
 	}
 }

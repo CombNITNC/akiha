@@ -26,8 +26,8 @@ public class GameController : MonoBehaviour {
 
 	Vector3 stageStartPos;
 
-	[SerializeField] UnityEvent pauseEvent = null;
-	[SerializeField] UnityEvent continueEvent = null;
+	public readonly UnityEvent Pause = new UnityEvent();
+	public readonly UnityEvent Continue = new UnityEvent();
 
 	HUDView hud;
 
@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour {
 		StartCoroutine(PrefetchStage());
 
 		waitViewer.ViewGetReady(() => {
-			continueEvent.Invoke();
+			Continue.Invoke();
 		});
 	}
 
@@ -130,12 +130,12 @@ public class GameController : MonoBehaviour {
 
 	public void ToggleMeasurer() {
 		if (loadedMeasures.Peek().IsMeasuring()) {
-			pauseEvent.Invoke();
+			Pause.Invoke();
 			Time.timeScale = 0;
 			loadedMeasures.Peek().MeasureStop();
 		} else {
 			waitViewer.ViewGetReady(() => {
-				continueEvent.Invoke();
+				Continue.Invoke();
 			});
 			loadedMeasures.Peek().MeasureResume();
 		}

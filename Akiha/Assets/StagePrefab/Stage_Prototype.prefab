@@ -2418,7 +2418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b164737a86dc5440db50ffe2f9b784ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitInterval: 0
+  emitInterval: 4
   emitDuration: 2
   lazerColor:
     C: 0

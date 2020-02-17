@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ControlMode {
@@ -9,16 +8,25 @@ public enum ControlMode {
 }
 
 public class PlayerMover : MonoBehaviour {
-
-  [SerializeField] float maxLength = 5.65f;
+  float maxLength = 5.65f;
 
   Rigidbody2D body;
   ControlMode controlMode = ControlMode.mouse;
 
   bool pausing = true;
 
+  public static PlayerMover Attach(GameObject go, float MaxLength = 5.65f) {
+    var mover = go.AddComponent<PlayerMover>();
+    mover.maxLength = MaxLength;
+    mover.SetControlMode((ControlMode) PlayerPrefs.GetInt("ControlMode", 0));
+    return mover;
+  }
+
   void Start() {
     body = GetComponent<Rigidbody2D>();
+    var gc = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+    gc.Continue.AddListener(OnContinue);
+    gc.Pause.AddListener(OnPause);
   }
 
   void Update() {
