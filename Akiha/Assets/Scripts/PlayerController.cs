@@ -6,11 +6,11 @@ using System.Threading;
 using UnityEngine;
 
 public interface IHasColor {
-	Color32 GetColor();
+	CMYK GetColor();
 }
 
 public interface ICollideWithColor {
-	void CollideWith(Color32 color, PlayerController player);
+	void CollideWith(CMYK color, PlayerController player);
 }
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
@@ -115,12 +115,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void ApplyColorDelegate(Color32 color) {
-		StartCoroutine(ApplyColorWithLerp(color, 0.1f));
+	void ApplyColorDelegate(CMYK color) {
+		StartCoroutine(ApplyColorWithLerp(color.ToColor(), 0.1f));
 	}
 
-	IEnumerator ApplyColorWithLerp(Color32 dst, float duration) {
-		Color32 src = rend.material.color;
+	IEnumerator ApplyColorWithLerp(Color dst, float duration) {
+		var src = rend.material.color;
 		for (float time = 0f; time <= duration; time += Time.deltaTime) {
 			rend.material.color = Color32.Lerp(src, dst, time / duration);
 			yield return null;

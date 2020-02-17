@@ -7,7 +7,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour, ICollideWithColor, IHasColor {
 	[SerializeField] float emitInterval = 2.0f;
 	[SerializeField] float emitDuration = 2.0f;
-	[SerializeField] Color32 lazerColor = Color.white;
+	[SerializeField] CMYK lazerColor = CMYK.Black;
 	Collider2D col;
 	Renderer rend;
 	float time = 0.0f;
@@ -39,12 +39,12 @@ public class Laser : MonoBehaviour, ICollideWithColor, IHasColor {
 		}
 	}
 
-	public Color32 GetColor() {
+	public CMYK GetColor() {
 		return lazerColor;
 	}
 
-	public void CollideWith(Color32 color, PlayerController player) {
-		if (!lazerColor.IsEqualRGB(color))
+	public void CollideWith(CMYK color, PlayerController player) {
+		if (lazerColor != color)
 			player.Crush();
 	}
 }

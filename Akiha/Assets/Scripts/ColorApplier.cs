@@ -8,7 +8,7 @@ public class ColorApplier : MonoBehaviour {
 	Color src;
 
 	void Start() {
-		src = GetComponent<IHasColor>().GetColor();
+		src = GetComponent<IHasColor>().GetColor().ToColor();
 		if (rend != null) {
 			rend.materials[rend.materials.Length - 1].SetColor("_TintColor", src);
 			rend.materials[rend.materials.Length - 1].color = src;

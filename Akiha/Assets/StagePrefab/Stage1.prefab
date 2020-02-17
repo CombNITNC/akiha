@@ -113,9 +113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4294901887
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 0
+    M: 0.058823526
+    Y: 0.9529412
+    K: 0
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114424490854151554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,8 +364,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 2130771967
+    C: 0
+    M: 0.058823526
+    Y: 0.9529412
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114463711974270748
 MonoBehaviour:
@@ -626,9 +630,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4278190080
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 0
+    M: 0.007843137
+    Y: 0.007843137
+    K: 0
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114867968130685304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,8 +1325,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 2130771967
+    C: 0
+    M: 0.058823526
+    Y: 0.9529412
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114238390278247842
 MonoBehaviour:
@@ -1954,8 +1962,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 2147483647
+    C: 1
+    M: 0.24999994
+    Y: -0.000000118743635
+    K: 0.9372549
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114792460171152222
 MonoBehaviour:
@@ -2090,8 +2100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 4294934527
+    C: 1
+    M: 0.30143538
+    Y: 0
+    K: 0.18039215
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114221592945347198
 MonoBehaviour:
@@ -2257,9 +2269,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4278190080
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 0
+    M: 0.007843137
+    Y: 0.007843137
+    K: 0
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114083222705314658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,8 +2520,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 2130771967
+    C: 0
+    M: 0.058823526
+    Y: 0.9529412
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114138542601543430
 MonoBehaviour:
@@ -2937,9 +2953,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4278222847
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 1
+    M: 0.30143538
+    Y: 0
+    K: 0.18039215
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114640752403952378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3387,8 +3405,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 2113863680
+    C: 0
+    M: 1
+    Y: 1
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114293870304709650
 MonoBehaviour:
@@ -3608,9 +3628,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4294901760
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 0
+    M: 1
+    Y: 0.47783253
+    K: 0.20392156
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114666526809419150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4139,9 +4161,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4294901760
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 0
+    M: 0.95098037
+    Y: 0.84313726
+    K: 0.19999999
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114261836972518460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5086,9 +5110,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delpoyingColor:
-    serializedVersion: 2
-    rgba: 4278255615
-  depolySound: {fileID: 8300000, guid: 2b611a7b752494cf08e12bb348e5f832, type: 3}
+    C: 0
+    M: 0.058823526
+    Y: 0.9529412
+    K: 0
+  depolySound: {fileID: 8300000, guid: 516f40db966b1495e99a4eaee92436c9, type: 3}
 --- !u!114 &114297410076500364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5573,8 +5599,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 2130771967
+    C: 0
+    M: 0.062745094
+    Y: 0.8666667
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114344290951102778
 MonoBehaviour:
@@ -6458,8 +6486,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weakColor:
-    serializedVersion: 2
-    rgba: 4294901887
+    C: 0
+    M: 0.058823526
+    Y: 0.9529412
+    K: 0
   particle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf, type: 3}
 --- !u!114 &114527727164142780
 MonoBehaviour:

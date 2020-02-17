@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class ColorDeployer : MonoBehaviour, IHasColor, ICollideWithColor {
-	[SerializeField] Color32 delpoyingColor = Color.red;
+	[SerializeField] CMYK delpoyingColor = CMYK.Red;
 	AudioSource source;
 	[SerializeField] AudioClip depolySound = null;
 
@@ -15,11 +12,11 @@ public class ColorDeployer : MonoBehaviour, IHasColor, ICollideWithColor {
 		source.playOnAwake = false;
 	}
 
-	public Color32 GetColor() {
+	public CMYK GetColor() {
 		return delpoyingColor;
 	}
 
-	public void CollideWith(Color32 color, PlayerController player) {
+	public void CollideWith(CMYK color, PlayerController player) {
 		source.Play();
 	}
 }

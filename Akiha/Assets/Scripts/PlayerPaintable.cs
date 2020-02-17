@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 
 public class PlayerPaintable : MonoBehaviour, IHasColor {
-  [SerializeField] Color32 color = Color.black;
+  [SerializeField] CMYK color = CMYK.White;
   [SerializeField] float colorSetWaitDuration = 0.2f;
 
   float colorSetCounter = 0.2f;
   Renderer rend;
 
-  public delegate void ApplyColorDelegate(Color32 color);
+  public delegate void ApplyColorDelegate(CMYK color);
   ApplyColorDelegate ApplyColor;
 
   public void SetDelegate(ApplyColorDelegate applier) {
@@ -31,15 +31,15 @@ public class PlayerPaintable : MonoBehaviour, IHasColor {
     var new_c = held.GetColor();
     colorSetCounter = 0.0f;
 
-    if (new_c.IsEqualRGB(Color.black)) {
-      color = Color.black;
+    if (new_c == CMYK.White) {
+      color = CMYK.White;
     } else {
-      color = color.Add(new_c);
+      color = color.Mix(new_c);
     }
     ApplyColor(color);
   }
 
-  public Color32 GetColor() {
+  public CMYK GetColor() {
     return color;
   }
 }

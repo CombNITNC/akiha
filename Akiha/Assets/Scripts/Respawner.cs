@@ -12,7 +12,7 @@ public class Respawner : MonoBehaviour, ICollideWithColor {
 		source.clip = registerSound;
 	}
 
-	public void CollideWith(Color32 color, PlayerController player) {
+	public void CollideWith(CMYK color, PlayerController player) {
 		var respawnPos = transform.position;
 		respawnPos.z = 0;
 		player.SetRespawn(respawnPos);
