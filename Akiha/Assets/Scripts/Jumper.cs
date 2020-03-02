@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(ColorApplier), typeof(CircleCollider2D), typeof(Animation))]
 public class Jumper : MonoBehaviour, IHasColor, ICollideWithColor {
-	[SerializeField] Color activatableColor = Color.red;
+	[SerializeField] CMYK activatableColor = CMYK.Red;
 	[SerializeField] float jumpDuration = 3.0f;
 
 	AudioSource source;
@@ -24,12 +22,12 @@ public class Jumper : MonoBehaviour, IHasColor, ICollideWithColor {
 		anim = GetComponent<Animation>();
 	}
 
-	public Color32 GetColor() {
+	public CMYK GetColor() {
 		return activatableColor;
 	}
 
-	public void CollideWith(Color32 color, PlayerController player) {
-		if (color.IsEqualRGB(activatableColor)) {
+	public void CollideWith(CMYK color, PlayerController player) {
+		if (color == activatableColor) {
 			player.StartJump(jumpDuration);
 			source.Play();
 			anim.Play();

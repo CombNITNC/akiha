@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,8 +14,7 @@ public class ExpandSupporter : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 	void Update() {
 		if (held) {
 			count += Time.unscaledDeltaTime;
-		}
-		else {
+		} else {
 			count = 0f;
 		}
 	}

@@ -1,0 +1,37 @@
+@startuml akiha class diagram
+
+left to right direction
+
+PlayerPainter<--*PlayerController
+IHasColor<--PlayerController
+ICollideWithColor<--PlayerController
+PlayerMover<-*PlayerController
+
+PlayerController<--*GameController
+WaitViewer<--*GameController
+GameStorageManager<--*GameController
+GameGod<--*GameController
+
+ICollideWithColor<|-- ColorBarrier
+ICollideWithColor<|-- Respawner
+ICollideWithColor<|-- Spikes
+ICollideWithColor<|-- Laser
+ICollideWithColor<|-- Jumper
+
+IHasColor<|-- ColorDeployer
+IHasColor<|-- ColorBarrier
+IHasColor<|-- Jumper
+
+CMYK<-- ICollideWithColor
+CMYK<-- IHasColor
+CMYK<-- ColorBarrier
+CMYK<-- ColorDeployer
+CMYK<-- Jumper
+CMYK<-- Laser
+CMYK<-- PlayerController
+CMYK<-- PlayerPainter
+CMYK<-- Respawner
+CMYK<-- Spikes
+
+@enduml
+

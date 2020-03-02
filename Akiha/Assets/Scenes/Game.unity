@@ -196,8 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 359695729}
   - component: {fileID: 359695732}
-  - component: {fileID: 359695735}
-  - component: {fileID: 359695736}
   - component: {fileID: 359695731}
   - component: {fileID: 359695730}
   - component: {fileID: 359695733}
@@ -275,11 +273,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1792930395}
+  maxLength: 5.65
   jumpHeight: -4
   crushParticle: {fileID: 1448135835972404, guid: dc0d7c92f037b43ae90d2e9a3cd579bf,
     type: 3}
   crushWaitDuration: 1.5
-  fallSound: {fileID: 8300000, guid: 27ff1600ba7184083a6b3ec5a575159c, type: 3}
+  fallSound: {fileID: 8300000, guid: 6aa949e36e2234844b75cccc4233c401, type: 3}
 --- !u!95 &359695733
 Animator:
   serializedVersion: 3
@@ -307,35 +306,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359695728}
   m_Enabled: 1
---- !u!114 &359695735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359695728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f79bf164e182d4d75b6a739434069ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLength: 5.65
---- !u!114 &359695736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359695728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b314d1d8f6546d2ba6ee1b89046dba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color:
-    serializedVersion: 2
-    rgba: 4278190080
-  colorSetWaitDuration: 0.2
 --- !u!114 &371844061 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114416584821132556, guid: 7928305fcda9245bea14a5349e1a775c,
@@ -1023,7 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stages:
-  - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
+  - {fileID: 1807317122312092, guid: bb82225f61fc64d1babff16f03750b77, type: 3}
   - {fileID: 1646456790213014, guid: 77313ec3b3b7d4fbeabd21bb780523f7, type: 3}
   - {fileID: 1802514592653448, guid: 4f72986db4a30427d8162f500cf88453, type: 3}
   - {fileID: 1968054683399894, guid: 33c54c37c19dc4401b81c3c97992ce9e, type: 3}
@@ -1032,7 +1002,7 @@ MonoBehaviour:
   pauseEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 359695735}
+      - m_Target: {fileID: 0}
         m_MethodName: OnPause
         m_Mode: 1
         m_Arguments:
@@ -1046,7 +1016,7 @@ MonoBehaviour:
   continueEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 359695735}
+      - m_Target: {fileID: 0}
         m_MethodName: OnContinue
         m_Mode: 1
         m_Arguments:
@@ -2155,6 +2125,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 223215823112286208, guid: 7928305fcda9245bea14a5349e1a775c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224071339481838862, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2260,11 +2235,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224797082879070894, guid: 7928305fcda9245bea14a5349e1a775c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 224272649013572174, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2275,14 +2245,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224969273284707912, guid: 7928305fcda9245bea14a5349e1a775c,
+    - target: {fileID: 224797082879070894, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 223215823112286208, guid: 7928305fcda9245bea14a5349e1a775c,
+    - target: {fileID: 224969273284707912, guid: 7928305fcda9245bea14a5349e1a775c,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

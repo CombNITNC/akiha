@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Spikes : MonoBehaviour, ICollideWithColor {
@@ -13,7 +11,7 @@ public class Spikes : MonoBehaviour, ICollideWithColor {
 		transform.Rotate(0f, 0f, deg);
 	}
 
-	public void CollideWith(Color32 color, PlayerController player) {
+	public void CollideWith(CMYK color, PlayerController player) {
 		player.Crush();
 	}
 }

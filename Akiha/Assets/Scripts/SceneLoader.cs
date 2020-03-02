@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -34,8 +33,7 @@ public class SceneLoader : MonoBehaviour {
 		if (isTransitioning) {
 			if (alpha < 1.0f)
 				alpha += Time.time * speedPerSec;
-		}
-		else {
+		} else {
 			if (0f < alpha)
 				alpha -= Time.time * speedPerSec;
 		}
