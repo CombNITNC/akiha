@@ -61,6 +61,10 @@ public class GameController : MonoBehaviour {
 		});
 	}
 
+	void OnDestroy() {
+		Time.timeScale = 1f;
+	}
+
 	IEnumerator FinishWork() {
 		float count = 0;
 		while (count < 2f) {
@@ -142,12 +146,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void GoToMainMenu() {
-		Time.timeScale = 1;
 		SceneManager.LoadScene("MainMenu");
 	}
 
 	public void GoToStageSelect() {
-		Time.timeScale = 1;
 		SceneManager.LoadScene("StageSelect");
 	}
 
