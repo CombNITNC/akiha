@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum ControlMode {
   mouse = 0,
@@ -15,6 +16,8 @@ public class PlayerMover : MonoBehaviour {
 
   bool pausing = true;
 
+  InputAction moveAction = null;
+
   public static PlayerMover Attach(GameObject go, float MaxLength = 5.65f) {
     var mover = go.AddComponent<PlayerMover>();
     mover.maxLength = MaxLength;
@@ -27,68 +30,28 @@ public class PlayerMover : MonoBehaviour {
     var gc = GameObject.FindWithTag("GameController").GetComponent<GameController>();
     gc.Continue.AddListener(OnContinue);
     gc.Pause.AddListener(OnPause);
+
+    moveAction = new InputAction("move", type: InputActionType.PassThrough, binding: "<Gamepad>/leftStick");
+    moveAction.AddBinding("<Accelerometer>/acceleration");
+    moveAction.AddCompositeBinding("Dpad")
+      .With("Up", "<Keyboard>/w")
+      .With("Down", "<Keyboard>/s")
+      .With("Left", "<Keyboard>/a")
+      .With("Right", "<Keyboard>/d")
+      .With("Up", "<Keyboard>/uparrow")
+      .With("Down", "<Keyboard>/downarrow")
+      .With("Left", "<Keyboard>/leftarrow")
+      .With("Right", "<Keyboard>/rightarrow");
+    moveAction.Enable();
   }
 
   void Update() {
     if (pausing) { return; }
-    var x_in = 0f;
-    var y_in = 0f;
-    switch (controlMode) {
-      case ControlMode.mouse:
-        {
-          var graceWidth = 50;
-          var mouse = Input.mousePosition;
-          var midX = Screen.width / 2;
-          var midY = Screen.height / 2;
+    var raw = moveAction.ReadValue<Vector2>();
 
-          if (midX + graceWidth <= mouse.x) {
-            x_in = 1;
-          } else if (mouse.x <= midX - graceWidth) {
-            x_in = -1;
-          }
-
-          if (midY + graceWidth <= mouse.y) {
-            y_in = 1;
-          } else if (mouse.y <= midY - graceWidth) {
-            y_in = -1;
-          }
-        }
-        break;
-      case ControlMode.normalized:
-        {
-          x_in = Input.GetAxis("Horizontal");
-          y_in = Input.GetAxis("Vertical");
-        }
-        break;
-      case ControlMode.gyro:
-        {
-          var graceWidth = 0.01;
-          var gyro = Input.acceleration;
-
-          if (graceWidth < gyro.x) {
-            x_in = 1;
-          } else if (gyro.x < -graceWidth) {
-            x_in = -1;
-          }
-
-          if (graceWidth < gyro.y) {
-            y_in = 1;
-          } else if (gyro.y < -graceWidth) {
-            y_in = -1;
-          }
-        }
-        break;
-      default:
-        {
-          controlMode = ControlMode.mouse;
-        }
-        break;
-    }
-
-    if (x_in != 0 || y_in != 0) {
-      var vel = new Vector2(x_in, y_in);
-      vel *= 2.3f;
-      body.AddForce(vel);
+    if (raw.x != 0 || raw.y != 0) {
+      raw *= 2.3f;
+      body.AddForce(raw);
       body.velocity = Vector2.ClampMagnitude(body.velocity, maxLength);
     }
   }
